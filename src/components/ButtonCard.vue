@@ -1,9 +1,10 @@
 <template>
-
   <v-container class="HomeCard">
-      <v-card :flat="true" :color="this.global.colors.green0">
-        <v-card-title class="d-flex justify-center align-center" height="100%">
-          {{this.$props.title}}
+      <v-card flat="true" :color="this.global.colors.green0" class="title">
+        <v-card-title>
+          <div>
+            {{this.$props.title}}
+          </div>
         </v-card-title>
       </v-card>
   </v-container>
@@ -33,5 +34,12 @@ export default {
   margin-top: 30px;
 }
 
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  height: 100%;
+}
 
 </style>

@@ -1,11 +1,14 @@
 <template>
   <v-app>
     <Header />
-    <PageTitle title="ALUNO"/>
-    <DadosPessoais />
-    <ButtonCard title="Iniciação Científica"/>
-    <ButtonCard title="Estágio"/>
-    <ButtonCard title="Pedidos"/>
+
+      <PageTitle title="ALUNO"/>
+      <DadosPessoais />
+    <div class="container">
+      <ButtonCard title="Iniciação Científica"/>
+      <ButtonCard title="Estágio"/>
+      <ButtonCard title="Pedidos"/>
+    </div>
   </v-app>
 </template>
 
@@ -30,5 +33,9 @@ import DadosPessoais from "@/components/DadosPessoais.vue";
 
 <style scoped>
 
+.container {
+  width: 100%;
+  margin: 0px auto;
+}
 
 </style>
