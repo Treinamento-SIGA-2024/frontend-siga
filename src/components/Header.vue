@@ -1,48 +1,30 @@
 <template>
-  <div class="appHeader">
-    <v-app-bar :color="this.global.colors.green3" :flat="true" class="teste">
-      <div class="style-test">
-        <div class="logo-box">
+    <v-app-bar :color="this.global.colors.green3" flat="true">
+      <div class="logo">
           <img src="@/assets/logo.svg" alt="logo sgo">
-        </div>
-        <div class="logout-box">
-          <Logout/>
-        </div>
+          <Logout />
       </div>
-
     </v-app-bar>
-  </div>
-
-
 </template>
 
 <script>
 import Logout from "@/icons/Logout.vue";
 
- export default {
+export default {
   name: "Header",
-   components: {Logout},
+  components: { Logout },
 }
 
 </script>
 
 <style scoped>
 
-
-.appHeader{
-  width: 100vw;
-  height: auto;
-}
-
-.teste {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.style-test{
+.logo {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  margin: 0 10px;
 }
+
 
 </style>
