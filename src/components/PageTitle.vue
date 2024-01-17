@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <v-card  class="title" v-slot:title>
+  <v-container>
+    <v-card  flat="true">
       <v-card-title >
-        PORTAL DO {{ this.$props.title }}
+        <div class="title">
+          PORTAL DO {{ this.$props.title }}
+        </div>
       </v-card-title>
     </v-card>
-  </div>
+  </v-container>
 </template>
 
 <script >
@@ -21,18 +23,21 @@ export  default {
 </script>
 
 
-<style>
+<style scoped>
 
 .title {
   color: #282828;
-  text-align: center;
   font-size: 25px;
-}
-
-div {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+v-card-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 </style>

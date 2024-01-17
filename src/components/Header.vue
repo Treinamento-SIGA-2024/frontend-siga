@@ -1,10 +1,12 @@
 <template>
+  <v-container>
     <v-app-bar :color="this.global.colors.green3" flat="true">
       <div class="logo">
           <img src="@/assets/logo.svg" alt="logo sgo">
           <Logout />
       </div>
     </v-app-bar>
+  </v-container>
 </template>
 
 <script>
@@ -24,6 +26,12 @@ export default {
   justify-content: space-between;
   width: 100%;
   margin: 0 10px;
+}
+
+v-container {
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 
