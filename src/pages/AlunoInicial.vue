@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="appAlunoInicial">
     <Header />
 
       <PageTitle title="ALUNO"/>
@@ -36,6 +36,12 @@ import DadosPessoais from "@/components/DadosPessoais.vue";
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.appAlunoInicial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 </style>

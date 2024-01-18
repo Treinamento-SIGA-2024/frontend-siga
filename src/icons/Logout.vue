@@ -1,5 +1,5 @@
 <template>
-  <svg-icon type="mdi" :path="path"></svg-icon>
+  <svg-icon class="logout" type="mdi" :path="path"></svg-icon>
 </template>
 
 <script>
@@ -18,3 +18,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.logout {
+  color: black;
+}
+</style>

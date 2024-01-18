@@ -25,7 +25,7 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin: 0 10px;
+  margin: 0 20px;
 }
 
 v-container {

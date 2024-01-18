@@ -27,7 +27,7 @@ export  default {
 
 .title {
   color: #282828;
-  font-size: 25px;
+  font-size: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
