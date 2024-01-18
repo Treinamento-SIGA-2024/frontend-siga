@@ -1,5 +1,5 @@
 <template>
-  <v-container class="HomeCard">
+  <v-container class="HomeCard" >
       <v-card flat="true" :color="this.global.colors.green0" class="title">
         <v-card-title>
           <div>
@@ -30,15 +30,14 @@ export default {
   width: 310px;
   border-radius: 23px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.38);
-  background-color: #C1DEBE;
   margin-top: 30px;
+  background-color:#C1DEBE;
 }
 
 .title {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: red;
   height: 100%;
 }
 

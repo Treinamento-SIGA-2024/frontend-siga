@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card  flat="true">
-      <v-card-title >
+      <v-card-title>
         <div class="title">
           PORTAL DO {{ this.$props.title }}
         </div>
@@ -31,12 +31,6 @@ export  default {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-v-card-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 

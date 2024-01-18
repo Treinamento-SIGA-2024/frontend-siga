@@ -24,7 +24,7 @@ export  default {
 }
 </script>
 
-<style>
+<style scoped>
 div {
   /*font-family: "this.global.font";*/
 }
