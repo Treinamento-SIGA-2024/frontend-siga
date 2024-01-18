@@ -1,27 +1,32 @@
 <template>
-    <AlunoInicial />
+  <v-app class="app">
+    <router-view/>
+  </v-app>
 </template>
 
-<script >
-import AlunoInicial from "@/pages/AlunoInicial.vue";
+<script>
+import router from "@/routes/index.js"
 
 export default {
   name: 'App',
-  components: {
-
-    AlunoInicial
-  }
 }
+
 </script>
 
 
 <style>
-:root{
+:root {
   --green0: #C1DEBE;
   --green1: #86C497;
   --green2: #53B584;
   --green3: #41AF75;
   --green4: #19856E;
+}
+
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*

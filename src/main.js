@@ -7,6 +7,7 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import router from './routes/index.js'
 
 const vuetify = createVuetify({
     components,
@@ -24,4 +25,5 @@ app.config.globalProperties.global = {
     },
     font: "Source Sans"
     };
-app.use(vuetify).mount('#app');
+
+app.use(vuetify).use(router).mount('#app');

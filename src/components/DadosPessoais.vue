@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-card  :flat="true" :font-family="this.global.font">
+    <v-card :flat="true" :font-family="this.global.font">
       <div class="PersonalDataContainer">
-        <PersonalData />
+        <PersonalData/>
         <v-card-subtitle class="subtitle">
           Nome: Fulano de Tal{{ this.$props?.name }} <br>
           Matrícula: 123456789{{ this.$props?.matricula }}
@@ -15,7 +15,7 @@
 <script>
 import PersonalData from "@/icons/PersonalData.vue";
 
-export  default {
+export default {
   name: "DadosPessoais",
   components: {PersonalData},
   props: {
@@ -28,7 +28,6 @@ export  default {
 </script>
 
 <style scoped>
-
 
 
 div {
