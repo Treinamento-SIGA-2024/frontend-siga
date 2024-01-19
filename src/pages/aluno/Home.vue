@@ -1,6 +1,4 @@
 <template>
-  <Header/>
-
   <PageTitle title="ALUNO"/>
   <DadosPessoais/>
   <ButtonCard title="Iniciação Científica"/>

@@ -1,14 +1,17 @@
 <template>
   <v-app class="app">
-    <router-view/>
+    <Header />
+    <router-view />
   </v-app>
 </template>
 
 <script>
 import router from "@/routes/index.js"
+import Header from "@/components/Header.vue";
 
 export default {
   name: 'App',
+  components: {Header},
 }
 
 </script>

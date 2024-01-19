@@ -1,10 +1,15 @@
-<script setup>
+<template>
+  <v-card>
+    PÁGINA DO ESTÁGIO - COORDENADOR
+  </v-card>
+
+</template>
+
+
+<script >
 
 </script>
 
-<template>
-
-</template>
 
 <style scoped>
 

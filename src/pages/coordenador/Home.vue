@@ -1,11 +1,8 @@
 <template>
-  <Header />
-
   <PageTitle title="COORDENADOR" />
   <DadosPessoais />
   <ButtonCard title="Iniciação Científica" />
-  <ButtonCard title="Estágio" />
-
+  <ButtonCard title="Estágio"  @click="goToListEstagio"/>
 </template>
 
 <script>
@@ -17,7 +14,12 @@ import DadosPessoais from "@/components/DadosPessoais.vue";
 import ButtonCard from "@/components/ButtonCard.vue";
 
 export default defineComponent({
-  components: {ButtonCard, DadosPessoais, PageTitle, Header}
+  components: {ButtonCard, DadosPessoais, PageTitle, Header},
+  methods: {
+    goToListEstagio() {
+      this.$router.push("/coordenador/estagio")
+    }
+  }
 })
 </script>
 
