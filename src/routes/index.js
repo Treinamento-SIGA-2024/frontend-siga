@@ -59,7 +59,7 @@ const routes = [
 
     // Secretaria
     {path: '/secretaria', name: 'HomeSecretaria', component: HomeSecretaria},
-    {path: '/secretaria', name: 'CreateEstagioSecretaria', component: CreateEstagioSecretaria},
+    {path: '/secretaria/estagio', name: 'CreateEstagioSecretaria', component: CreateEstagioSecretaria},
 
     // Not found
     {path: '/:pathMatch(.*)*', name: 'NotFound', redirect: "/notfound", component: NotFound},

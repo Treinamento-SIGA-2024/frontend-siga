@@ -1,5 +1,5 @@
 <template>
-    <v-btn @click="" class="HomeCard" style="height: 100px">
+    <v-btn :flat="true" @click="" class="HomeCard" style="height: 80px">
       {{this.$props.title}}
     </v-btn>
 </template>
@@ -19,20 +19,21 @@ export default {
 
 
 .HomeCard {
-  height: 500px;
-  width: 310px;
+  //display: ;
+  width: 280px;
   align-self: center;
-  border-radius: 23px;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
+  border-radius: 15px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   margin-top: 30px;
-  background-color:#C1DEBE;
+  background-color:#86C497;
 }
 
 .HomeCard:hover{
   cursor: pointer;
-  background-color: #86C497;
+  background-color: #53B584;
   transition-duration: 500ms;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.32);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.22);
 }
 
 </style>
