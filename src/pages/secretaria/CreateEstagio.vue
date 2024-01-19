@@ -2,7 +2,7 @@
   <Header/>
   <PageTitle title="NOVA PROPOSTA"/>
 
-  <p>Proposta:</p>
+  <p>Função:</p>
   <v-text-field/>
 
   <p>Nome da Empresa:</p>
@@ -21,14 +21,20 @@
     </div>
   </div>
 
-  <p>Carga Horária:</p>
-  <v-text-field/>
+  <div class="camposRow">
+    <div class="filhosRow">
+      <p>Carga Horária:</p>
+      <v-text-field suffix="horas/sem"/>
+    </div>
 
-  <p>Vagas disponíveis:</p>
-  <v-text-field/>
+    <div class="filhosRow">
+      <p>Vagas disponíveis:</p>
+      <v-text-field/>
+    </div>
+  </div>
 
   <p>Modalidade:</p>
-  <div>
+  <div id="selectDiv">
     <v-select class="select" label="Selecione"
               :items="['Remoto','Híbrido','Presencial']"/>
   </div>
@@ -36,8 +42,12 @@
   <p>Descrição:</p>
   <v-textarea/>
 
-  <ButtonCard id="salvar" title="Salvar"/>
-  <ButtonCard id="cancelar" title="Cancelar"/>
+  <div id="submit">
+    <ButtonCard id="salvar" title="Salvar"
+                :style="{height: '50px'}"/>
+    <ButtonCard id="cancelar" title="Cancelar"
+                :style="{height: '50px'}"/>
+  </div>
 
 </template>
 
@@ -73,17 +83,27 @@ export default {
 }
 
 #salvar {
-  width: 100px;
+  width: 150px;
   color: white;
   background-color: #27AE60;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.21);
 }
 
 #cancelar {
-  width: 100px;
+  width: 150px;
   color: white;
   background-color: #EB5757;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.21);
+}
+
+#selectDiv {
+  height: 80px;
+}
+
+#submit {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .labelCampos {
@@ -93,12 +113,12 @@ export default {
 .filhosRow {
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 45%;
 }
 
 .camposRow {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-direction: row;
 }
 
