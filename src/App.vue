@@ -14,7 +14,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 :root {
   --green0: #C1DEBE;
   --green1: #86C497;

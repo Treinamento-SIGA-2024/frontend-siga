@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <v-card  flat="true">
       <v-card-title>
         <div class="title">
@@ -7,7 +7,7 @@
         </div>
       </v-card-title>
     </v-card>
-  </v-container>
+  </div>
 </template>
 
 <script >
@@ -27,7 +27,7 @@ export  default {
 
 .title {
   color: #282828;
-  font-size: 35px;
+  font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;

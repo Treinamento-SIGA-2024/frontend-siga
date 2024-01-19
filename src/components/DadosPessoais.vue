@@ -1,13 +1,13 @@
 <template>
   <div>
     <v-card :flat="true" :font-family="this.global.font">
-      <div class="PersonalDataContainer">
+      <v-container class="PersonalDataContainer">
         <PersonalData/>
         <v-card-subtitle class="subtitle">
           Nome: Fulano de Tal{{ this.$props?.name }} <br>
           Matrícula: 123456789{{ this.$props?.matricula }}
         </v-card-subtitle>
-      </div>
+      </v-container>
     </v-card>
   </div>
 </template>
@@ -38,8 +38,9 @@ div {
 }
 
 .PersonalDataContainer {
-  justify-content: center;
   display: flex;
+  justify-content: center;
+  align-items: center;
 
 }
 
