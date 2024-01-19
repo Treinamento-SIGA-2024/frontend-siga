@@ -1,50 +1,46 @@
-  <template>
-  <Header/>
-  <PageTitle title="Oferta do Estagio"/>
-  <p>Função:</p>
-  <v-text-field/>
+<template>
 
-  <p>Nome da Empresa:</p>
-  <v-text-field/>
+<Header/>
+<PageTitle title="Oferta do Estagio"/>
 
-  <div class="camposRow">
-    <div class="filhosRow">
-      <p class="labelCampos">Remunerado? </p>
-      <v-checkbox-btn :color="this.global.colors.green3" v-model="remunerado"
-                      :label="remunerado ? 'Sim' : 'Não'"></v-checkbox-btn>
-    </div>
 
-    <div class="filhosRow">
-      <p class="labelCampos">Valor da bolsa:</p>
-      <v-text-field prefix="R$" :disabled="!remunerado"/>
-    </div>
+<div class="informacao">
+  <v-label>Empresa:</v-label>
+  <v-card class="infos">
+    Info da empresa e do cargo disponibilizado
+  </v-card>
+</div>
+
+<div class="row informacao">
+  <div class="colElement">
+    <v-label>Carga horária:</v-label>
+    <v-card class="infos">Num hr/sem</v-card>
   </div>
 
-  <div class="camposRow">
-    <div class="filhosRow">
-      <p>Carga Horária:</p>
-      <v-text-field suffix="horas/sem"/>
-    </div>
-
-    <div class="filhosRow">
-      <p>Vagas disponíveis:</p>
-      <v-text-field/>
-    </div>
+  <div class="colElement">
+    <v-label>Valor da bolsa:</v-label>
+    <v-card class="infos">R$ Num</v-card>
   </div>
+</div>
 
-  <p>Modalidade:</p>
-  <div id="selectDiv">
-    <v-select class="select" label="Selecione"
-              :items="['Remoto','Híbrido','Presencial']"/>
-  </div>
+<div class="informacao">
+  <v-label>Vagas:</v-label>
+  <v-card class="infos">Num</v-card>
+</div>
 
-  <p>Descrição:</p>
-  <v-textarea/>
+<div class="informacao">
+  <v-label>Modalidade:</v-label>
+  <v-card class="infos">String</v-card>
+</div>
 
-  <div id="submit">
-    <ButtonCard id="salvar" title="Salvar"
-                :style="{height: '50px'}"/>
-  </div>
+<div class="informacao">
+  <v-label>Descrição:</v-label>
+  <v-card class="infos">Stringzona</v-card>
+</div>
+
+<ButtonCard title="Contrato" id="btnContrato"
+            :style="{height: '20px'}"/>
+
 </template>
 
 <script>
@@ -55,15 +51,44 @@ import ButtonCard from "@/components/ButtonCard.vue";
 
 export default {
   name: "PageEstagioAluno",
+  data() {
+    return {
+      estagio: {}
+    }
+  },
   components: {
     ButtonCard,
     Header,
     PageTitle,
-  }
+  },
 }
 
 </script>
 
 <style scoped>
+.infos {
+  line-height: 40px;
+  min-height: 40px;
+  background-color: rgba(0, 0, 0, 0.15);
+  padding-left: 10px;
+  box-shadow: none;
+}
 
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.colElement {
+  width: 45%;
+}
+
+.informacao {
+  margin-bottom: 20px;
+}
+
+#btnContrato {
+  align-self: center;
+}
 </style>

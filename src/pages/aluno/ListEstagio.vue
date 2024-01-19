@@ -4,12 +4,10 @@
   <v-container>
     <v-row align="center" justify="center">
       <v-col v-for="(estagio) in estagios" :key="estagio.id" cols="auto">
-        <OfertaEstagio :estagio="estagio"/>
+        <OfertaEstagio :estagio="estagio" @click="this.$router.push('/aluno/estagio/pagina')"/>
       </v-col>
     </v-row>
   </v-container>
-  <ButtonCard class="button" title="Desenvolvedor Mobile"/>
-  <ButtonCard class="button" title="Infraestrutura de Servidores Microsoft"/>
 </template>
 
 <script>
@@ -28,7 +26,6 @@ export default {
   data() {
     return {
       estagios: [],
-
     }
   },
   components: {

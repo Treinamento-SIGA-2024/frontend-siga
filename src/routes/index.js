@@ -41,7 +41,7 @@ const routes = [
     {path: '/aluno/estagio/pagina/contrato', name: 'FormEstagioAluno', component: FormEstagioAluno},
     {path: '/aluno/pedidos', name: 'PedidosAluno', component: PedidosAluno},
     {path: '/aluno/pedidos/ic/pagina', name: 'PageICAluno', component: PageICAluno},
-    {path: '/aluno/pedidos/estagio/pagina', name: 'PageEstagioAluno', component: PageEstagioAluno},
+    {path: '/aluno/pedidos/estagio/pagina', name: 'PageEstagioPedidoAluno', component: PageEstagioAluno},
 
     // Professor
     {path: '/professor', name: 'HomeProfessor', component: HomeProfessor},

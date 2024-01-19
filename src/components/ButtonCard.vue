@@ -1,7 +1,8 @@
 <template>
     <v-btn :flat="true" @click="" class="HomeCard" style="min-height: 80px">
       <span style="white-space: normal;">
-        {{this.$props.title}}
+        {{this.$props.title}} <br>
+        {{this.$props.subtitle}}
       </span>
     </v-btn>
 </template>
@@ -12,6 +13,7 @@ export default {
   name: 'ButtonCard',
   props: {
     title: String,
+    subtitle: String,
   },
 }
 
@@ -28,7 +30,7 @@ export default {
   border-radius: 15px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   margin-top: 30px;
-  background-color:#86C497;
+  background-color: #86C497;
 }
 
 .HomeCard:hover{

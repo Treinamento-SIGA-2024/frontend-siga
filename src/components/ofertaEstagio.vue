@@ -1,20 +1,23 @@
 <template>
-  <v-card>
-    <v-card-title>{{estagio.cargo}}</v-card-title>
-    <v-card-subtitle>{{estagio.empresa}}</v-card-subtitle>
-  </v-card>
+  <ButtonCard :title="estagio.cargo" :subtitle="estagio.empresa"/>
+
 </template>
 
 <script>
-  export default {
-    name: 'ofertaEstagio',
-    props: {
-      estagio: {
-        type: Object,
-        required: true,
-      }
+import ButtonCard from "@/components/ButtonCard.vue";
+
+export default {
+  name: 'ofertaEstagio',
+  props: {
+    estagio: {
+      type: Object,
+      required: true,
     }
+  },
+  components: {
+    ButtonCard
   }
+}
 </script>
 
 <style scoped>
