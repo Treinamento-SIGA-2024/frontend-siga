@@ -1,6 +1,8 @@
 <template>
-    <v-btn :flat="true" @click="" class="HomeCard" style="height: 80px">
-      {{this.$props.title}}
+    <v-btn :flat="true" @click="" class="HomeCard" style="min-height: 80px">
+      <span style="white-space: normal;">
+        {{this.$props.title}}
+      </span>
     </v-btn>
 </template>
 
