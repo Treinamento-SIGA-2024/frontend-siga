@@ -2,9 +2,9 @@ package apiExemplo.estatico.Controller;
 
 import apiExemplo.estatico.models.entity.Estagio;
 import lombok.Data;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,10 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/estagio")
 public class EstagioController {
-    @GetMapping("/estagio")
-    public List<Estagio> getAllEstagios () {
-        List<Estagio> lista = new ArrayList<>();
+    private List<Estagio> lista = new ArrayList<>();
+    EstagioController () {
         lista.add(new Estagio(0, "SIGA", "Dev. SIGA", 20,
                 900, 5, "Remoto"
         ));
@@ -55,7 +55,19 @@ public class EstagioController {
         lista.add(new Estagio(9, "Motorola", "Infr. Hardware Mobile", 18,
                 800, 4, "Presencial"
         ));
+    }
 
+    @GetMapping()
+    public List<Estagio> getAllEstagios () {
         return lista;
+    }
+
+    @GetMapping("/id/{id}")
+    public Estagio getEstagioById (@PathVariable int id) {
+        for (Estagio estagio : lista) {
+            if (estagio.getId() == id)
+                return estagio;
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não existe estágio com esse id.");
     }
 }
