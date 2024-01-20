@@ -35,8 +35,12 @@
     <v-row justify="center">
       <v-dialog v-model="dialog" persistent width="auto">
         <template v-slot:activator="{ props }">
-          <v-btn color="green-darken-1" v-bind="props"> Aprovar </v-btn>
-          <v-btn color="red-darken-1" v-bind="props"> Negar </v-btn>
+          <v-btn color="green-darken-1" v-bind="props" @click="() => {
+            action='aprovar';
+          }"> Aprovar </v-btn>
+          <v-btn color="red-darken-1" v-bind="props" @click="() => {
+            action='rejeitar';
+          }"> Negar </v-btn>
         </template>
         <v-card>
           <v-card-title class="text-h5">Tem certeza? </v-card-title>
@@ -48,7 +52,16 @@
             <v-btn
               color="green-darken-1"
               variant="text"
-              @click="dialog = false"
+              @click="() => {
+                dialog = false;
+                console.log(action);
+                if (action === 'aprovar') {
+                  aprovarEstagio(this.estagio.id);
+                }
+                if (action === 'rejeitar') {
+                  rejeitarEstagio(this.estagio.id);
+                }
+              }"
             >
               Sim
             </v-btn>
@@ -70,18 +83,29 @@
 </template>
 
 <script scoped>
-import { getEstagio } from "@/services/coordenadorService.js";
+import {aprovarEstagio, getEstagio, rejeitarEstagio} from "@/services/coordenadorService.js";
+
 export default {
   data() {
     return {
       estagio: null,
       dialog: false,
+      action: ""
     };
   },
   methods: {
     async getEstagio() {
       const estagioId = this.$route.params.estagioId;
       this.estagio = await getEstagio(estagioId);
+    },
+    goToEstagios() {
+      this.$router.push({ name: "ListEstagioCoordenador" });
+    },
+    async aprovarEstagio() {
+      await aprovarEstagio(this.estagio.id);
+    },
+    async rejeitarEstagio() {
+      await rejeitarEstagio(this.estagio.id);
     },
   },
   created() {
