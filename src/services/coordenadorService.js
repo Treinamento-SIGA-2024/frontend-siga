@@ -12,3 +12,13 @@ export async function getEstagio(id) {
   console.log(response.data);
   return response.data;
 }
+export async function aprovarEstagio(id) {
+  const response = await axios.put(url + "/inscricoes/estagio/aprovar/" + id);
+  console.log(response.data);
+  return response.data;
+}
+export async function rejeitarEstagio(id) {
+  const response = await axios.put(url + "/inscricoes/estagio/rejeitar/" + id);
+  console.log(response.data);
+  return response.data;
+}

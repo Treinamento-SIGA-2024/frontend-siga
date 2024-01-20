@@ -81,17 +81,13 @@ export default {
   methods: {
     async getEstagio() {
       const estagioId = this.$route.params.estagioId;
-      const estagio = await getEstagio(estagioId);
-      this.estagio = estagio;
-    },
-    goToEstagios() {
-      this.$router.push({ name: "ListEstagioCoordenador" });
+      this.estagio = await getEstagio(estagioId);
     },
   },
   created() {
     this.getEstagio();
-  },
-};
+  }
+}
 </script>
 
 <style scoped>
