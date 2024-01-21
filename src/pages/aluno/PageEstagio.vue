@@ -1,41 +1,41 @@
 <template>
 
 <Header/>
-<PageTitle title="Oferta do Estagio"/>
+<PageTitle :title="estagio.cargo + ' em ' + estagio.empresa"/>
 
 
 <div class="informacao">
-  <v-label>Empresa:</v-label>
+  <v-label>Empresa: </v-label>
   <v-card class="infos">
-    Info da empresa e do cargo disponibilizado
+    {{ estagio?.empresa }}
   </v-card>
 </div>
 
 <div class="row informacao">
   <div class="colElement">
     <v-label>Carga horária:</v-label>
-    <v-card class="infos">Num hr/sem</v-card>
+    <v-card class="infos">{{estagio.cargaHoraria }} hr/sem</v-card>
   </div>
 
   <div class="colElement">
     <v-label>Valor da bolsa:</v-label>
-    <v-card class="infos">R$ Num</v-card>
+    <v-card class="infos">R$ {{estagio.valorBolsa}}</v-card>
   </div>
 </div>
 
 <div class="informacao">
   <v-label>Vagas:</v-label>
-  <v-card class="infos">Num</v-card>
+  <v-card class="infos">{{estagio.vagas}}</v-card>
 </div>
 
 <div class="informacao">
   <v-label>Modalidade:</v-label>
-  <v-card class="infos">String</v-card>
+  <v-card class="infos">{{ estagio.modalidade }}</v-card>
 </div>
 
 <div class="informacao">
   <v-label>Descrição:</v-label>
-  <v-card class="infos">Stringzona</v-card>
+  <v-card class="infos">{{ estagio.cargo }}</v-card>
 </div>
 
 <ButtonCard title="Contrato" id="btnContrato"
@@ -48,13 +48,21 @@
 import Header from "@/components/Header.vue";
 import PageTitle from "@/components/PageTitle.vue";
 import ButtonCard from "@/components/ButtonCard.vue";
+import {getEstagioById} from "@/services/Estagio.js";
 
 export default {
   name: "PageEstagioAluno",
   data() {
     return {
-      estagio: {}
+      estagio: {
+        type: Object,
+        required: true,
+      }
     }
+  },
+  async created() {
+    const estagio = await getEstagioById(this.$route.params.id);
+    this.estagio = estagio
   },
   components: {
     ButtonCard,

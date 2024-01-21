@@ -7,3 +7,9 @@ export const getAllEstagios = async () => {
     return data;
 };
 
+export const getEstagioById = async (id) => {
+    const { data } = await axios.get(`${api_url}/id/${id}`);
+
+    return data;
+}
+

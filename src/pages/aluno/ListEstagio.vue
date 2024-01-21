@@ -4,7 +4,7 @@
   <v-container>
     <v-row align="center" justify="center">
       <v-col v-for="(estagio) in estagios" :key="estagio.id" cols="auto">
-        <OfertaEstagio :estagio="estagio" @click="this.$router.push('/aluno/estagio/pagina')"/>
+        <OfertaEstagio :estagio="estagio" @click="this.$router.push(`/aluno/estagio/id/${estagio.id}`)"/>
       </v-col>
     </v-row>
   </v-container>

@@ -37,7 +37,7 @@ const routes = [
     {path: '/aluno/ic', name: 'ListICAluno', component: ListICAluno},
     {path: '/aluno/ic/pagina', name: 'PageICAluno', component: PageICAluno},
     {path: '/aluno/estagio', name: 'ListEstagioAluno', component: ListEstagioAluno},
-    {path: '/aluno/estagio/pagina', name: 'PageEstagioAluno', component: PageEstagioAluno},
+    {path: '/aluno/estagio/id/:id', name: 'PageEstagioAluno', component: PageEstagioAluno},
     {path: '/aluno/estagio/pagina/contrato', name: 'FormEstagioAluno', component: FormEstagioAluno},
     {path: '/aluno/pedidos', name: 'PedidosAluno', component: PedidosAluno},
     {path: '/aluno/pedidos/ic/pagina', name: 'PageICAluno', component: PageICAluno},
