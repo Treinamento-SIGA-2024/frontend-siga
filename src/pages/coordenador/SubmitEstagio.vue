@@ -1,10 +1,6 @@
 <template>
-  <v-Btn class="backIcon" @click="goToEstagios">
-    <GoBackIcon />
-    Voltar para requerimentos
-  </v-Btn>
+  
   <v-container class="estagioContainer" v-if="estagio">
-
       <v-card-title style="line-break: auto"
         >{{ estagio.estagio.cargo }}</v-card-title>
       <v-container>
@@ -147,6 +143,10 @@
     </v-container>
 
   </v-container>
+  <v-Btn class="backIcon" @click="goToEstagios" color="#666666" rounded="xl">
+    <GoBackIcon />
+    Voltar
+  </v-Btn>
 
   <v-container class="loadingContainer" v-if="!estagio">
     <v-progress-circular
@@ -202,8 +202,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 65%;
-  margin: 0 auto;
+  margin: 10px auto;
+  width: 40%;
 }
 .loadingContainer {
   display: flex;
