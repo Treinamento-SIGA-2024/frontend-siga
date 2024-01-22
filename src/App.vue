@@ -1,48 +1,52 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-    
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <v-app class="app">
+    <Header />
+    <router-view />
+  </v-app>
 </template>
 
+<script>
+import router from "@/routes/index.js"
+import Header from "@/components/Header.vue";
+
+export default {
+  name: 'App',
+  components: {Header},
+}
+
+</script>
+
+
 <style scoped>
-header {
-  line-height: 1.5;
+:root {
+  --green0: #C1DEBE;
+  --green1: #86C497;
+  --green2: #53B584;
+  --green3: #41AF75;
+  --green4: #19856E;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+/*
+@font-face {
+  font-family: "Source Sans Pro Bold";
+  src: url('~@/assets/fonts/SourceSansPro-Bold.otf');
 }
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url('~@/assets/fonts/SourceSansPro-Regular.otf');
+}
+
+*{
+  font-family: Source Sans Pro;
+}
+*/
+
+
 </style>
