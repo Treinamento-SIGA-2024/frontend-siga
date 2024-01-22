@@ -20,6 +20,7 @@ import CadastroICProfessor from '@/pages/professor/CadastroIC.vue'
 import ListICProfessor from '@/pages/professor/ListIC.vue'
 import PageICProfessor from '@/pages/professor/PageIC.vue'
 import PedidosProfessor from '@/pages/professor/Pedidos.vue'
+import SolicitacaoIC from '@/pages/professor/SolicitacaoIC.vue'
 
 // Secretaria
 import HomeSecretaria from '@/pages/secretaria/Home.vue'
@@ -47,6 +48,7 @@ const routes = [
     {path: '/professor', name: 'HomeProfessor', component: HomeProfessor},
     {path: '/professor/ic', name: 'ListICProfessor', component: ListICProfessor},
     {path: '/professor/ic/pagina', name: 'PageICProfessor', component: PageICProfessor},
+    {path: '/professor/ic/pagina/solicitacoes', name: 'PageICProfessorSolicitacoes', component: SolicitacaoIC},
     {path: '/professor/pedidos', name: 'PedidosProfessor', component: PedidosProfessor},
     {path: '/professor/cadastroIC', name: 'CadastroICProfessor', component: CadastroICProfessor},
 
