@@ -69,7 +69,13 @@
             </div>
             <div>
               <strong>Email:</strong>
-              <v-card color="#C1DEBE" height="30px" class="d-flex align-center justify-center" style="padding: 10px">
+              <v-card color="#C1DEBE" 
+                      height="30px" 
+                      class="d-flex align-center justify-center" 
+                      style=" padding: 10px;
+                              max-width: 210px;
+                              word-break: break-all;
+                      ">
                 {{ estagio.aluno.email }}
               </v-card>
             </div>
@@ -197,6 +203,7 @@ export default {
   align-items: center;
   padding: 0;
   margin: 0 auto;
+  max-width: 900px;
 }
 
 .infoContainer {
@@ -210,6 +217,10 @@ export default {
 
 .alunoContainer {
   padding: 0;
+}
+
+.emailCard {
+  max-width: 200px;
 }
 
 </style>
