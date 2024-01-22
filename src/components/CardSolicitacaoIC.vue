@@ -2,10 +2,10 @@
   <div>
   <v-card :flat="true" :font-family="this.global.font">
     <v-container class="infoCard">
-      <v-card-title>Nome da ic</v-card-title>
+      <v-card-title>{{ this.$props?.inscricao.iniciacaoCientifica.nome }}</v-card-title>
         <v-card-subtitle class="subtitle">
-        Aluno: Fulano de Tal{{ this.$props?.name }} <br>
-        Matrícula: 123456789{{ this.$props?.matricula }}
+        Aluno: {{ this.$props?.inscricao.aluno.nome }} <br>
+        Matrícula:{{ this.$props?.inscricao.aluno.matricula }}
         </v-card-subtitle>
       <v-container class="botoes">
         <v-btn class="aceitar">Aceitar</v-btn>
@@ -22,7 +22,13 @@ import {defineComponent} from "vue";
 import PersonalData from "@/icons/PersonalData.vue";
 
 export default defineComponent({
-  components: {PersonalData}
+  components: {PersonalData},
+  props:{
+    inscricao:{
+      type: Object,
+      required: true
+    }
+  }
 })
 </script>
 
@@ -36,7 +42,7 @@ export default defineComponent({
   width: 90%;
   height: 148px;
   border-radius: 10px;
-
+  margin-top: 20px;
 }
 .botoes{
   display: flex;
