@@ -1,5 +1,4 @@
 <template>
-  <Header/>
   <PageTitle title="PROPOSTAS DE ESTÁGIO"/>
   <v-container>
     <v-row align="center" justify="center">

@@ -1,5 +1,4 @@
 <template>
-  <Header/>
   <PageTitle title="PORTAL DA SECRETARIA"/>
   <DadosPessoais/>
   <ButtonCard @click="this.$router.push('/secretaria/estagio')" title="Ofertar estágio"/>

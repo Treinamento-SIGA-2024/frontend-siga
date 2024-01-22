@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import router from "@/routes/index.js"
 
 export default {
   name: 'App',

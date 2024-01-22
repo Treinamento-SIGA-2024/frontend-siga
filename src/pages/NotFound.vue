@@ -1,5 +1,4 @@
 <template>
-  <Header />
   <PageTitle title="Ops... Página não encontrada."/>
   <ButtonCard @click="this.$router.push('/')" title="Voltar para página inicial"/>
 </template>

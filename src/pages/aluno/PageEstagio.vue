@@ -1,6 +1,5 @@
 <template>
 
-<Header/>
 <PageTitle :title="estagio?.cargo + ' em ' + estagio?.empresa"/>
 
 

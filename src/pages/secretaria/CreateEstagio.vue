@@ -1,5 +1,4 @@
 <template>
-  <Header/>
   <PageTitle title="NOVA PROPOSTA"/>
 
   <p>Função:</p>
