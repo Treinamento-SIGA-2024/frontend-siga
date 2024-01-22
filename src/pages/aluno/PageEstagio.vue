@@ -1,7 +1,7 @@
 <template>
 
 <Header/>
-<PageTitle :title="estagio.cargo + ' em ' + estagio.empresa"/>
+<PageTitle :title="estagio?.cargo + ' em ' + estagio?.empresa"/>
 
 
 <div class="informacao">
@@ -14,28 +14,28 @@
 <div class="row informacao">
   <div class="colElement">
     <v-label>Carga horária:</v-label>
-    <v-card class="infos">{{estagio.cargaHoraria }} hr/sem</v-card>
+    <v-card class="infos">{{estagio?.cargaHorariaSemanal }} hr/sem</v-card>
   </div>
 
   <div class="colElement">
     <v-label>Valor da bolsa:</v-label>
-    <v-card class="infos">R$ {{estagio.valorBolsa}}</v-card>
+    <v-card class="infos">R$ {{estagio?.remuneracao}}</v-card>
   </div>
 </div>
 
 <div class="informacao">
   <v-label>Vagas:</v-label>
-  <v-card class="infos">{{estagio.vagas}}</v-card>
+  <v-card class="infos">{{estagio?.quantidadeVagas}}</v-card>
 </div>
 
 <div class="informacao">
   <v-label>Modalidade:</v-label>
-  <v-card class="infos">{{ estagio.modalidade }}</v-card>
+  <v-card class="infos">{{ estagio?.modalidade }}</v-card>
 </div>
 
 <div class="informacao">
   <v-label>Descrição:</v-label>
-  <v-card class="infos">{{ estagio.cargo }}</v-card>
+  <v-card class="infos">{{ estagio?.descricao }}</v-card>
 </div>
 
 <ButtonCard title="Contrato" id="btnContrato"
