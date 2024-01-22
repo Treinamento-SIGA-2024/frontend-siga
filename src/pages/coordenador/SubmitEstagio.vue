@@ -1,4 +1,8 @@
 <template>
+  <v-Btn class="backIcon" @click="goToEstagios">
+    <GoBackIcon />
+    Voltar para requerimentos
+  </v-Btn>
   <v-container class="estagioContainer" v-if="estagio">
 
       <v-card-title style="line-break: auto"
@@ -151,8 +155,6 @@
       indeterminate
     ></v-progress-circular>
   </v-container>
-
-<!--  <v-btn @click="goToEstagios()">Voltar para estágios</v-btn>-->
 </template>
 
 <script>
@@ -161,8 +163,10 @@ import {
   getEstagio,
   rejeitarEstagio,
 } from "@/services/coordenadorService.js";
+import GoBackIcon from "@/icons/GoBackIcon.vue"
 
 export default {
+  components: {GoBackIcon},
   data() {
     return {
       estagio: null,
@@ -192,6 +196,15 @@ export default {
 </script>
 
 <style scoped>
+
+.backIcon {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 65%;
+  margin: 0 auto;
+}
 .loadingContainer {
   display: flex;
   justify-content: center;
