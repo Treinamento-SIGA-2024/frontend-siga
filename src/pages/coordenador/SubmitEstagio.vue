@@ -1,14 +1,18 @@
 <template>
+  <Loading  v-if="!estagio" class="loadingContainer"/>
   <v-container class="estagioContainer" v-if="estagio">
     <v-card-title style="line-break: auto">{{
       estagio.estagio.cargo
     }}</v-card-title>
+
+    
+
     <v-container>
       <p>
         <strong>Empresa: </strong>
       </p>
       <v-card
-        color="#C1DEBE"
+        color="var(--green0)"
         height="51px"
         class="d-flex align-center justify-center"
       >
@@ -20,7 +24,7 @@
           <strong>Carga Horária:</strong>
           <p>
             <v-card
-              color="#C1DEBE"
+              color="var(--green0)"
               height="51px"
               class="d-flex align-center justify-center"
             >
@@ -32,7 +36,7 @@
         <div>
           <strong>Remuneração:</strong>
           <v-card
-            color="#C1DEBE"
+            color="var(--green0)"
             height="51px"
             class="d-flex align-center justify-center"
           >
@@ -49,7 +53,7 @@
           <strong>Quantidade de Vagas:</strong></v-card
         >
         <v-card
-          color="#C1DEBE"
+          color="var(--green0)"
           style="text-align: center"
           max-height="24"
           min-width="24"
@@ -67,7 +71,7 @@
           ><strong>Modalidade:</strong></v-card
         >
         <v-card
-          color="#C1DEBE"
+          color="var(--green0)"
           style="text-align: center"
           height="24"
           min-width="84"
@@ -81,7 +85,7 @@
         style="
           padding: 10px 10px;
           text-align: center;
-          background-color: #c1debe;
+          background-color: var(--green0);
         "
         >{{ estagio.estagio.descricao }}</v-card
       >
@@ -92,7 +96,7 @@
       <v-card-text>
         <p><strong>Nome:</strong></p>
         <v-card
-          color="#C1DEBE"
+          color="var(--green0)"
           height="30px"
           class="d-flex align-center justify-center"
         >
@@ -104,7 +108,7 @@
             <strong>Matrícula:</strong>
             <p>
               <v-card
-                color="#C1DEBE"
+                color="var(--green0)"
                 height="30px"
                 class="d-flex align-center justify-center"
                 style="padding: 10px"
@@ -116,7 +120,7 @@
           <div>
             <strong>Email:</strong>
             <v-card
-              color="#C1DEBE"
+              color="var(--green0)"
               height="30px"
               class="d-flex align-center justify-center"
               style="padding: 10px; max-width: 210px; word-break: break-all"
@@ -196,13 +200,14 @@
     Voltar
   </v-Btn>
 
-  <v-container class="loadingContainer" v-if="!estagio">
+  
+  <!-- <v-container class="loadingContainer" v-if="!estagio">
     <v-progress-circular
-      color="#C1DEBE"
+      color="var(--green0)"
       size="x-large"
       indeterminate
     ></v-progress-circular>
-  </v-container>
+  </v-container> -->
 </template>
 
 <script>
@@ -212,9 +217,10 @@ import {
   rejeitarEstagio,
 } from "@/services/coordenadorService.js";
 import GoBackIcon from "@/icons/GoBackIcon.vue";
+import Loading from "@/components/Loading.vue";
 
 export default {
-  components: { GoBackIcon },
+  components: { GoBackIcon, Loading },
   data() {
     return {
       estagio: null,
