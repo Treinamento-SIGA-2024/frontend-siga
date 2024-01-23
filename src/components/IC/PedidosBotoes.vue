@@ -1,7 +1,7 @@
 <template>
   <div class="button-container">
-    <v-btn class="estagio">Estágio</v-btn>
-    <v-btn class="ic">IC</v-btn>
+    <v-btn class="estagio"><span>Estágio</span></v-btn>
+    <v-btn class="ic"><span>IC</span></v-btn>
   </div>
 </template>
 
@@ -14,26 +14,30 @@ export default {
 <style scoped>
 .v-btn {
   align-self: center;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 0px #00000026;
   border-radius: 0;
 }
 .v-btn:hover {
   cursor: pointer;
   transition-duration: 500ms;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.32);
+  box-shadow: 2px 2px 2px #00000052;
 }
 
 .estagio {
-  background-color: rgba(243, 243, 243, 0.93);
+  background-color: #a8a8a866;
   border-top-left-radius: 23px;
 }
 
 .ic {
-  background-color: rgba(168, 168, 168, 0.4);
+  background-color: #f3f3f3;
   border-top-right-radius: 23px;
 }
 
 .button-container {
-  padding: 1rem 1rem 0 1rem;
+  padding-top: 1rem;
+}
+
+span {
+  font-weight: bold;
 }
 </style>

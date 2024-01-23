@@ -44,4 +44,15 @@ main {
 .v-col-auto {
   width: 100%;
 }
+
+.v-container {
+  background-color: #f3f3f3;
+  border-radius: 0px 15px 15px 15px;
+}
+
+@media (min-width: 1024px) {
+  .v-container {
+    width: 100vw;
+  }
+}
 </style>
