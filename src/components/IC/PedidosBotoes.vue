@@ -1,8 +1,10 @@
 <template>
-  <div class="button-container">
-    <v-btn class="estagio"><span>Estágio</span></v-btn>
-    <v-btn class="ic"><span>IC</span></v-btn>
-  </div>
+  <v-container>
+    <div class="button-container">
+      <v-btn class="estagio"><span>Estágio</span></v-btn>
+      <v-btn class="ic"><span>IC</span></v-btn>
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -39,5 +41,9 @@ export default {
 
 span {
   font-weight: bold;
+}
+
+.v-container {
+  padding: 0;
 }
 </style>

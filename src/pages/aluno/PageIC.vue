@@ -1,8 +1,10 @@
 <template>
-  <PageICtitulo title="Nome da ic"></PageICtitulo>
-  <ChapeuIC></ChapeuIC>
-  <PageICdescricao></PageICdescricao>
-  <PageICbotao title="Solicitar IC"></PageICbotao>
+  <div class="container">
+    <PageICtitulo title="Nome da ic"></PageICtitulo>
+    <ChapeuIC></ChapeuIC>
+    <PageICdescricao></PageICdescricao>
+    <PageICbotao title="Solicitar IC"></PageICbotao>
+  </div>
 </template>
 
 <script>
@@ -23,4 +25,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  display: flex;
+  place-items: center;
+  flex-direction: column;
+}
+</style>
