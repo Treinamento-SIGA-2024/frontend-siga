@@ -22,6 +22,9 @@
       </v-btn>
     </v-card-actions>
   </v-card>
+    <PopUp>
+      <h2>meu popup</h2>
+    </PopUp>
   </div>
 </template>
 
@@ -29,9 +32,15 @@
 
 import {defineComponent} from "vue";
 import ButtonCard from "@/components/ButtonCard.vue";
+import PopUp from '@/components/PopUp.vue';
 
 export default defineComponent({
-  components: {ButtonCard}
+  components: {ButtonCard},
+  setup () {
+    return {
+      PopUp
+    }
+  }
 })
 </script>
 
