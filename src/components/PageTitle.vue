@@ -3,7 +3,7 @@
     <v-card  flat="true">
       <v-card-title>
         <div class="title">
-          PORTAL DO {{ this.$props.title }}
+          {{ this.$props.title }}
         </div>
       </v-card-title>
     </v-card>

@@ -1,5 +1,5 @@
 <template>
-  <PageTitle title="ALUNO"/>
+  <PageTitle title="PORTAL DO ALUNO"/>
   <DadosPessoais/>
   <ButtonCard title="Iniciação Científica"/>
   <ButtonCard title="Estágio"/>

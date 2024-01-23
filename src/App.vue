@@ -6,9 +6,8 @@
 </template>
 
 <script>
-import router from "@/routes/index.js"
-import Header from "@/components/Header.vue";
 
+import Header from "@/components/Header.vue"
 export default {
   name: 'App',
   components: {Header},
@@ -17,7 +16,7 @@ export default {
 </script>
 
 
-<style scoped>
+<style>
 :root {
   --green0: #C1DEBE;
   --green1: #86C497;
@@ -31,22 +30,5 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
-/*
-@font-face {
-  font-family: "Source Sans Pro Bold";
-  src: url('~@/assets/fonts/SourceSansPro-Bold.otf');
-}
-
-@font-face {
-  font-family: "Source Sans Pro";
-  src: url('~@/assets/fonts/SourceSansPro-Regular.otf');
-}
-
-*{
-  font-family: Source Sans Pro;
-}
-*/
-
 
 </style>
