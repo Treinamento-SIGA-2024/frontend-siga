@@ -40,7 +40,7 @@
     </div>
 
     <ButtonCard title="Contrato" id="btnContrato"
-                :style="{height: '20px'}"/>
+                :style="{height: '8vh'}"/>
   </v-container>
 </template>
 
@@ -53,7 +53,7 @@ import {getAllEstagios, getEstagioById} from "@/services/Estagio.js";
 import PopUpErro from "@/components/PopUpErro.vue";
 
 export default {
-  name: "PageEstagioAluno",
+  name: "PedidosEstagioAluno",
   methods: {getAllEstagios},
   data() {
     return {

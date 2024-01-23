@@ -1,9 +1,9 @@
 <template>
   <PageTitle title="BEM-VINDO(A)"/>
-  <ButtonCard title="Aluno"/>
-  <ButtonCard title="Professor"/>
-  <ButtonCard title="Coordenador"/>
-  <ButtonCard title="Secretaria"/>
+  <ButtonCard title="Aluno" @click="this.$router.push('/aluno')"/>
+  <ButtonCard title="Professor" @click="this.$router.push('/professor')"/>
+  <ButtonCard title="Coordenador" @click="this.$router.push('/coordenador')"/>
+  <ButtonCard title="Secretaria" @click="this.$router.push('/secretaria')"/>
 </template>
 
 <script>

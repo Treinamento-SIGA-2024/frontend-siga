@@ -1,3 +1,5 @@
+import Login from "@/pages/Login.vue";
+
 // Aluno
 import HomeAluno from "@/pages/aluno/Home.vue";
 import ListICAluno from "@/pages/aluno/ListIC.vue";
@@ -31,10 +33,28 @@ import NotFound from "@/pages/NotFound.vue";
 import { createWebHistory, createRouter } from "vue-router";
 
 const routes = [
+  {
+    path: "/",
+    name: "Login",
+    component: Login
+  },
+
   // Aluno
-  { path: "/aluno", name: "Aluno", component: HomeAluno },
-  { path: "/aluno/ic", name: "ListICAluno", component: ListICAluno },
-  { path: "/aluno/ic/pagina", name: "PageICAluno", component: PageICAluno },
+  {
+    path: "/aluno",
+    name: "Aluno",
+    component: HomeAluno
+  },
+  {
+    path: "/aluno/ic",
+    name: "ListICAluno",
+    component: ListICAluno
+  },
+  {
+    path: "/aluno/ic/pagina",
+    name: "PageICAluno",
+    component: PageICAluno
+  },
   {
     path: "/aluno/estagio",
     name: "ListEstagioAluno",
@@ -44,13 +64,18 @@ const routes = [
     path: "/aluno/estagio/id/:id",
     name: "PageEstagioAluno",
     component: PageEstagioAluno,
+    props: true,
   },
   {
     path: "/aluno/estagio/pagina/contrato",
     name: "FormEstagioAluno",
     component: FormEstagioAluno,
   },
-  { path: "/aluno/pedidos", name: "PedidosAluno", component: PedidosAluno },
+  {
+    path: "/aluno/pedidos",
+    name: "PedidosAluno",
+    component: PedidosAluno
+  },
   {
     path: "/aluno/pedidos/ic/pagina",
     name: "PageICAluno",
@@ -58,7 +83,7 @@ const routes = [
   },
   {
     path: "/aluno/pedidos/estagio/pagina",
-    name: "PageEstagioAluno",
+    name: "PedidosEstagioAluno",
     component: PageEstagioAluno,
   },
 

@@ -5,30 +5,28 @@
     </v-card-title>
   </v-card>
 
-  <v-container class="loadingContainer" v-if="this.loading">
-    <v-progress-circular
-      color="#C1DEBE"
-      size="x-large"
-      indeterminate
-    ></v-progress-circular>
-  </v-container>
-
-  <v-container
-    v-for="(estagio, i) in estagios"
-    :key="i"
-    class="buttonContainer"
-  >
-    <ButtonCard
-      :title="estagio.aluno.nome"
-      :data="estagio"
-      @click="
+  <Loading v-if="this.loading" class="loadingContainer"/>
+  <v-container>
+    <v-row align="center" justify="center" v-if="estagios.length !== 0 && !erro">
+      <v-col v-for="(estagio) in estagios" :key="estagio.id" cols="auto">
+        <v-container
+            class="buttonContainer"
+        >
+          <ButtonCard
+              :title="estagio.aluno.nome"
+              :data="estagio"
+              @click="
         this.$router.push({
           name: 'SubmitEstagioCoordenador',
           params: { estagioId: estagio.id },
         })
       "
-    />
+          />
+        </v-container>
+      </v-col>
+    </v-row>
   </v-container>
+
 </template>
 
 <script>
@@ -37,9 +35,11 @@ import Header from "@/components/Header.vue";
 import PageTitle from "@/components/PageTitle.vue";
 import ButtonCard from "@/components/ButtonCard.vue";
 import { getEstagiosPendentes } from "@/services/coordenadorService.js";
+import Loading from "@/components/Loading.vue";
+import OfertaEstagio from "@/components/ofertaEstagio.vue";
 
 export default defineComponent({
-  components: { ButtonCard, PageTitle, Header },
+  components: {OfertaEstagio, Loading, ButtonCard, PageTitle, Header },
   methods: {
     async getEstagios() {
       const estagios = await getEstagiosPendentes();
