@@ -6,25 +6,40 @@
   </v-card>
 
   <v-container class="loadingContainer" v-if="this.loading">
-    <v-progress-circular color="#C1DEBE" size="x-large" indeterminate></v-progress-circular>
+    <v-progress-circular
+      color="#C1DEBE"
+      size="x-large"
+      indeterminate
+    ></v-progress-circular>
   </v-container>
 
-
-  <v-container v-for="(estagio,i) in estagios" :key="i" class="buttonContainer">
-    <ButtonCard :title=estagio.aluno.nome :data="estagio" />
+  <v-container
+    v-for="(estagio, i) in estagios"
+    :key="i"
+    class="buttonContainer"
+  >
+    <ButtonCard
+      :title="estagio.aluno.nome"
+      :data="estagio"
+      @click="
+        this.$router.push({
+          name: 'SubmitEstagioCoordenador',
+          params: { estagioId: estagio.id },
+        })
+      "
+    />
   </v-container>
 </template>
 
 <script>
-
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import Header from "@/components/Header.vue";
 import PageTitle from "@/components/PageTitle.vue";
 import ButtonCard from "@/components/ButtonCard.vue";
-import {getEstagiosPendentes} from "@/services/coordenadorService.js";
+import { getEstagiosPendentes } from "@/services/coordenadorService.js";
 
 export default defineComponent({
-  components: {ButtonCard, PageTitle, Header},
+  components: { ButtonCard, PageTitle, Header },
   methods: {
     async getEstagios() {
       const estagios = await getEstagiosPendentes();
@@ -35,20 +50,16 @@ export default defineComponent({
   data() {
     return {
       estagios: [],
-      loading: true
-    }
+      loading: true,
+    };
   },
   created() {
     this.getEstagios();
-  }
+  },
 });
-
-
 </script>
 
-
 <style scoped>
-
 .buttonContainer {
   display: flex;
   justify-content: center;
@@ -59,7 +70,6 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
-
 </style>
-
