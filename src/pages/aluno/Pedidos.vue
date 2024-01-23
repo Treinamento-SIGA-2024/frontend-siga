@@ -19,4 +19,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+}
+</style>
