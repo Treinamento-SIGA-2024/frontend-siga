@@ -13,3 +13,9 @@ export const getEstagioById = async (id) => {
     return data;
 }
 
+
+export const createEstagio = async (params) => {
+    const { data } = await axios.post(`${api_url}`, params);
+
+    return data;
+}
