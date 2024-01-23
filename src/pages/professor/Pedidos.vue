@@ -6,92 +6,60 @@
       </v-card-title>
     </v-card>
   </v-container>
+
   <div class="d-flex align-center flex-column">
-    <v-btn max-width="200" color="#C1DEBE" class="registerBtn">
-      <!-- <svg-icon type="mdi" :path="path"/>  -->
+    <v-btn max-width="200" color="#C1DEBE" class="registerBtn" @click="goToCadastroIC">
       Cadastrar IC
     </v-btn>
   </div>
 
   <div
-    class="d-flex align-center flex-column"
-    v-for="(pedidos, i) in pedidos"
-    :key="i"
+      class="d-flex align-center flex-column"
+      v-for="(pedido, i) in pedidos"
+      :key="i"
   >
     <v-btn width="310" height="80" color="#CFEEDC" style="margin-bottom: 29px;">
       <div class="pedidosBtn">
-        <span> {{ pedidos.titulo }} </span>
-        <span> {{ pedidos.professor }} </span>
+        <span> {{ pedido.nome }} </span>
       </div>
       <div class="status">
-        <svg-icon color="#27AE60" type="mdi" :path="path" />
+        <svg-icon v-if="pedido.situacaoCriacao.descricao == 'Pendente'" color="yellow" type="mdi" :path="path"/>
+        <svg-icon v-if="pedido.situacaoCriacao.descricao == 'Ativo'" color="green" type="mdi" :path="path"/>
+        <svg-icon v-if="pedido.situacaoCriacao.descricao == 'Recusado'" color="red" type="mdi" :path="path"/>
       </div>
     </v-btn>
   </div>
+
 </template>
 
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiPlusCircleOutline } from "@mdi/js";
-import { mdiCircle } from "@mdi/js";
+import {mdiCircle} from "@mdi/js";
+import {getPedidos} from "@/services/professorService.js";
 
 export default {
   name: "my-cool-component",
-
   components: {
     SvgIcon,
   },
-
   data() {
     return {
-      pedidos: [
-        {
-          professor: "Fulano",
-          titulo: "Como criar mapas com CSS",
-          descricao: "Pendente",
-        },
-        {
-          professor: "Ciclano",
-          titulo: "Jogos para crianças",
-          descricao: "Pendente",
-        },
-        {
-          professor: "Anna Banana",
-          titulo: "C++ para Universitários",
-          descricao: "Pendente",
-        },
-        {
-          professor: "Fulano",
-          titulo: "Como criar mapas com CSS",
-          descricao: "Pendente",
-        },
-        {
-          professor: "Fulano",
-          titulo: "Como criar mapas com CSS",
-          descricao: "Pendente",
-        },
-        {
-          professor: "Fulano",
-          titulo: "Como criar mapas com CSS",
-          descricao: "Pendente",
-        },
-      ],
-      path: mdiPlusCircleOutline,
+      pedidos: [],
       path: mdiCircle,
-      pedidoData: {
-        professor: "",
-        titulo: "",
-        descricao: "",
-      },
-      props: {
-        pedidos: {
-          type: Object,
-          required: true,
-        },
-      },
-      methods: {},
-    };
+    }
   },
+  created() {
+    this.getPedidos();
+  },
+  methods: {
+    async getPedidos() {
+      const ped = await getPedidos("200000001");
+      this.pedidos = ped;
+    },
+    goToCadastroIC() {
+        this.$router.push('/professor/cadastroIC')
+    },
+  }
 };
 </script>
 
@@ -105,9 +73,11 @@ export default {
   /* font-family: Source Sans Pro; */
   color: #666666;
 }
+
 .registerBtn {
   margin-bottom: 5vh;
 }
+
 .pedidosBtn {
   display: flex;
   flex-direction: column;
