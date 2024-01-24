@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card  flat="true">
+    <v-card :flat="true">
       <v-card-title>
         <div class="title">
           PORTAL DO {{ this.$props.title }}

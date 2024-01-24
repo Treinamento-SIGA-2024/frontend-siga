@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card flat="true">
+    <v-card :flat="true">
       <v-card-title>
         <div class="title">Pedidos</div>
       </v-card-title>
