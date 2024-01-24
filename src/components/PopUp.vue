@@ -1,48 +1,60 @@
 <template>
   <v-container class="popUpExterno">
-    <v-container class="popUpInterno">
-    <v-card-title>Tem certeza?</v-card-title>
-    <v-card :flat="true">
-      <v-card-actions class="buttons">
-        <v-btn class="aceitarForm">
-          Sim
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-    <v-card :flat="true">
-      <v-card-actions class="buttons">
-        <v-btn class="recusarForm">
-          Não
-        </v-btn>
-      </v-card-actions>
-    </v-card>
+    <v-container class="iconTexto">
+      <PopUpIcon style="background-color: #F5F5F5" />
+      <v-card-title style="color: #666">{{ this.$props.acoes.msg }}</v-card-title>
     </v-container>
+
+    <v-card-actions class="acaoBotoes">
+      <v-btn class="aceitar" @click="this.$props.acoes.aceitarAction">Sim</v-btn>
+      <v-btn class="cancelar" @click="this.$props.acoes.cancelarAction">Não</v-btn>
+    </v-card-actions>
   </v-container>
 </template>
 
 <script>
-export default {
 
+import mdiCheckCircleOutline from '@/icons/PopUpIcon.vue';
+import PopUpIcon from "@/icons/PopUpIcon.vue";
+export default {
+  name:"PopUp",
+  components: {PopUpIcon, mdiCheckCircleOutline},
+  props:{
+    acoes:{
+      type:Object,
+      required: true
+    }
+  }
 }
 </script>
 
+
 <style scoped>
-.popUpExterno{
-  position: fixed;
-  top:0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 99;
-  background-color: rgba(0,0,0,0.2);
-
+.iconTexto{
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+}
+.popUpExterno{
+  background-color: #FFF;
+  max-width: fit-content;
+  max-height: 200px;
+  border-radius: 10px;
+}
+.acaoBotoes{
+  display: flex;
+  justify-content: space-around;
 
-  .popUpInterno{
-    background: #FFF;
-    padding: 32px;
-  }
+}
+.aceitar{
+  width: 92px;
+  height: 44px;
+  background-color: #CFEEDC;
+}
+.cancelar{
+  width: 92px;
+  height: 44px;
+  background-color: #4F4F4F;
+  color:#F5F5F5;
 }
 </style>

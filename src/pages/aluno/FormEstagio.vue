@@ -22,10 +22,8 @@
       </v-btn>
     </v-card-actions>
   </v-card>
-    <PopUp>
-      <h2>meu popup</h2>
-    </PopUp>
   </div>
+  <PopUp :acoes="{msg:'opa'}"/>
 </template>
 
 <script>
@@ -35,12 +33,7 @@ import ButtonCard from "@/components/ButtonCard.vue";
 import PopUp from '@/components/PopUp.vue';
 
 export default defineComponent({
-  components: {ButtonCard},
-  setup () {
-    return {
-      PopUp
-    }
-  }
+  components: {ButtonCard, PopUp},
 })
 </script>
 
