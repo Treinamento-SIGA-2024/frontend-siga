@@ -37,7 +37,8 @@ export default {
 }
 .popUpExterno{
   background-color: #FFF;
-  max-width: 350px;
+  max-width: fit-content;
+  max-height: 200px;
   border-radius: 10px;
 }
 .acaoBotoes{

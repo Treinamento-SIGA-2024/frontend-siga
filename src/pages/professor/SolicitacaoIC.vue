@@ -7,16 +7,14 @@
   <v-container v-if="this.inscricoes.length">
     <v-row v-for="(inscricao, i) in inscricoes" :key="i" cols="auto">
       <v-col>
-        <CardSolicitacaoIC :inscricao="inscricao"/>
+        <CardSolicitacaoIC :inscricao="inscricao" @refreshSituacao = "getInscricoesIc"/>
       </v-col>
     </v-row>
   </v-container>
 
   <v-card :flat="true"  class="semDados" v-if="!this.inscricoes.length">
-    <PopUp :acoes="ola"/>
+    <PopUp :acoes="metodos"/>
   </v-card>
-
-  <Loading/>
 </template>
 
 <script>
@@ -33,7 +31,7 @@ export default {
       professorMatricula: "200000001",
       icId: "1",
       inscricoes:[],
-      ola:{
+      metodos:{
         msg:"Recarregar página?",
         aceitarAction:this.getInscricoesIc,
         cancelarAction:''
@@ -43,7 +41,10 @@ export default {
     async getInscricoesIc() {
       console.log("ooooi")
       const inscricoes = await getAllIcPendentes(this.professorMatricula, this.icId);
+
+      console.log(inscricoes)
       this.inscricoes = inscricoes;
+      console.log(this.inscricoes.length)
     }
   },created() {
     this.getInscricoesIc();
