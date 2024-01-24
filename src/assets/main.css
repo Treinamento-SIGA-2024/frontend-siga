@@ -1,11 +1,20 @@
 @import './base.css';
 
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url('./fonts/SourceSans3-Bold.ttf')  format('truetype');
+  font-style: normal;
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem 0;
   font-weight: normal;
 }
+
+
+
 
 a,
 .green {
@@ -21,15 +30,16 @@ a,
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1921px) {
   body {
     display: flex;
     place-items: center;
   }
+}
+
 
   /*#app {*/
   /*  display: grid;*/
   /*  grid-template-columns: 1fr 1fr;*/
   /*  padding: 0 2rem;*/
   /*}*/
-}

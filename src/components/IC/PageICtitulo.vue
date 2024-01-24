@@ -2,9 +2,7 @@
   <div>
     <v-card :flat="true">
       <v-card-title>
-        <div class="title">
-          {{ this.$props.title }}
-        </div>
+        <div class="title">{{ title }}</div>
       </v-card-title>
     </v-card>
   </div>
@@ -12,7 +10,7 @@
 
 <script>
 export default {
-  name: 'PageTitle',
+  name: 'PageICtitulo',
   props: {
     title: String,
   },
@@ -21,7 +19,7 @@ export default {
 
 <style scoped>
 .title {
-  color: hsl(0, 0%, 16%);
+  color: #282828;
   font-size: 1.4rem;
   display: flex;
   align-items: center;
