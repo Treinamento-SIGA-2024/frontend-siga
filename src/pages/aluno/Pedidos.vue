@@ -1,18 +1,18 @@
 <template>
-  <PageICtitulo title="Pedidos"></PageICtitulo>
+  <PageTitle title="Pedidos"></PageTitle>
   <PedidosBotoes></PedidosBotoes>
   <PedidosLista></PedidosLista>
 </template>
 
 <script>
-import PageICtitulo from '@/components/IC/PageICtitulo.vue';
+import PageTitle from '@/components/PageTitle.vue';
 import PedidosBotoes from '@/components/IC/PedidosBotoes.vue';
 import PedidosLista from '@/components/IC/PedidosLista.vue';
 
 export default {
   name: 'PedidosAluno',
   components: {
-    PageICtitulo,
+    PageTitle,
     PedidosBotoes,
     PedidosLista,
   },

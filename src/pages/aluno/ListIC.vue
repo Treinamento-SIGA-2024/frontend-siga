@@ -1,5 +1,4 @@
 <template>
-  <Header />
   <PageTitle title="INICIAÇÃO CIENTÍFICA"/>
 
   <div class="card-container">

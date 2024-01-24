@@ -1,7 +1,7 @@
 <template>
   <PageTitle title="PORTAL DO ALUNO"/>
   <DadosPessoais/>
-  <ButtonCard title="Iniciação Científica"/>
+  <ButtonCard title="Iniciação Científica" @click="this.$router.push('/aluno/ic')"/>
   <ButtonCard title="Estágio" @click="this.$router.push('/aluno/estagio')"/>
   <ButtonCard title="Pedidos"/>
 </template>

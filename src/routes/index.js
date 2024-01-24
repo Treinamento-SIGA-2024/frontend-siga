@@ -51,7 +51,7 @@ const routes = [
     component: ListICAluno
   },
   {
-    path: "/aluno/ic/pagina",
+    path: "/aluno/ic/:icId",
     name: "PageICAluno",
     component: PageICAluno
   },
