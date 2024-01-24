@@ -194,10 +194,6 @@
       </v-row>
     </v-container>
   </v-container>
-  <v-Btn class="backIcon" @click="goToEstagios" color="#666666" rounded="xl">
-    <GoBackIcon />
-    Voltar
-  </v-Btn>
 </template>
 
 <script>
