@@ -90,8 +90,7 @@ export default {
 .status {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding-top: 1.5vh;
+  justify-content: center;
   width: 20px;
   height: 75px;
 }
