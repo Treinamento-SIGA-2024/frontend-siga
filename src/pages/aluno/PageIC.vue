@@ -1,34 +1,60 @@
 <template>
-  <div class="container">
-    <PageICtitulo title="Nome da ic"></PageICtitulo>
-    <ChapeuIC></ChapeuIC>
-    <PageICdescricao></PageICdescricao>
-    <PageICbotao title="Solicitar IC"></PageICbotao>
-  </div>
-</template>
+    <div class="container">
+      <PageTitle :title="this.icData.nome"></PageTitle>
+      <ChapeuIC />
+      <PageICdescricao 
+        :professores="this.icData.professores"
+        :topicos="this.icData.topicos"
+        :remuneracao="this.icData.remuneracao"
+        :cargaHorariaSemanal="this.icData.cargaHorariaSemanal"
+        :descricao="this.icData.descricao"></PageICdescricao>
+      <PageICbotao title="Solicitar IC"></PageICbotao>
+    </div>
+  </template>
+  
+  <script>
+  import PageTitle from "@/components/PageTitle.vue"
+  import ChapeuIC from '@/icons/IconeIC.vue';
+  import PageICdescricao from '@/components/IC/PageICdescricao.vue';
+  import PageICbotao from '@/components/IC/PageICbotao.vue';
 
-<script>
-import PageICtitulo from '@/components/IC/PageICtitulo.vue';
-import ChapeuIC from '@/icons/IconeIC.vue';
-import PageICdescricao from '@/components/IC/PageICdescricao.vue';
-import ButtonCard from '@/components/ButtonCard.vue';
-import PageICbotao from '@/components/IC/PageICbotao.vue';
+  import { getIcById } from "@/services/iniciacaoCientifica.js"
+  
+  export default {
+    name: "PageIc",
+    components: {
+      PageTitle,
+      ChapeuIC,
+      PageICdescricao,
+      PageICbotao,
+    },
+    methods: {
+        async getIcData() {
+            const responseData = await getIcById(this.$route.params.icId);
+            this.icData = responseData;
+        },
+    },
+    created() {
+      this.getIcData();
+    },
+    data() {
+      return {
+        icData: null,
+      }
+    },
+  }
+  
+  </script>
+  
+  <style scoped>
 
-export default {
-  components: {
-    PageICtitulo,
-    ChapeuIC,
-    PageICdescricao,
-    ButtonCard,
-    PageICbotao,
-  },
-};
-</script>
+  .container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 25px;
+  }
 
-<style scoped>
-.container {
-  display: flex;
-  place-items: center;
-  flex-direction: column;
-}
-</style>
+  
+  </style>
