@@ -1,9 +1,10 @@
 <template>
   <Header/>
 
-  <PageTitle title="ALUNO"/>
+  <PageTitle title="PORTAL DO ALUNO"/>
   <DadosPessoais/>
-  <ButtonCard title="Iniciação Científica"/>
+
+  <ButtonCard title="Iniciação Científica" redirectTo="ListICAluno"/>
   <ButtonCard title="Estágio"/>
   <ButtonCard title="Pedidos"/>
 </template>

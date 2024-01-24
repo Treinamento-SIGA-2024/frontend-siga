@@ -1,6 +1,11 @@
 <template>
-    <v-btn @click="" class="HomeCard" style="height: 100px">
-      {{this.$props.title}}
+    <v-btn 
+      @click="this.$router.push({ 
+        name: this.$props.redirectTo
+      })" 
+      class="HomeCard" 
+      style="height: 100px">
+        {{this.$props.title}}
     </v-btn>
 </template>
 
@@ -10,6 +15,7 @@ export default {
   name: 'ButtonCard',
   props: {
     title: String,
+    redirectTo: String,
   },
 }
 
