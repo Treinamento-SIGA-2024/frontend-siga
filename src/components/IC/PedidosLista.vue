@@ -36,7 +36,7 @@ export default {
   methods: {
     async getInscricoes() {
       try {
-        const inscricoes = await getAllInscricoes(12);
+        const inscricoes = await getAllInscricoes(8);
         this.inscricoes = inscricoes;
       } catch (e) {
         console.log(e.response.data.message);
