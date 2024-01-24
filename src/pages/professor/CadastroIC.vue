@@ -1,8 +1,6 @@
 <template>
-  <Header />
-
   <v-container>
-    <v-card flat="true">
+    <v-card :flat="true">
       <v-card-title>
         <div class="title">Cadastro</div>
       </v-card-title>
@@ -12,24 +10,20 @@
   <v-sheet width="300" class="mx-auto">
     <v-form fast-fail @submit.prevent class="form">
       <v-text-field
-        v-model="registrationData.titulo"
+        v-model="registrationData.nome"
         label="Título da proposta"
         :rules="titleNameRules"
       ></v-text-field>
       <v-select
         chips
-        multiple="true"
+        v-model="registrationData.topicos"
+        :multiple="true"
         label="Selecione o(s) tópico(s) da proposta"
-        :items="[
-          'Tecnologia',
-          'Saúde',
-          'Cultura',
-          'Meio Ambiente',
-          'Direitos Humanos e Justiça',
-          'Comunicação',
-        ]"
-      
-      ></v-select>
+        :items="topicos"
+        return-object
+        item-title="nome"
+      >
+      </v-select>
       <div class="inputWrapper">
         <v-text-field
           v-model="registrationData.remuneracao"
@@ -61,7 +55,7 @@
         </v-row>
       </v-container>
 
-      <v-btn type="submit" block class="mt-2 registrationBtn"
+      <v-btn type="submit" block class="mt-2 registrationBtn" @click="createIC"
         >Cadastrar Proposta</v-btn
       >
     </v-form>
@@ -72,34 +66,55 @@
 <script>
 import Header from "@/components/Header.vue";
 
+import {getTopicos} from '@/services/topicosService.js'
+import {createIniciacaoCientifica} from "@/services/IniciacaoCientificaService.js";
+
 export default {
   name: "CadastroProfessorIC",
   components: {
     Header,
   },
+  created() {
+    this.getTopics();
+    setInterval(() => {console.log(this.registrationData)}, 4000)
+  },
   data: () => ({
     titleNameRules: [
       (value) => {
-        if (value.le) return true;
-
+        if (value !== "") return true;
         return "Por favor, preencha o título da proposta.";
       },
     ],
+    topicos: [],
     registrationData: {
-        titulo: '',
+        nome: '',
         remuneracao: '',
-        ch: '',
+        cargaHorariaSemanal: '',
         descricao: '',
-      
+        topicos: [],
+        professores: []
       },
     valueNameRules: [
       (value) => {
         if (/[^a-zA-ZäöüßÄÖÜ]/.test(value)) return true;
-
         return "Valor inválido";
       },
     ],
   }),
+  methods:{
+    async getTopics(){
+      const tops = await getTopicos();
+      this.topicos = tops;
+    },
+    async createIC(){
+      try{
+       const create =  await createIniciacaoCientifica(this.registrationData);
+       alert(create.response)
+      }catch (e){
+
+      }
+    }
+  }
 };
 </script>
 

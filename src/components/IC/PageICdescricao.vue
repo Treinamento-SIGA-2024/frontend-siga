@@ -1,5 +1,5 @@
 <template>
-  <v-card flat="true">
+  <v-card :flat="true">
     <v-card-text class="custom-text"
       ><span>Nome:</span> Fulano de tal</v-card-text
     >

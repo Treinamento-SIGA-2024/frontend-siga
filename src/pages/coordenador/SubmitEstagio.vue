@@ -49,7 +49,7 @@
         class="infoContainer"
         style="display: flex; flex-direction: row; justify-content: start"
       >
-        <v-card flat="true" style="padding-right: 12px">
+        <v-card :flat="true" style="padding-right: 12px">
           <strong>Quantidade de Vagas:</strong></v-card
         >
         <v-card
@@ -67,7 +67,7 @@
         class="infoContainer"
         style="display: flex; flex-direction: row; justify-content: start"
       >
-        <v-card flat="true" style="padding-right: 12px"
+        <v-card :flat="true" style="padding-right: 12px"
           ><strong>Modalidade:</strong></v-card
         >
         <v-card
