@@ -1,6 +1,8 @@
 <template>
-  <PopUpErro :erro="erro"/>
-  <Loading v-if="loading"/>
+  <v-container>
+    <PopUpErro :erro="erro"/>
+    <Loading v-if="loading"/>
+  </v-container>
   <v-container v-if="!loading && !erro" id="content">
     <PageTitle :title="estagio?.cargo + ' em ' + estagio?.empresa"/>
 

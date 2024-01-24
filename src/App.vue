@@ -1,16 +1,22 @@
 <template>
   <v-app class="app">
-    <Header />
-    <router-view />
+    <Header/>
+    <ButtonBack/>
+    <router-view/>
   </v-app>
 </template>
 
 <script>
 
 import Header from "@/components/Header.vue"
+import ButtonBack from "@/components/ButtonBack.vue";
+
 export default {
   name: 'App',
-  components: {Header},
+  components: {
+    Header,
+    ButtonBack
+  },
 }
 
 </script>
