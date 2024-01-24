@@ -35,7 +35,7 @@ export default defineComponent({
       metodos:{
         msg:`Alterar situacao do aluno ${this.$props.inscricao.aluno.nome}.`,
         aceitarAction:()=>this.alterarSituacao(),
-        cancelarAction:()=>this.confirmar=false
+        cancelarAction:()=>this.togglePopUp=false
       }
     }
   },

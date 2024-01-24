@@ -17,12 +17,12 @@ import SubmitEstagioCoordenador from '@/pages/coordenador/SubmitEstagio.vue';
 import SubmitICCoordenador from '@/pages/coordenador/SubmitIC.vue';
 
 // Professor
-import HomeProfessor from '@/pages/professor/Home.vue'
-import CadastroICProfessor from '@/pages/professor/CadastroIC.vue'
-import ListICProfessor from '@/pages/professor/ListIC.vue'
-import PageICProfessor from '@/pages/professor/PageIC.vue'
-import PedidosProfessor from '@/pages/professor/Pedidos.vue'
-import SolicitacaoIC from '@/pages/professor/SolicitacaoIC.vue'
+import HomeProfessor from '@/pages/professor/Home.vue';
+import CadastroICProfessor from '@/pages/professor/CadastroIC.vue';
+import ListICProfessor from '@/pages/professor/ListIC.vue';
+import PageICProfessor from '@/pages/professor/PageIC.vue';
+import PedidosProfessor from '@/pages/professor/Pedidos.vue';
+import SolicitacaoIC from '@/pages/professor/SolicitacaoIC.vue';
 
 // Secretaria
 import HomeSecretaria from '@/pages/secretaria/Home.vue';
