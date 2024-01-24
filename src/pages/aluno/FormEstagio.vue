@@ -7,7 +7,9 @@
   </v-card>
   <v-container class="formEstagio">
     <v-card-text style="font-size: 17px; text-align: justify; margin:10px">
-      Eu, [Nome do Aluno], matrícula [Matrícula do Aluno], venho por meio desta solicitar à coordenação a aprovação do meu pedido de estágio na empresa [Nome da Empresa], desempenhando a função de [Nome da Função], no modelo [Tipo do Modelo], com uma carga horária de [Carga Horária do Trabalho] horas semanais.
+      Eu, {{ aluno.nome }}, matrícula {{ aluno.matricula }}, venho por meio desta solicitar à coordenação a aprovação do meu pedido de estágio na empresa
+      {{ estagio.empresa }}, desempenhando a função de {{ estagio.cargo }}, no modelo {{ estagio.modalidade }}, com uma carga horária de
+      {{ estagio.cargaHorariaSemanal }} horas semanais.
       <br><br>
       Espero que minha solicitação seja avaliada favoravelmente, considerando a relevâcia dessa experiêcia para o meu desenvolvimento acadêmico e profissional
       <br><br>
@@ -17,13 +19,15 @@
 
   <v-card :flat="true">
     <v-card-actions class="buttons">
-      <v-btn class="enviarForm">
+      <v-btn class="enviarForm" @click="togglePopUpAction = true">
         Enviar
       </v-btn>
     </v-card-actions>
   </v-card>
   </div>
-  <PopUp :acoes="{msg:'opa'}"/>
+  <v-container class="overflow" v-if="togglePopUpAction">
+    <PopUp :acoes="{msg:'opa',aceitarAction:postPedidoEstagio, cancelarAction: ()=> togglePopUpAction=false}"/>
+  </v-container>
 </template>
 
 <script>
@@ -31,9 +35,38 @@
 import {defineComponent} from "vue";
 import ButtonCard from "@/components/ButtonCard.vue";
 import PopUp from '@/components/PopUp.vue';
+import {getEstagioById} from "@/services/Estagio.js";
+import {createAlunoPedidoEstagio} from "@/services/inscricaoEstagioService.js";
 
 export default defineComponent({
   components: {ButtonCard, PopUp},
+  data(){
+    return {
+      togglePopUpAction:false,
+      aluno:{
+        nome:"Jorge",
+        matricula:"999999999"
+      },
+      estagio:{},
+      estagioId:1
+    }
+  },
+  methods:{
+    async getEstagio(id){
+      const response = await getEstagioById(id);
+      console.log(response)
+      this.estagio = response;
+    },
+    async postPedidoEstagio(){
+      const body = {matricula: this.aluno.matricula, estagioId: this.estagio.id}
+      const response = await createAlunoPedidoEstagio(body);
+      console.log("Oi")
+      console.log(response)
+    }
+  },
+  created() {
+    this.getEstagio(this.estagioId)
+  }
 })
 </script>
 
@@ -57,4 +90,18 @@ export default defineComponent({
   justify-content: center;
   margin: 15px 0;
 }
+.overflow{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
+
+
