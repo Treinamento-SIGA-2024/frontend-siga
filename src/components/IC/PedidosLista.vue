@@ -1,24 +1,12 @@
 <template>
   <main>
+    <v-snackbar :timeout="2500" color="red" elevation="24" v-model="snackbar">
+      <span>{{ snackMessage }}</span>
+    </v-snackbar>
     <v-container>
       <v-row>
-        <v-col cols="auto">
-          <PedidosListaCard
-            titulo="Nome da IC"
-            professor="Nome do professor"
-          ></PedidosListaCard>
-          <PedidosListaCard
-            titulo="Nome da IC"
-            professor="Nome do professor"
-          ></PedidosListaCard>
-          <PedidosListaCard
-            titulo="Nome da IC"
-            professor="Nome do professor"
-          ></PedidosListaCard>
-          <PedidosListaCard
-            titulo="Nome da IC"
-            professor="Nome do professor"
-          ></PedidosListaCard>
+        <v-col v-for="(inscricao, i) in inscricoes" :key="i" cols="auto">
+          <PedidosListaCard :inscricao="inscricao"></PedidosListaCard>
         </v-col>
       </v-row>
     </v-container>
@@ -27,11 +15,35 @@
 
 <script>
 import PedidosListaCard from './PedidosListaCard.vue';
+import { getAllInscricoes } from '@/services/inscricaoICService.js';
 
 export default {
   name: 'PedidosLista',
   components: {
     PedidosListaCard,
+  },
+  data() {
+    return {
+      snackbar: false,
+      snackMessage: '',
+      inscricoes: [],
+    };
+  },
+
+  created() {
+    this.getInscricoes();
+  },
+  methods: {
+    async getInscricoes() {
+      try {
+        const inscricoes = await getAllInscricoes(12);
+        this.inscricoes = inscricoes;
+      } catch (e) {
+        console.log(e.response.data.message);
+        this.snackMessage = e.response.data.message;
+        this.snackbar = !this.snackbar;
+      }
+    },
   },
 };
 </script>

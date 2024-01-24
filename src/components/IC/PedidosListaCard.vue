@@ -1,11 +1,20 @@
 <template>
   <v-card>
     <v-card-item>
-      <v-card-title>{{ titulo }}</v-card-title>
-      <v-card-subtitle>{{ professor }}</v-card-subtitle>
+      <v-card-title>{{ inscricao.iniciacaoCientifica.nome }}</v-card-title>
+      <v-card-subtitle>{{ inscricao.professor.nome }}</v-card-subtitle>
     </v-card-item>
     <div class="status-container">
-      <div class="status"></div>
+      <div
+        class="status"
+        v-bind:class="{
+          'status-ativo': inscricao.situacaoInscricao.descricao === 'Ativo',
+          'status-recusado':
+            inscricao.situacaoInscricao.descricao === 'Recusado',
+          'status-pendente':
+            inscricao.situacaoInscricao.descricao === 'Pendente',
+        }"
+      ></div>
     </div>
   </v-card>
 </template>
@@ -14,9 +23,12 @@
 export default {
   name: 'PedidosListaCard',
   props: {
-    titulo: String,
-    professor: String,
-    situacao: String,
+    inscricao: Object,
+  },
+  data() {
+    return {
+      status: '',
+    };
   },
 };
 </script>
@@ -28,6 +40,18 @@ export default {
   border-radius: 1rem;
   background: black;
   margin-right: 20px;
+}
+
+.status-ativo {
+  background: #27ae60;
+}
+
+.status-recusado {
+  background: #eb5757;
+}
+
+.status-pendente {
+  background: #898989;
 }
 
 .v-card {
