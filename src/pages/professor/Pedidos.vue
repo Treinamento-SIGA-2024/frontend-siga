@@ -70,12 +70,14 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* font-family: Source Sans Pro; */
+  font-family: Source Sans Pro;
   color: #666666;
 }
 
 .registerBtn {
   margin-bottom: 5vh;
+  font-family: Source Sans Pro;
+  color: #666666;
 }
 
 .pedidosBtn {
@@ -86,6 +88,7 @@ export default {
   width: 260px;
   height: 75px;
   padding-left: 5px;
+  font-family: Source Sans Pro;
 }
 .status {
   display: flex;

@@ -1,4 +1,11 @@
 <template>
+  <!-- Notificação de sucesso e erro do cadastro -->
+  <v-snackbar v-model="snackbar" timeout="5000">
+    <span> {{ snackMessage }}</span>
+  </v-snackbar>
+
+  <!-- Ainda eh necessário componentizar essa página  -->
+  <!-- Titulo -->
   <v-container>
     <v-card :flat="true">
       <v-card-title>
@@ -7,6 +14,7 @@
     </v-card>
   </v-container>
 
+  <!-- Form de Cadastro da IC -->
   <v-sheet width="300" class="mx-auto">
     <v-form fast-fail @submit.prevent class="form">
       <v-text-field
@@ -14,6 +22,8 @@
         label="Título da proposta"
         :rules="titleNameRules"
       ></v-text-field>
+
+      <!-- Seletor dos tópicos -->
       <v-select
         chips
         v-model="registrationData.topicos"
@@ -60,61 +70,63 @@
       >
     </v-form>
   </v-sheet>
-
 </template>
 
 <script>
-import Header from "@/components/Header.vue";
-
-import {getTopicos} from '@/services/topicosService.js'
-import {createIniciacaoCientifica} from "@/services/IniciacaoCientificaService.js";
+import { getTopicos } from "@/services/topicosService.js";
+import { createIniciacaoCientifica } from "@/services/IniciacaoCientificaService.js";
 
 export default {
   name: "CadastroProfessorIC",
-  components: {
-    Header,
-  },
   created() {
     this.getTopics();
-    setInterval(() => {console.log(this.registrationData)}, 4000)
   },
   data: () => ({
+    // validação dos inputs
     titleNameRules: [
       (value) => {
         if (value !== "") return true;
         return "Por favor, preencha o título da proposta.";
       },
     ],
-    topicos: [],
-    registrationData: {
-        nome: '',
-        remuneracao: '',
-        cargaHorariaSemanal: '',
-        descricao: '',
-        topicos: [],
-        professores: []
-      },
     valueNameRules: [
       (value) => {
         if (/[^a-zA-ZäöüßÄÖÜ]/.test(value)) return true;
         return "Valor inválido";
       },
     ],
+    snackbar: false,
+    snackMessage: "",
+    topicos: [],
+    registrationData: {
+      nome: "",
+      remuneracao: "",
+      cargaHorariaSemanal: "",
+      descricao: "",
+      topicos: [],
+      professores: [],
+    },
+   
   }),
-  methods:{
-    async getTopics(){
+  methods: {
+    async getTopics() {
       const tops = await getTopicos();
       this.topicos = tops;
     },
-    async createIC(){
-      try{
-       const create =  await createIniciacaoCientifica(this.registrationData);
-       alert(create.response)
-      }catch (e){
-
+    async createIC() {
+      try {
+        await createIniciacaoCientifica(this.registrationData);
+        this.snackMessage = "Legal, você criou uma proposta de IC!";
+        this.snackbar = !this.snackbar;
+        setTimeout(() => this.$router.push("/professor/pedidos"), 3000);
+      } catch (e) {
+        this.snackMessage =
+          "Não foi possível criar uma iniciação científica!\n" +
+          `Erro: ${e.response.data.message}`;
+        this.snackbar = !this.snackbar;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
