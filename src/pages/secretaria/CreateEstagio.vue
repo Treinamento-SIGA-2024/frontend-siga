@@ -1,60 +1,61 @@
 <template>
 
   <PageTitle title="NOVA PROPOSTA"/>
+  <v-container>
+    <v-form id="form">
 
-  <v-form id="form">
+      <v-btn id="limpar" @click="resetForm">Limpar</v-btn>
 
-    <v-btn id="limpar" @click="resetForm">Limpar</v-btn>
+      <p>Função:</p>
+      <v-text-field v-model="funcao" variant="outlined"/>
 
-    <p>Função:</p>
-    <v-text-field v-model="funcao" variant="outlined"/>
+      <p>Nome da Empresa:</p>
+      <v-text-field v-model="empresa" variant="outlined"/>
 
-    <p>Nome da Empresa:</p>
-    <v-text-field v-model="empresa" variant="outlined"/>
+      <div class="camposRow">
+        <div class="filhosRow">
+          <p class="labelCampos">Remunerado? </p>
+          <v-checkbox-btn :color="this.global.colors.green3" v-model="remunerado"
+                          :label="remunerado ? 'Sim' : 'Não'"></v-checkbox-btn>
+        </div>
 
-    <div class="camposRow">
-      <div class="filhosRow">
-        <p class="labelCampos">Remunerado? </p>
-        <v-checkbox-btn :color="this.global.colors.green3" v-model="remunerado"
-                        :label="remunerado ? 'Sim' : 'Não'"></v-checkbox-btn>
+        <div class="filhosRow">
+          <p class="labelCampos">Valor da bolsa:</p>
+          <v-text-field prefix="R$" :disabled="!remunerado" v-model="bolsa" variant="outlined"/>
+        </div>
       </div>
 
-      <div class="filhosRow">
-        <p class="labelCampos">Valor da bolsa:</p>
-        <v-text-field prefix="R$" :disabled="!remunerado" v-model="bolsa" variant="outlined"/>
+      <div class="camposRow">
+        <div class="filhosRow">
+          <p>Carga Horária:</p>
+          <v-text-field suffix="horas/sem" v-model="horas" variant="outlined"/>
+        </div>
+
+        <div class="filhosRow">
+          <p>Vagas disponíveis:</p>
+          <v-text-field v-model="vagas" variant="outlined"/>
+        </div>
       </div>
-    </div>
 
-    <div class="camposRow">
-      <div class="filhosRow">
-        <p>Carga Horária:</p>
-        <v-text-field suffix="horas/sem" v-model="horas" variant="outlined"/>
+      <p>Modalidade:</p>
+      <div id="selectDiv">
+        <v-select v-model="modalidade" variant="outlined"
+                  class="select" label="Selecione" :items="itens"/>
       </div>
 
-      <div class="filhosRow">
-        <p>Vagas disponíveis:</p>
-        <v-text-field v-model="vagas" variant="outlined"/>
+      <p>Descrição:</p>
+      <v-textarea v-model="descricao" variant="outlined"/>
+
+      <div id="submit">
+        <ButtonCard id="salvar" title="Salvar"
+                    :style="{height: '50px'}"
+                    @click="submit"/>
+        <ButtonCard id="cancelar" title="Cancelar"
+                    :style="{height: '50px'}"
+                    @click="this.$router.push('/secretaria')"/>
       </div>
-    </div>
-
-    <p>Modalidade:</p>
-    <div id="selectDiv">
-      <v-select v-model="modalidade" variant="outlined"
-                class="select" label="Selecione" :items="itens"/>
-    </div>
-
-    <p>Descrição:</p>
-    <v-textarea v-model="descricao" variant="outlined"/>
-
-    <div id="submit">
-      <ButtonCard id="salvar" title="Salvar"
-                  :style="{height: '50px'}"
-                  @click="submit"/>
-      <ButtonCard id="cancelar" title="Cancelar"
-                  :style="{height: '50px'}"
-                  @click="this.$router.push('/secretaria')"/>
-    </div>
-  </v-form>
+    </v-form>
+  </v-container>
 </template>
 
 <script>
@@ -70,27 +71,27 @@ export default {
   data() {
     return {
       funcao: '',
-      empresa:'',
+      empresa: '',
       remunerado: false,
-      bolsa:'',
-      horas:'',
-      vagas:'',
+      bolsa: '',
+      horas: '',
+      vagas: '',
       modalidade: null,
-      itens: ['Remoto','Híbrido','Presencial'],
-      descricao:'',
+      itens: ['Remoto', 'Híbrido', 'Presencial'],
+      descricao: '',
     }
   },
 
   methods: {
-    resetForm(){
-      this.funcao='';
-      this.empresa='';
-      this.remunerado= false;
-      this.bolsa='';
-      this.horas='';
-      this.vagas='';
-      this.modalidade= null;
-      this.descricao='';
+    resetForm() {
+      this.funcao = '';
+      this.empresa = '';
+      this.remunerado = false;
+      this.bolsa = '';
+      this.horas = '';
+      this.vagas = '';
+      this.modalidade = null;
+      this.descricao = '';
     },
     async submit() {
       await createEstagio({
