@@ -40,7 +40,7 @@
       <p>Modalidade:</p>
       <div id="selectDiv">
         <v-select v-model="modalidade" variant="outlined"
-                  class="select" label="Selecione" :items="itens"/>
+                  id="select" label="Selecione" :items="itens"/>
       </div>
 
       <p>Descrição:</p>
@@ -119,9 +119,8 @@ export default {
 
 <style scoped>
 
-.select {
+#select {
   height: 20px;
-  width: 500px;
 }
 
 #form {
