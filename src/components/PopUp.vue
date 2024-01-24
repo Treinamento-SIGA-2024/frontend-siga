@@ -1,15 +1,15 @@
 <template>
-  <v-container class="popUpExterno">
-    <v-container class="iconTexto">
-      <PopUpIcon style="background-color: #F5F5F5" />
-      <v-card-title style="color: #666">{{ this.$props.acoes.msg }}</v-card-title>
-    </v-container>
-
-    <v-card-actions class="acaoBotoes">
-      <v-btn class="aceitar" @click="this.$props.acoes.aceitarAction">Sim</v-btn>
-      <v-btn class="cancelar" @click="this.$props.acoes.cancelarAction">Não</v-btn>
-    </v-card-actions>
+<v-container class="popUpExterno">
+  <v-container class="iconTexto">
+    <PopUpIcon style="background-color: #F5F5F5" />
+    <v-card-title style="color: #666">{{ this.$props.acoes.msg }}</v-card-title>
   </v-container>
+
+  <v-card-actions class="acaoBotoes">
+    <v-btn class="aceitar" @click="this.$props.acoes.aceitarAction">Sim</v-btn>
+    <v-btn class="cancelar" @click="this.$props.acoes.cancelarAction">Não</v-btn>
+  </v-card-actions>
+</v-container>
 </template>
 
 <script>

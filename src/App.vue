@@ -1,23 +1,28 @@
 <template>
   <v-app class="app">
-    <Header />
-    <router-view />
+    <Header/>
+    <ButtonBack/>
+    <router-view/>
   </v-app>
 </template>
 
 <script>
-import router from "@/routes/index.js"
-import Header from "@/components/Header.vue";
+
+import Header from "@/components/Header.vue"
+import ButtonBack from "@/components/ButtonBack.vue";
 
 export default {
   name: 'App',
-  components: {Header},
+  components: {
+    Header,
+    ButtonBack
+  },
 }
 
 </script>
 
 
-<style scoped>
+<style>
 :root {
   --green0: #C1DEBE;
   --green1: #86C497;
@@ -31,22 +36,5 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
-/*
-@font-face {
-  font-family: "Source Sans Pro Bold";
-  src: url('~@/assets/fonts/SourceSansPro-Bold.otf');
-}
-
-@font-face {
-  font-family: "Source Sans Pro";
-  src: url('~@/assets/fonts/SourceSansPro-Regular.otf');
-}
-
-*{
-  font-family: Source Sans Pro;
-}
-*/
-
 
 </style>

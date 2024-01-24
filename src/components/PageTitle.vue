@@ -1,37 +1,31 @@
 <template>
   <div>
-    <v-card  flat="true">
-      <v-card-title>
+    <v-card flat="true">
+      <v-card-title class="text-wrap">
         <div class="title">
-          PORTAL DO {{ this.$props.title }}
+          {{ this.$props.title }}
         </div>
       </v-card-title>
     </v-card>
   </div>
 </template>
 
-<script >
-
-
-export  default {
-  name: "PageTitle",
+<script>
+export default {
+  name: 'PageTitle',
   props: {
     title: String,
   },
-}
-
+};
 </script>
 
-
 <style scoped>
-
 .title {
-  color: #282828;
+  color: hsl(0, 0%, 16%);
   font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
-
-
 </style>

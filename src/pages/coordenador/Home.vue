@@ -1,5 +1,5 @@
 <template>
-  <PageTitle title="COORDENADOR" />
+  <PageTitle title="PORTAL DO COORDENADOR" />
   <DadosPessoais />
   <ButtonCard title="Iniciação Científica" />
   <ButtonCard title="Estágio"  @click="goToListEstagio"/>
