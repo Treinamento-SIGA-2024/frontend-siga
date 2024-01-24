@@ -1,14 +1,16 @@
 <template>
   <v-app class="app">
-    <router-view/>
+    <Header />
+    <router-view />
   </v-app>
 </template>
 
 <script>
-import router from "@/routes/index.js"
 
+import Header from "@/components/Header.vue"
 export default {
   name: 'App',
+  components: {Header},
 }
 
 </script>
@@ -28,22 +30,5 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
-/*
-@font-face {
-  font-family: "Source Sans Pro Bold";
-  src: url('~@/assets/fonts/SourceSansPro-Bold.otf');
-}
-
-@font-face {
-  font-family: "Source Sans Pro";
-  src: url('~@/assets/fonts/SourceSansPro-Regular.otf');
-}
-
-*{
-  font-family: Source Sans Pro;
-}
-*/
-
 
 </style>

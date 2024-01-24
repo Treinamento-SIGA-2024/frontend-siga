@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-app-bar :color="this.global.colors.green3" flat="true">
+    <v-app-bar :color="this.global.colors.green3" :flat="true">
       <div class="logo">
           <img src="@/assets/logo.svg" alt="logo sgo">
           <Logout />
