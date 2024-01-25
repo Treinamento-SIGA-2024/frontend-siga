@@ -52,9 +52,8 @@ export default {
   },
   data() {
     return {
-      icId: 20,
-      alunoId: 8,
-      professorId: 4,
+      icId: 2,
+      alunoId: 13,
       snackbar: false,
       snackMessage: '',
     };
@@ -63,7 +62,7 @@ export default {
     async createInscricaoIC() {
       try {
         console.log(this.$data);
-        await createInscricaoIC(this.icId, this.alunoId, this.professorId);
+        await createInscricaoIC(this.icId, this.alunoId);
       } catch (e) {
         this.snackMessage = e.response.data.message;
         this.snackbar = !this.snackbar;

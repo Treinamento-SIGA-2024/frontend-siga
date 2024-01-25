@@ -8,10 +8,8 @@ export async function getAllInscricoes(alunoId) {
   return data;
 }
 
-export async function createInscricaoIC(icId, alunoId, professorId) {
-  const { data } = await axios.post(
-    `${api_url}/IC/${icId}/aluno/${alunoId}/professor/${professorId}/situ`
-  );
+export async function createInscricaoIC(icId, alunoId) {
+  const { data } = await axios.post(`${api_url}/IC/${icId}/aluno/${alunoId}`);
 
   return data;
 }
