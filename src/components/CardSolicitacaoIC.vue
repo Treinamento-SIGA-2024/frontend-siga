@@ -2,7 +2,7 @@
   <div>
   <v-card :flat="true" :font-family="this.global.font">
     <v-container class="infoCard">
-      <v-card-title>aaaaa</v-card-title>
+      <v-card-title>{{ this.$props.iniciacaoCientifica.nome }}</v-card-title>
         <v-card-subtitle class="subtitle">
         Aluno: {{ this.$props?.inscricao.aluno.nome }} <br>
         Matrícula:{{ this.$props?.inscricao.aluno.matricula }}
@@ -41,6 +41,10 @@ export default defineComponent({
   },
   props:{
     inscricao:{
+      type: Object,
+      required: true
+    },
+    iniciacaoCientifica:{
       type: Object,
       required: true
     }

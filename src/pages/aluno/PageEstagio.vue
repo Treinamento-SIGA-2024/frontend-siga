@@ -42,7 +42,7 @@
     </div>
 
     <ButtonCard title="Contrato" id="btnContrato"
-                :style="{height: '8vh'}"/>
+                :style="{height: '8vh'}" @click="this.$router.push(`/aluno/estagio/id/${this.estagio.id}/formulario`)"/>
   </v-container>
 </template>
 
