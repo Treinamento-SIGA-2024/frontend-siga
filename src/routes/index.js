@@ -113,7 +113,7 @@ const routes = [
     component: ListICPropostasCoordenador,
   },
   {
-    path: "/coordenador/ic/submit",
+    path: "/coordenador/ic/:icId",
     name: "SubmitICCoordenador",
     component: SubmitICCoordenador,
   },

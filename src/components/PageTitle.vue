@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="title-container">
     <v-card flat="true">
       <v-card-title>
         <div class="title">
@@ -20,6 +20,10 @@ export default {
 </script>
 
 <style scoped>
+
+.title-container {
+  margin-top: 25px;
+}
 .title {
   color: hsl(0, 0%, 16%);
   font-size: 1.4rem;
