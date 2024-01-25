@@ -8,8 +8,8 @@
   <v-container class="formEstagio">
     <v-card-text style="font-size: 17px; text-align: justify; margin:10px">
       Eu, {{ aluno.nome }}, matrícula {{ aluno.matricula }}, venho por meio desta solicitar à coordenação a aprovação do meu pedido de estágio na empresa
-      {{ estagio.empresa }}, desempenhando a função de {{ estagio.cargo }}, no modelo {{ estagio.modalidade }}, com uma carga horária de
-      {{ estagio.cargaHorariaSemanal }} horas semanais.
+      {{ estagio?.empresa }}, desempenhando a função de {{ estagio?.cargo }}, no modelo {{ estagio?.modalidade }}, com uma carga horária de
+      {{ estagio?.cargaHorariaSemanal }} horas semanais.
       <br><br>
       Espero que minha solicitação seja avaliada favoravelmente, considerando a relevâcia dessa experiêcia para o meu desenvolvimento acadêmico e profissional
       <br><br>
@@ -26,7 +26,7 @@
   </v-card>
   </div>
   <v-container class="overflow" v-if="togglePopUpAction">
-    <PopUp :acoes="{msg:'opa',aceitarAction:postPedidoEstagio, cancelarAction: ()=> togglePopUpAction=false}"/>
+    <PopUp :acoes="{msg:'Tem certeza?',aceitarAction:postPedidoEstagio, cancelarAction: ()=> togglePopUpAction=false}"/>
   </v-container>
 </template>
 
@@ -53,9 +53,14 @@ export default defineComponent({
   },
   methods:{
     async getEstagio(id){
-      const response = await getEstagioById(id);
-      console.log(response)
-      this.estagio = response;
+      try{
+        const response = await getEstagioById(id);
+        console.log(response)
+        this.estagio = response;
+      }catch(err){
+        console.log(err)
+      }
+      
     },
     async postPedidoEstagio(){
       const body = {matricula: this.aluno.matricula, estagioId: this.estagio.id}
@@ -65,9 +70,12 @@ export default defineComponent({
     }
   },
   created() {
-    this.getEstagio(this.estagioId)
+    this.estagioId = this.$route.params.id;
+    this.getEstagio(this.estagioId);
   }
 })
+
+
 </script>
 
 <style scoped>

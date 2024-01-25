@@ -68,9 +68,10 @@ const routes = [
     props: true,
   },
   {
-    path: "/aluno/estagio/pagina/contrato",
+    path: "/aluno/estagio/id/:id/formulario",
     name: "FormEstagioAluno",
     component: FormEstagioAluno,
+    props: true
   },
   {
     path: "/aluno/pedidos",
