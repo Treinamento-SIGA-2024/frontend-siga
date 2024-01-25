@@ -63,10 +63,17 @@ export default defineComponent({
       
     },
     async postPedidoEstagio(){
-      const body = {matricula: this.aluno.matricula, estagioId: this.estagio.id}
-      const response = await createAlunoPedidoEstagio(body);
-      console.log("Oi")
-      console.log(response)
+      try {
+        const body = {matricula: this.aluno.matricula, estagioId: this.estagio.id}
+        const response = await createAlunoPedidoEstagio(body);
+        this.$router.push("/")
+      }catch (err){
+        if(err.response.data.status === 500){
+          alert("Usario ja fez o pedido desse estagio.")
+        }else{
+          alert(err.response.data.message);
+        }
+      }
     }
   },
   created() {
