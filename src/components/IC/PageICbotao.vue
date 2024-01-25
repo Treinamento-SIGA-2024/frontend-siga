@@ -1,4 +1,12 @@
 <template>
+  <v-snackbar
+    :timeout="2500"
+    :color="popupColor"
+    elevation="24"
+    v-model="snackbar"
+  >
+    <span>{{ snackMessage }}</span>
+  </v-snackbar>
   <v-dialog>
     <template v-slot:activator="{ props }">
       <v-btn class="buttonCard" stacked elevation="4" v-bind="props">{{
@@ -17,7 +25,12 @@
           <v-btn
             class="botaoSim"
             text="Sim"
-            @click="isActive.value = false"
+            @click="
+              () => {
+                createInscricaoIC();
+                isActive.value = false;
+              }
+            "
           ></v-btn>
           <v-btn
             class="botaoNao"
@@ -32,6 +45,7 @@
 
 <script>
 import CheckIcon from '@/icons/CheckIconIC.vue';
+import { createInscricaoIC } from '@/services/inscricaoICService.js';
 
 export default {
   name: 'PageICBotao',
@@ -40,6 +54,30 @@ export default {
   },
   props: {
     title: String,
+    IniciacaoID: Number,
+  },
+  data() {
+    return {
+      alunoId: 18,
+      snackbar: false,
+      snackMessage: '',
+      popupColor: '',
+    };
+  },
+  methods: {
+    async createInscricaoIC() {
+      try {
+        console.log(this.$data);
+        await createInscricaoIC(this.IniciacaoID, this.alunoId);
+        this.snackMessage = 'Inscrição realizada com sucesso!';
+        this.popupColor = 'green';
+        this.snackbar = !this.snackbar;
+      } catch (e) {
+        this.popupColor = 'red';
+        this.snackMessage = e.response.data.message;
+        this.snackbar = !this.snackbar;
+      }
+    },
   },
 };
 </script>

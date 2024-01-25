@@ -1,7 +1,7 @@
 <template>
   <div class="title-container">
     <v-card flat="true">
-      <v-card-title>
+      <v-card-title class="text-wrap">
         <div class="title">
           {{ this.$props.title }}
         </div>
@@ -30,5 +30,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 </style>
