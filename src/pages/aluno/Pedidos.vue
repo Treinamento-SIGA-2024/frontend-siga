@@ -1,13 +1,15 @@
 <template>
   <PageTitle title="Pedidos"></PageTitle>
   <PedidosBotoes></PedidosBotoes>
-  <PedidosLista></PedidosLista>
+  <Loading v-if="loading"></Loading>
+  <PedidosLista v-show="!loading" @updatePage="stopLoading"></PedidosLista>
 </template>
 
 <script>
 import PageTitle from '@/components/PageTitle.vue';
 import PedidosBotoes from '@/components/IC/PedidosBotoes.vue';
 import PedidosLista from '@/components/IC/PedidosLista.vue';
+import Loading from '@/components/Loading.vue';
 
 export default {
   name: 'PedidosAluno',
@@ -15,6 +17,18 @@ export default {
     PageTitle,
     PedidosBotoes,
     PedidosLista,
+    Loading,
+  },
+
+  data() {
+    return {
+      loading: true,
+    };
+  },
+  methods: {
+    stopLoading() {
+      this.loading = !this.loading;
+    },
   },
 };
 </script>
