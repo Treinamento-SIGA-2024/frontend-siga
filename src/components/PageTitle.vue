@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-card :flat="true">
+  <div class="title-container">
+    <v-card flat="true">
       <v-card-title class="text-wrap">
         <div class="title">
           {{ this.$props.title }}
@@ -20,6 +20,10 @@ export default {
 </script>
 
 <style scoped>
+
+.title-container {
+  margin-top: 25px;
+}
 .title {
   color: hsl(0, 0%, 16%);
   font-size: 1.4rem;

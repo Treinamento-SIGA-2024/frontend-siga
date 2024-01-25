@@ -23,7 +23,7 @@
 <script>
 import Header from "@/components/Header.vue"
 import PageTitle from "@/components/PageTitle.vue"
-import { getAllIcs } from "@/services/iniciacaoCientifica.js"
+import { getAllICsDisponiveis } from "@/services/iniciacaoCientifica.js"
 
 export default {
   name: "ListIC",
@@ -32,7 +32,7 @@ export default {
     PageTitle,
   },
   methods: {
-    async getIcs() { this.ics = await getAllIcs(); },
+    async getIcs() { this.ics = await getAllICsDisponiveis(); },
   },
   created() {
     this.getIcs();

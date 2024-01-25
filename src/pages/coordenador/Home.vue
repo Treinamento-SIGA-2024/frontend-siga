@@ -1,8 +1,8 @@
 <template>
   <PageTitle title="PORTAL DO COORDENADOR" />
   <DadosPessoais />
-  <ButtonCard title="Iniciação Científica" />
-  <ButtonCard title="Estágio"  @click="goToListEstagio"/>
+  <ButtonCard title="Iniciação Científica" @click="redirectTo('/coordenador/ic')"/>
+  <ButtonCard title="Estágio" @click="redirectTo('/coordenador/estagio')"/>
 </template>
 
 <script>
@@ -16,8 +16,8 @@ import ButtonCard from "@/components/ButtonCard.vue";
 export default defineComponent({
   components: {ButtonCard, DadosPessoais, PageTitle, Header},
   methods: {
-    goToListEstagio() {
-      this.$router.push("/coordenador/estagio")
+    redirectTo(path) {
+      this.$router.push(path);
     }
   }
 })
