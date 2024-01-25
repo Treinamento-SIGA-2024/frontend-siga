@@ -20,7 +20,12 @@
           <v-btn
             class="botaoSim"
             text="Sim"
-            @click="() => { createInscricaoIC(); isActive.value = false; }"
+            @click="
+              () => {
+                createInscricaoIC();
+                isActive.value = false;
+              }
+            "
           ></v-btn>
           <v-btn
             class="botaoNao"
@@ -35,7 +40,7 @@
 
 <script>
 import CheckIcon from '@/icons/CheckIconIC.vue';
-import {createInscricaoIC} from "@/services/inscricaoICService.js";
+import { createInscricaoIC } from '@/services/inscricaoICService.js';
 
 export default {
   name: 'PageICBotao',
@@ -51,20 +56,20 @@ export default {
       alunoId: 8,
       professorId: 4,
       snackbar: false,
-      snackMessage: ""
-    }
+      snackMessage: '',
+    };
   },
   methods: {
     async createInscricaoIC() {
       try {
-        console.log(this.$data)
+        console.log(this.$data);
         await createInscricaoIC(this.icId, this.alunoId, this.professorId);
       } catch (e) {
         this.snackMessage = e.response.data.message;
         this.snackbar = !this.snackbar;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

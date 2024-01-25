@@ -1,8 +1,10 @@
 <template>
   <v-card>
     <v-card-item>
-      <v-card-title>{{ inscricao.iniciacaoCientifica.nome }}</v-card-title>
-      <v-card-subtitle>{{ inscricao.professor.nome }}</v-card-subtitle>
+      <v-card-title>{{ inscricao.iniciacaoCientifica?.nome }}</v-card-title>
+      <v-card-subtitle>{{
+        inscricao.iniciacaoCientifica.professores[0]?.nome
+      }}</v-card-subtitle>
     </v-card-item>
     <div class="status-container">
       <div

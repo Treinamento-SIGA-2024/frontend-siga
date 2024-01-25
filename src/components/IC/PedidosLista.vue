@@ -27,6 +27,7 @@ export default {
       snackbar: false,
       snackMessage: '',
       inscricoes: [],
+      alunoID: 20,
     };
   },
 
@@ -36,13 +37,15 @@ export default {
   methods: {
     async getInscricoes() {
       try {
-        const inscricoes = await getAllInscricoes(8);
+        const inscricoes = await getAllInscricoes(this.alunoID);
         this.inscricoes = inscricoes;
+        console.log(inscricoes);
       } catch (e) {
         console.log(e.response.data.message);
         this.snackMessage = e.response.data.message;
         this.snackbar = !this.snackbar;
       }
+      this.$emit('updatePage');
     },
   },
 };
