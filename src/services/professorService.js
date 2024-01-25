@@ -11,3 +11,13 @@ export async function putSituacaoInscricaoIcAluno(pedidoId,body){
     const {data} = await  axios.put(`${url}/inscricao/ic/${pedidoId}`, body);
     return data
 }
+
+export async function getPedidos(matricula){
+    const response = await axios.get(`${url}/professor/${matricula}/iniciacoes_cientificas`);
+    return response.data;
+}
+
+export async function createIniciacaoCientifica(params, matricula){
+    const { data } = await axios.post(`${url}/iniciacao_cientifica/${matricula}`, params);
+    return data;
+}

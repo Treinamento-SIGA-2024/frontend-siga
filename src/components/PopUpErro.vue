@@ -20,7 +20,7 @@ export default {
 #erro {
   min-width: 30vw;
 
-  background-color: #fc1306;
+  background-color: #d50f03;
   color: white;
 
   border-radius: 12px;

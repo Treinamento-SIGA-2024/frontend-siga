@@ -2,7 +2,7 @@
   <v-container>
     <v-app-bar :color="this.global.colors.green3" :flat="true">
       <div class="logo">
-          <img src="@/assets/logo.svg" alt="logo sgo">
+          <img id="imglogo" src="@/assets/logo.svg" alt="logo sgo" @click="this.$router.push('/')">
           <Logout />
       </div>
     </v-app-bar>
@@ -28,11 +28,16 @@ export default {
   margin: 0 20px;
 }
 
+#imglogo:hover {
+  cursor: pointer;
+}
+
 v-container {
   position: fixed;
   top: 0;
   left: 0;
 }
+
 
 
 </style>

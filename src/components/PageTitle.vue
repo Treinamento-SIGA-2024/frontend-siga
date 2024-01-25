@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card flat="true">
+    <v-card :flat="true">
       <v-card-title class="text-wrap">
         <div class="title">
           {{ this.$props.title }}
