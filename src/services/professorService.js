@@ -11,9 +11,6 @@ export async function putSituacaoInscricaoIcAluno(pedidoId,body){
     const {data} = await  axios.put(`${url}/inscricao/ic/${pedidoId}`, body);
     return data
 }
-import axios from "axios";
-
-const url = "http://localhost:8080"
 
 export async function getPedidos(matricula){
     const response = await axios.get(`${url}/professor/${matricula}/iniciacoes_cientificas`);
