@@ -1,16 +1,16 @@
 <template>
   <Loading  v-if="!estagio" class="loadingContainer"/>
   <v-container class="estagioContainer" v-if="estagio">
-    <v-card-title style="line-break: auto">{{
-      estagio.estagio.cargo
-    }}</v-card-title>
+    <v-card-title style="line-break: auto">
+      {{
+        estagio.estagio.cargo
+      }}
+    </v-card-title>
 
     
 
     <v-container>
-      <p>
         <strong>Empresa: </strong>
-      </p>
       <v-card
         color="var(--green0)"
         height="51px"
@@ -20,20 +20,19 @@
       </v-card>
 
       <v-container class="infoContainer">
-        <div>
+        <div style="width: 40%;">
           <strong>Carga Horária:</strong>
-          <p>
             <v-card
               color="var(--green0)"
               height="51px"
+              width="100%"
               class="d-flex align-center justify-center"
             >
               {{ estagio.estagio.cargaHorariaSemanal }} h/sem
             </v-card>
-          </p>
         </div>
 
-        <div>
+        <div style="width: 40%;">
           <strong>Remuneração:</strong>
           <v-card
             color="var(--green0)"
@@ -45,39 +44,43 @@
         </div>
       </v-container>
 
-      <v-container
-        class="infoContainer"
-        style="display: flex; flex-direction: row; justify-content: start"
-      >
-        <v-card :flat="true" style="padding-right: 12px">
-          <strong>Quantidade de Vagas:</strong></v-card
-        >
-        <v-card
-          color="var(--green0)"
-          style="text-align: center"
-          max-height="24"
-          min-width="24"
-          width="fit-content"
-        >
-          {{ estagio.estagio.quantidadeVagas }}
-        </v-card>
-      </v-container>
+      <v-container class="changingInfoContainer">
+        <div 
+          style="
+            display: flex;
+            align-items: center;
+        ">
+          <strong style="padding-right: 10px;">Vagas:</strong>
+          <v-card
+            color="var(--green0)"
+            style="text-align: center"
+            min-height="30px"
+            min-width="30px"
+            class="d-flex align-center justify-center"
+            >
+            {{ estagio.estagio.quantidadeVagas }}
+          </v-card>
+        </div>
 
-      <v-container
-        class="infoContainer"
-        style="display: flex; flex-direction: row; justify-content: start"
-      >
-        <v-card :flat="true" style="padding-right: 12px"
-          ><strong>Modalidade:</strong></v-card
-        >
-        <v-card
-          color="var(--green0)"
-          style="text-align: center"
-          height="24"
-          min-width="84"
-          width="fit-content"
-          >{{ estagio.estagio.modalidade }}</v-card
-        >
+        
+
+        <div 
+          style="
+            display: flex;
+            align-items: center;
+          ">
+          <strong style="padding-right: 10px;">Modalidade:</strong>
+          <v-card
+            color="var(--green0)"
+            style="text-align: center"
+            min-width="85px"
+            width="fit-content"
+            height="30px"
+            class="d-flex align-center justify-center"
+            >
+            {{ estagio.estagio.modalidade }}
+          </v-card>
+        </div>
       </v-container>
       <strong>Descrição:</strong>
       <v-card
@@ -87,43 +90,39 @@
           text-align: center;
           background-color: var(--green0);
         "
-        >{{ estagio.estagio.descricao }}</v-card
-      >
+        >{{ estagio.estagio.descricao }}
+      </v-card>
     </v-container>
 
     <v-container class="alunoContainer">
-      <v-card-title>Informações do Aluno</v-card-title>
+      <v-card-title style="text-align: center;">Informações do Aluno</v-card-title>
       <v-card-text>
-        <p><strong>Nome:</strong></p>
+        <strong>Nome:</strong>
         <v-card
           color="var(--green0)"
-          height="30px"
           class="d-flex align-center justify-center"
+          height="51px"
         >
           {{ estagio.aluno.nome }}
         </v-card>
 
         <v-container class="infoContainer">
-          <div>
+          <div style="width: 40%;">
             <strong>Matrícula:</strong>
-            <p>
               <v-card
                 color="var(--green0)"
-                height="30px"
                 class="d-flex align-center justify-center"
                 style="padding: 10px"
               >
                 {{ estagio.aluno.matricula }}
               </v-card>
-            </p>
           </div>
-          <div>
+          <div style="width: 40%;">
             <strong>Email:</strong>
             <v-card
               color="var(--green0)"
-              height="30px"
               class="d-flex align-center justify-center"
-              style="padding: 10px; max-width: 210px; word-break: break-all"
+              style="padding: 10px;  word-break: break-all"
             >
               {{ estagio.aluno.email }}
             </v-card>
@@ -195,19 +194,6 @@
       </v-row>
     </v-container>
   </v-container>
-  <v-Btn class="backIcon" @click="goToEstagios" color="#666666" rounded="xl">
-    <GoBackIcon />
-    Voltar
-  </v-Btn>
-
-  
-  <!-- <v-container class="loadingContainer" v-if="!estagio">
-    <v-progress-circular
-      color="var(--green0)"
-      size="x-large"
-      indeterminate
-    ></v-progress-circular>
-  </v-container> -->
 </template>
 
 <script>
@@ -257,6 +243,7 @@ export default {
   justify-content: space-around;
   margin: 10px auto;
   width: 40%;
+  max-width: 200px;
 }
 .loadingContainer {
   display: flex;
@@ -279,6 +266,22 @@ export default {
   width: 100%;
   padding: 0;
   margin: 10px 0;
+}
+
+@media (min-width: 700px) {
+  .infoContainer{
+
+  }
+}
+
+.changingInfoContainer {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  margin: 1.5rem 0;
 }
 
 .alunoContainer {

@@ -22,6 +22,7 @@ import CadastroICProfessor from '@/pages/professor/CadastroIC.vue';
 import ListICProfessor from '@/pages/professor/ListIC.vue';
 import PageICProfessor from '@/pages/professor/PageIC.vue';
 import PedidosProfessor from '@/pages/professor/Pedidos.vue';
+import SolicitacaoIC from '@/pages/professor/SolicitacaoIC.vue';
 
 // Secretaria
 import HomeSecretaria from '@/pages/secretaria/Home.vue';
@@ -51,7 +52,7 @@ const routes = [
     component: ListICAluno
   },
   {
-    path: "/aluno/ic/pagina",
+    path: "/aluno/ic/id/:icId",
     name: "PageICAluno",
     component: PageICAluno
   },
@@ -81,7 +82,6 @@ const routes = [
     name: "PedidosEstagioAluno",
     component: PageEstagioAluno,
   },
-
   // Professor
   { path: "/professor", name: "HomeProfessor", component: HomeProfessor },
   {
@@ -103,6 +103,11 @@ const routes = [
     path: "/professor/cadastroIC",
     name: "CadastroICProfessor",
     component: CadastroICProfessor,
+  },
+  {
+    path: '/professor/ic/pagina/solicitacoes',
+    name: 'PageICProfessorSolicitacoes',
+    component: SolicitacaoIC
   },
 
   // Coordenador
