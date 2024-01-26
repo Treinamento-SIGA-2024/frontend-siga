@@ -2,6 +2,7 @@
   <PageTitle title="PORTAL DA SECRETARIA"/>
   <DadosPessoais/>
   <ButtonCard @click="this.$router.push('/secretaria/estagio')" title="Ofertar estágio"/>
+  <ButtonCard @click="this.$router.push('/secretaria/topico')" title="Tópicos de Iniciação Cientifica"/>
 </template>
 
 <script>
