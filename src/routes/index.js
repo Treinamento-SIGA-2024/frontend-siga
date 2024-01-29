@@ -28,7 +28,6 @@ import SolicitacaoIC from '@/pages/professor/SolicitacaoIC.vue';
 import HomeSecretaria from '@/pages/secretaria/Home.vue';
 import CreateEstagioSecretaria from '@/pages/secretaria/CreateEstagio.vue';
 import TopicosIC from "@/pages/secretaria/TopicosIC.vue";
-import CreateTopicoIC from "@/pages/secretaria/CreateTopicoIC.vue";
 
 // Not found
 import NotFound from '@/pages/NotFound.vue';
@@ -152,11 +151,7 @@ const routes = [
     name: "TopicosSecretaria",
     component: TopicosIC,
   },
-  {
-    path: "/secretaria/topico/novotopico",
-    name: "SecretariaCreateTopico",
-    component: CreateTopicoIC,
-  },
+
 
   // Not found
   {
