@@ -22,7 +22,8 @@ app.config.globalProperties.global = {
         green1: "#86C497",
         green2: "#53B584",
         green3: "#41AF75",
-        green4: "#19856E"
+        green4: "#19856E",
+        green5: "#CFEEDC"
     },
     font: "Source Sans"
     };

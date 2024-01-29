@@ -10,6 +10,7 @@
         <v-card-subtitle v-if="this.$props.data">
           Cargo: {{ this.$props.data.estagio.cargo }}
         </v-card-subtitle>
+
     </v-btn>
 </template>
 
