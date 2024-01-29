@@ -9,28 +9,32 @@
     
     <v-container v-if="filtros" class="filter-container">
       
-      <v-btn variant="flat" @Click="filtros = false" id="closeFiltros" @click="filterCards">
-        <CloseIcon />
-      </v-btn>
+      <CloseIcon @Click="fechaFiltros" id="closeFiltros" alt="Cancelar filtros"/>
 
-      <v-autocomplete 
-        clearable
-        chips
-        label="Selecione os tópicos"
-        :items="this.topicos"
-        multiple
-        variant="outlined"
-        v-model="topicosSelecionados"
-      ></v-autocomplete>
+      <div class="selects-container">
+        
+        <h3 style="margin-bottom:20px" >Aplique os filtros desejados</h3>
 
-      <v-autocomplete
-        clearable
-        chips
-        label="Selecione os professores"
-        :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
-        multiple
-        variant="outlined"
-      ></v-autocomplete>
+        <v-autocomplete 
+          clearable
+          chips
+          label="Selecione os tópicos"
+          :items="this.topicos"
+          multiple
+          variant="outlined"
+          v-model="topicosSelecionados"
+        ></v-autocomplete>
+
+        <v-autocomplete
+          clearable
+          label="Selecione os professores"
+          :items="this.professores"
+          multiple
+          variant="outlined"
+          v-model="professoresSelecionados"
+        ></v-autocomplete>
+      </div>
+      
       
     </v-container>
     
@@ -62,6 +66,7 @@ import PlusIcon from "@/icons/PlusIcon.vue"
 import CloseIcon from "@/icons/CloseIcon.vue"
 import { getAllICsDisponiveis } from "@/services/iniciacaoCientifica.js"
 import { getTopicos } from "@/services/topicosService.js"
+import { getAllProfessores } from "@/services/professorService.js"
 
 import { watch } from 'vue'
 
@@ -80,28 +85,49 @@ export default {
       tmp = tmp.map((topico) => topico.nome);
       this.topicos = tmp;
     },
+    async getProfessores() {
+      let tmp = await getAllProfessores();
+      tmp = tmp.map((professor) => professor.nome);
+      this.professores = tmp;
+    },
     filterCards () {
-      if (this.topicosSelecionados.length === 0) {
-        this.icsFiltradas = this.ics
-        return;
-      }
       this.icsFiltradas = [];
-      for (let ic of this.ics) {
-        for (let topico of ic.topicos) {
-          if (this.topicosSelecionados.includes(topico.nome)) {
-            this.icsFiltradas.push(ic);
-          }
+
+      this.icsFiltradas = this.ics.filter((ic) => {
+        if (this.topicosSelecionados.length === 0)
+          return true;
+        for (let topico of ic.topicos.map(topico => topico.nome)) {
+          if (this.topicosSelecionados.includes(topico))
+            return true;
         }
-      }
+        return false;
+      })
+
+      this.icsFiltradas = this.icsFiltradas.filter((ic) => {
+        if (this.professoresSelecionados.length === 0)
+          return true;
+        for (let professor of ic.professores.map(prof => prof.nome)) {
+          if (this.professoresSelecionados.includes(professor))
+            return true;
+        }
+        return false;
+      });
+    },
+    fechaFiltros() {
+      this.filtros = false;
+      this.topicosSelecionados = [];
+      this.profes
     }
   },
   created() {
     this.getIcs();
     this.getTopicos();
+    this.getProfessores()
 
     this.icsFiltradas = this.ics;
 
     watch(() => this.topicosSelecionados, this.filterCards);
+    watch(() => this.professoresSelecionados, this.filterCards);
   },
   data() {
     return {
@@ -110,6 +136,7 @@ export default {
       topicos: [],
       topicosSelecionados: [],
       professores: [],
+      professoresSelecionados: [],
       filtros: false,
     }
   },
@@ -137,9 +164,25 @@ export default {
   align-self: flex-end;
 }
 
+#closeFiltros:hover {
+  cursor: pointer
+}
+
 .filter-container {
   display: flex;
   flex-direction: column;
+  width: 60vw;
+  border-radius: 15px;
+  border-width: 1.5px;
+  border-color: rgba(0, 0, 0, 0.9);
+  border-style: solid;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.selects-container {
+  align-self: center;
+  width: 50vw;
 }
 
 .card-container {
@@ -165,6 +208,16 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 700px) {
+  .filter-container {
+    width: 95vw;
+    
+  }
+  .selects-container {
+    width: 85 vw;
+  }
 }
 
 </style>
