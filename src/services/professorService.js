@@ -2,6 +2,11 @@ import axios from "axios";
 
 const url = "http://localhost:8080";
 
+export async function getAllProfessores(){
+    const response = await axios.get(`${url}/professor`);
+    return response.data;
+}
+
 export async function getAllIcPendentes(matricula, icId){
     const { data } = await axios.get(`${url}/inscricoes/ic/${matricula}/${icId}`);
     return data;
