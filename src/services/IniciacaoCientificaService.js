@@ -9,3 +9,8 @@ export async function getIcAtivos (icId) {
     const response = await axios.get(`${api_url}/${icId}/ativos`)
     return response.data;
 }
+
+export async function  getAllIcsAtivasByProfessor(matricula){
+    const { data } = await  axios.get(`${api_url}/ativas/professor/${matricula}`);
+    return data;
+}
