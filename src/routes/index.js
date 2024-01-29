@@ -90,8 +90,8 @@ const routes = [
     name: "ListICProfessor",
     component: ListICProfessor,
   },
-  {
-    path: "/professor/ic/pagina",
+  { //Alteramos a rota devido as mudanças feitas na prototipagem.
+    path: "/professor/ic/:icId",
     name: "PageICProfessor",
     component: PageICProfessor,
   },
