@@ -10,11 +10,11 @@
     </v-card>
 
     <v-card v-if="estagio != null" class="card">
-      <v-card-title> {{ estagio.nome }}</v-card-title>
+      <v-card-title> {{ estagio.cargo }}</v-card-title>
       <v-card-subtitle style="overflow: hidden;"> {{ estagio.empresa }}</v-card-subtitle>
         <v-card-text>
-          <div> Cargo: {{ estagio.cargo }}</div>
           <div> Modalidade: {{ estagio.modalidade }}</div>
+          <div> Vagas: {{ estagio.quantidadeVagas }}</div>
         </v-card-text>
     </v-card>
   </v-container>

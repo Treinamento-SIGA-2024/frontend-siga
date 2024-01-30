@@ -1,9 +1,8 @@
 <template>
   <PageTitle title="PROPOSTAS DE ESTÁGIO" />
-  <PopUpErro :erro="erro"/>
-  <Loading v-if="estagios.length === 0 && !erro"/>
+  <Loading v-if="estagios.length === 0"/>
 
-  <v-btn v-if="!filtros" id="addFiltro" @click="filtros = true">
+  <v-btn v-if="!filtros && !snackbar" id="addFiltro" @click="filtros = true">
       <PlusIcon />
       <p>Adicionar filtros</p>
     </v-btn>
@@ -47,12 +46,18 @@
     </v-container>
 
   <v-container>
-    <v-row align="center" justify="center" v-if="estagiosFiltrados.length !== 0 && !erro">
+    <v-row align="center" justify="center" v-if="estagiosFiltrados.length !== 0">
       <v-col v-for="(estagio) in estagiosFiltrados" :key="estagio.id" cols="auto">
-        <OfertaEstagio :estagio="estagio" @click="this.$router.push(`/aluno/estagio/id/${estagio.id}`)"/>
+        <CardOferta 
+          :estagio="estagio" 
+          @click="this.$router.push(`/aluno/estagio/id/${estagio.id}`)"
+        />
       </v-col>
     </v-row>
   </v-container>
+  <v-snackbar v-model="snackbar" :timeout="1000 * 1000">
+    <span> {{ error }}</span>
+  </v-snackbar>
 </template>
 
 <script>
@@ -64,9 +69,8 @@ import {getAllEstagios,
         getEmpresas,
         getCargos, 
         getModalidades} from "@/services/Estagio.js";
-import OfertaEstagio from "@/components/ofertaEstagio.vue";
 import Loading from "@/components/Loading.vue";
-import PopUpErro from "@/components/PopUpErro.vue";
+import CardOferta from "@/components/CardOferta.vue";
 
 import { watch } from 'vue';
 
@@ -83,8 +87,9 @@ export default {
   data() {
     return {
       estagios: [],
-      erro: false,
       filtros: false,
+      snackbar: false,
+      error: "",
 
       empresas: [],
       empresasSelecionadas: [],
@@ -96,12 +101,11 @@ export default {
     }
   },
   components: {
-    PopUpErro,
     Loading,
-    OfertaEstagio,
     Header,
     PageTitle,
-    ButtonCard
+    ButtonCard,
+    CardOferta,
   },
   methods: {
     async getEstagios() {
@@ -109,8 +113,17 @@ export default {
         const estagios = await getAllEstagios();
         this.estagios = estagios;
       }
-      catch (e) {
-        this.erro = e.response.data.message;
+      catch (err) {
+        if(!err.response || err.response.data.status === 500){
+          this.error = "Erro do servidor.";
+          this.snackbar = !this.snackbar;
+          this.estagios = [];
+        }else{
+          this.error = "Não foi possível acessar as Iniciações Cientítficas.\n" +
+                        `Erro: ${err.response.data.message}`;
+          this.snackbar = !this.snackbar;
+          this.estagios = [];
+        }
       }
       this.estagiosFiltrados = this.estagios;
       this.empresas = getEmpresas(this.estagios);
