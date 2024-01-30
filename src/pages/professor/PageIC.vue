@@ -9,31 +9,58 @@
         :cargaHorariaSemanal="this.icData.cargaHorariaSemanal"
         :descricao="this.icData.descricao"
     ></PageICdescricao>
-    //A parte acima foi copiada da página do Aluno-Ver uma IC. Copiamos apenas para ter uma base de como ficaria a listagem dos participantes
+    <!--A parte acima foi copiada da página do Aluno-Ver uma IC. Copiamos apenas para ter uma base de como ficaria a listagem dos participantes-->
+
 
     <v-card  rounded="xl" style="background-color: var(--green3); margin-top: 20px" min-width="40%">
-      <v-tabs bg-color="#CFEEDC" v-model="tab" selected-class="ativo" fixed-tabs>
-        <v-tab value="alunos"  rounded="ts-xl">
+
+      <v-tabs bg-color="#CFEEDC" v-model="tab"  fixed-tabs selected-class="ativo" >
+        <v-tab value="alunos"  rounded="ts-xl" @click="this.btnClass = 'botaoInativo'">
           Alunos
         </v-tab>
-        <v-tab value="professores" rounded="te-xl">
+        <v-tab value="professores" rounded="te-xl" @click="this.btnClass = 'botaoAtivo'">
           Professores
         </v-tab>
       </v-tabs>
-      <v-container class="tabsContainer">
-        <v-window v-model="tab" v-for="(professor) in icData.professores" key="professor.id" >
-          <v-window-item value="professores">
-            <ButtonCard :title="professor.nome" :subtitle="'Matrícula: ' + professor.matricula" style="background-color: #CFEEDC"/>
-          </v-window-item>
-        </v-window>
-        <v-window v-model="tab" v-for="(aluno) in icData.inscricoes" key="aluno.aluno.id" >
 
+      <v-container class="tabsContainer">
+        <v-dialog v-model="dialog" width="80%" persistent>
+          <template v-slot:activator="{props}">
+            <v-btn :class="this.btnClass" style="background-color: #CFEEDC" v-bind="props" @click="listProfessores">
+              <PlusIcon/>
+              cadastrar professor
+            </v-btn>
+          </template>
+          <v-card>
+            <v-autocomplete label="Insira o nome do professor..."
+                            :items="this.nomesProfessores"
+                            v-model="professorSelecionado"
+            >
+            </v-autocomplete>
+            <v-card-actions>
+              <v-btn @click="sendCadastro" color="primary">
+                Cadastrar
+              </v-btn>
+              <v-btn @click="dialog = false" color="red">
+                Cancelar
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+
+
+        </v-dialog>
+
+        <v-window v-model="tab"  v-for="(professor) in icData.professores" key="professor.id">
+            <v-window-item value="professores">
+              <ButtonCard :title="professor.nome" :subtitle="'Matrícula: ' + professor.matricula" style="background-color: #CFEEDC"/>
+            </v-window-item>
+        </v-window>
+
+        <v-window v-model="tab" v-for="(aluno) in icData.inscricoes" key="aluno.aluno.id" >
           <v-window-item value="alunos" >
             <ButtonCard :title="aluno.aluno.nome" :subtitle="'Matrícula: ' + aluno.aluno.matricula" style="background-color: #CFEEDC"/>
           </v-window-item>
-
         </v-window>
-
       </v-container>
 
 
@@ -51,10 +78,13 @@ import PageTitle from "@/components/PageTitle.vue";
 import ChapeuIC from "@/icons/IconeIC.vue";
 import {getIcAtivos} from "@/services/IniciacaoCientificaService.js";
 import ButtonCard from "@/components/ButtonCard.vue";
+import PlusIcon from "@/icons/PlusIcon.vue";
+import {getAllProfessores} from "@/services/professorService.js";
 
 export default defineComponent({
   name: "PageIcProfessor",
   components: {
+    PlusIcon,
     ButtonCard,
     ChapeuIC,
     PageTitle,
@@ -63,12 +93,27 @@ export default defineComponent({
   methods: {
     async listIcParticipantes () {
       this.icData =  await getIcAtivos(this.$route.params.icId);
+    },
+    async listProfessores () {
+      this.professores = await getAllProfessores();
+      this.nomesProfessores = this.professores.map((professor) => professor.nome);
+    },
+    sendCadastro() {
+      const index = this.nomesProfessores.indexOf(this.professorSelecionado);
+      console.log(this.professores[index]);
+      this.dialog = false;
     }
   },
   data() {
     return {
       icData : null,
-      tab: null
+      tab: null,
+      btnClass: "botaoInativo",
+      dialog: false,
+      professores: [],
+      nomesProfessores:[],
+      professorSelecionado: ""
+
     }
   },
   created() {
@@ -97,5 +142,16 @@ export default defineComponent({
 /* Fala que não ta sendo usada, mas está sendo usada nos v-tabs */
 .ativo {
   background-color: var(--green3);
+  opacity: 100%;
+  color: black;
 }
+
+.botaoInativo {
+  display: none;
+}
+
+.botaoAtivo {
+  display: block;
+}
+
 </style>
