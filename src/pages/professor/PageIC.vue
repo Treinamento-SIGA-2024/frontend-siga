@@ -9,7 +9,7 @@
         :cargaHorariaSemanal="this.icData.cargaHorariaSemanal"
         :descricao="this.icData.descricao"
     ></PageICdescricao>
-    //A parte acima foi copiada da página do Aluno-Ver uma IC. Copiamos apenas para ter uma base de como ficaria a listagem dos participantes
+    <!--A parte acima foi copiada da página do Aluno-Ver uma IC. Copiamos apenas para ter uma base de como ficaria a listagem dos participantes-->
 
     <v-card  rounded="xl" style="background-color: var(--green3); margin-top: 20px" min-width="40%">
       <v-tabs bg-color="#CFEEDC" v-model="tab" selected-class="ativo" fixed-tabs>
