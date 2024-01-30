@@ -6,32 +6,37 @@
         inscricao.iniciacaoCientifica.professores[0]?.nome
       }}</v-card-subtitle>
     </v-card-item>
-    <div class="status-container">
-      <div
-        class="status"
-        v-bind:class="{
-          'status-ativo': inscricao.situacaoInscricao.descricao === 'Ativo',
-          'status-recusado':
-            inscricao.situacaoInscricao.descricao === 'Recusado',
-          'status-pendente':
-            inscricao.situacaoInscricao.descricao === 'Pendente',
-        }"
-      ></div>
-    </div>
+    <v-col class="more-container">
+      <MoreIcon :items="items" />
+    </v-col>
   </v-card>
 </template>
 
 <script>
+import MoreIcon from "@/icons/MoreIcon.vue";
 export default {
-  name: 'PedidosListaCard',
+  name: "PedidosListaCard",
   props: {
     inscricao: Object,
   },
+  methods: {
+    excluir() {
+      
+    },
+  },
   data() {
     return {
-      status: '',
+      status: "",
+      items: [
+        {
+          title: "excluir",
+          action: this.excluir,
+        },
+        { title: "ola jorge" },
+      ],
     };
   },
+  components: { MoreIcon },
 };
 </script>
 
@@ -68,7 +73,7 @@ export default {
   cursor: pointer;
 }
 
-.status-container {
+.more-container {
   display: flex;
   justify-content: flex-end;
   align-items: center;
