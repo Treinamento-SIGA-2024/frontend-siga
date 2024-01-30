@@ -1,19 +1,18 @@
 <template>
   <PageTitle title="TÓPICOS - IC"/>
   <div class="d-flex align-center flex-column">
-    <v-btn id="novoTopico" v-if="!toggle" @click="toggle = !toggle">
+    <v-btn id="novoTopicoBtn" v-if="!toggle" @click="toggle = !toggle">
       NOVO TÓPICO
     </v-btn>
     <v-card id="createTopico" v-show="toggle">
       <v-form id="form">
-        <div id="text">
-          <p>Título</p>
+        <v-container id="novoTopicoText">
           <v-text-field id="novoTitulo" v-model="titulo" variant="outlined"
-                        :rules="[v => !!v || 'Este campo é obrigatório']" style="width: 80%"/>
-        </div>
+                        style="width: 90%; background-color: white; align-self: center"/>
+        </v-container>
 
         <div id="submit">
-          <v-btn id="salvar" @click="">Salvar</v-btn>
+          <v-btn id="salvar" @click="resetForm; toggle = !toggle">Salvar</v-btn>
           <v-btn class="cancelar" @click="resetForm; toggle = !toggle">Cancelar</v-btn>
         </div>
       </v-form>
@@ -22,14 +21,17 @@
   <v-container>
     <v-row align="center" justify="center">
       <v-col cols="auto">
-        <ButtonCard title="Teste" @click="hidden = !hidden"/>
-        <div id="edit" v-if="hidden">
-          <v-btn id="editar" @click="hidden = !hidden">Editar</v-btn>
-          <v-btn class="cancelar" @click="hidden = !hidden">Cancelar</v-btn>
-        </div>
+        <v-btn class="HomeCard" @click="hidden = !hidden" style="height: 100px;" stacked elevation="4">
+          Teste             <!--{{this.$props.title}}-->
+          <div id="edit" v-show="hidden">
+            <v-btn id="editar" @click="hidden = !hidden">Editar</v-btn>
+            <v-btn class="cancelar" @click="hidden = !hidden">Cancelar</v-btn>
+          </div>
+        </v-btn>
       </v-col>
     </v-row>
-  </v-container></template>
+  </v-container>
+</template>
 
 <script>
 
@@ -48,6 +50,10 @@ export default {
 
   name: "SecretariaTopicos",
 
+  props: {
+    title: String
+  },
+
   components: {
     OfertaEstagio,
     PageTitle,
@@ -64,7 +70,7 @@ export default {
 
 <style scoped>
 
-#novoTopico {
+#novoTopicoBtn {
   background-color: var(--green1);
 }
 
@@ -73,14 +79,23 @@ export default {
   flex-direction: column;
 }
 
-#createTopico {
-  background-color: var(--green1);
-  height: 150px;
-  width: 25vw;
+#novoTitulo {
+  width: 80%;
+  background-color: white;
+  align-self: center
 }
 
-#text {
+#createTopico {
+  background-color: var(--green1);
+  height: 160px;
+  width: 310px;
+}
+
+#novoTopicoText {
   font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 #submit {
@@ -106,7 +121,7 @@ export default {
 #edit {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 #editar {
@@ -114,6 +129,23 @@ export default {
   color: white;
   background-color: #2752ae;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.21);
+}
+
+.HomeCard {
+  width: 310px;
+  align-self: center;
+  font-size: 16px;
+  border-radius: 15px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  margin-top: 30px;
+  background-color: var(--green1);
+}
+
+.HomeCard:hover{
+  cursor: pointer;
+  background-color: var(--green2);
+  transition-duration: 500ms;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.22);
 }
 
 </style>
