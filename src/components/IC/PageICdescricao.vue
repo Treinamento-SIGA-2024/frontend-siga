@@ -1,5 +1,5 @@
 <template>
-  <v-card flat="true">
+  <v-card class="container-wrap" flat="true">
 
     <v-card-text class="custom-text">
       <span>Professor(es):</span>
@@ -66,7 +66,9 @@ export default {
 </script>
 
 <style scoped>
-
+  .container-wrap{
+    width: 70%;
+  }
   .custom-text {
     padding: 1rem;
     color: #666;
@@ -78,5 +80,9 @@ export default {
   span {
     font-weight: bold;
   }
-
+  @media (min-width: 760px) {
+    .container-wrap{
+      width: 40%;
+    }
+  }
 </style>

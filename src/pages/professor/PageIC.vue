@@ -1,15 +1,15 @@
 <template>
   <div class="container">
-    <PageTitle :title="this.icData.nome"></PageTitle>
+    <PageTitle :title="this.icData?.nome"></PageTitle>
     <ChapeuIC />
     <PageICdescricao
-        :professores="this.icData.professores"
-        :topicos="this.icData.topicos"
-        :remuneracao="this.icData.remuneracao"
-        :cargaHorariaSemanal="this.icData.cargaHorariaSemanal"
-        :descricao="this.icData.descricao"
+        :professores="this.icData?.professores"
+        :topicos="this.icData?.topicos"
+        :remuneracao="this.icData?.remuneracao"
+        :cargaHorariaSemanal="this.icData?.cargaHorariaSemanal"
+        :descricao="this.icData?.descricao"
     ></PageICdescricao>
-    //A parte acima foi copiada da página do Aluno-Ver uma IC. Copiamos apenas para ter uma base de como ficaria a listagem dos participantes
+    <!--A parte acima foi copiada da página do Aluno-Ver uma IC. Copiamos apenas para ter uma base de como ficaria a listagem dos participantes-->
 
     <v-card  rounded="xl" style="background-color: var(--green3); margin-top: 20px" min-width="40%">
       <v-tabs bg-color="#CFEEDC" v-model="tab" selected-class="ativo" fixed-tabs>
@@ -21,12 +21,12 @@
         </v-tab>
       </v-tabs>
       <v-container class="tabsContainer">
-        <v-window v-model="tab" v-for="(professor) in icData.professores" key="professor.id" >
+        <v-window v-model="tab" v-for="(professor) in icData?.professores" key="professor.id" >
           <v-window-item value="professores">
             <ButtonCard :title="professor.nome" :subtitle="'Matrícula: ' + professor.matricula" style="background-color: #CFEEDC"/>
           </v-window-item>
         </v-window>
-        <v-window v-model="tab" v-for="(aluno) in icData.inscricoes" key="aluno.aluno.id" >
+        <v-window v-model="tab" v-for="(aluno) in icData?.inscricoes" key="aluno.aluno.id" >
 
           <v-window-item value="alunos" >
             <ButtonCard :title="aluno.aluno.nome" :subtitle="'Matrícula: ' + aluno.aluno.matricula" style="background-color: #CFEEDC"/>

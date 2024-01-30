@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <PageTitle :title="this.icData.nome"></PageTitle>
+    <PageTitle :title="this.icData?.nome"></PageTitle>
     <ChapeuIC />
     <PageICdescricao
-      :professores="this.icData.professores"
-      :topicos="this.icData.topicos"
-      :remuneracao="this.icData.remuneracao"
-      :cargaHorariaSemanal="this.icData.cargaHorariaSemanal"
-      :descricao="this.icData.descricao"
+      :professores="this.icData?.professores"
+      :topicos="this.icData?.topicos"
+      :remuneracao="this.icData?.remuneracao"
+      :cargaHorariaSemanal="this.icData?.cargaHorariaSemanal"
+      :descricao="this.icData?.descricao"
     ></PageICdescricao>
     <PageICbotao
       title="Solicitar IC"
