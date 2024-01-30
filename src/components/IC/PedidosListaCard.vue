@@ -1,4 +1,7 @@
 <template>
+  <v-snackbar :timeout="5000" :color="cor" elevation="24" v-model="snackbar">
+    <span>{{ snackMessage }}</span>
+  </v-snackbar>
   <v-card>
     <v-card-item>
       <v-card-title>{{ inscricao.iniciacaoCientifica?.nome }}</v-card-title>
@@ -24,13 +27,24 @@ export default {
     async cancelarPedido() {
       try {
         const data = await cancelarIncricaoIC(this.inscricao.id)
+        console.log(data)
+        this.cor = 'green'
+        this.snackMessage = data
+        this.snackbar = !this.snackbar
       } catch (e) {
-        alert(e.response.data.message)
+        console.log(e.response.data.message)
+        this.cor = 'red'
+        this.snackMessage = e.response.data.message
+        this.snackbar = !this.snackbar
       }
+      this.$emit('updatePage')
     },
   },
   data() {
     return {
+      cor: '',
+      snackMessage: '',
+      snackbar: false,
       status: '',
       items: [
         {

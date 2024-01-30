@@ -6,7 +6,10 @@
     <v-container>
       <v-row>
         <v-col v-for="(inscricao, i) in inscricoes" :key="i" cols="auto">
-          <PedidosListaCard :inscricao="inscricao"></PedidosListaCard>
+          <PedidosListaCard
+            @updatePage="updatePage"
+            :inscricao="inscricao"
+          ></PedidosListaCard>
         </v-col>
       </v-row>
     </v-container>
@@ -14,8 +17,8 @@
 </template>
 
 <script>
-import PedidosListaCard from './PedidosListaCard.vue';
-import { getAllInscricoes } from '@/services/inscricaoICService.js';
+import PedidosListaCard from './PedidosListaCard.vue'
+import { getAllInscricoes } from '@/services/inscricaoICService.js'
 
 export default {
   name: 'PedidosLista',
@@ -28,27 +31,27 @@ export default {
       snackMessage: '',
       inscricoes: [],
       alunoID: 20,
-    };
+    }
   },
 
   created() {
-    this.getInscricoes();
+    this.getInscricoes()
   },
   methods: {
     async getInscricoes() {
       try {
-        const inscricoes = await getAllInscricoes(this.alunoID);
-        this.inscricoes = inscricoes;
-        console.log(inscricoes);
+        const inscricoes = await getAllInscricoes(this.alunoID)
+        this.inscricoes = inscricoes
+        console.log(inscricoes)
       } catch (e) {
-        console.log(e.response.data.message);
-        this.snackMessage = e.response.data.message;
-        this.snackbar = !this.snackbar;
+        console.log(e.response.data.message)
+        this.snackMessage = e.response.data.message
+        this.snackbar = !this.snackbar
       }
-      this.$emit('updatePage');
+      this.$emit('updatePage')
     },
   },
-};
+}
 </script>
 
 <style scoped>

@@ -6,10 +6,10 @@
 </template>
 
 <script>
-import PageTitle from '@/components/PageTitle.vue';
-import PedidosBotoes from '@/components/IC/PedidosBotoes.vue';
-import PedidosLista from '@/components/IC/PedidosLista.vue';
-import Loading from '@/components/Loading.vue';
+import PageTitle from '@/components/PageTitle.vue'
+import PedidosBotoes from '@/components/IC/PedidosBotoes.vue'
+import PedidosLista from '@/components/IC/PedidosLista.vue'
+import Loading from '@/components/Loading.vue'
 
 export default {
   name: 'PedidosAluno',
@@ -23,14 +23,14 @@ export default {
   data() {
     return {
       loading: true,
-    };
+    }
   },
   methods: {
     stopLoading() {
-      this.loading = !this.loading;
+      this.loading = !this.loading
     },
   },
-};
+}
 </script>
 
 <style scoped>
