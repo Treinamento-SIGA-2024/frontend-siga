@@ -32,6 +32,7 @@ import CreateEstagioSecretaria from '@/pages/secretaria/CreateEstagio.vue';
 import NotFound from '@/pages/NotFound.vue';
 
 import { createWebHistory, createRouter } from 'vue-router';
+import PagePedido from "@/pages/aluno/PagePedido.vue";
 
 const routes = [
   {
@@ -78,10 +79,10 @@ const routes = [
     name: "PedidosAluno",
     component: PedidosAluno
   },
-  {
-    path: "/aluno/pedidos/estagio/pagina",
-    name: "PedidosEstagioAluno",
-    component: PageEstagioAluno,
+  { //ransformar em um unico pedido de ic
+    path: "/aluno/pedidos/ic/:id",
+    name: "PagePedido",
+    component: PagePedido,
   },
   // Professor
   { path: "/professor", name: "HomeProfessor", component: HomeProfessor },

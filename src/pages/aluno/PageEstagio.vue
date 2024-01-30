@@ -4,43 +4,7 @@
     <Loading v-if="loading"/>
   </v-container>
   <v-container v-if="!loading && !erro" id="content">
-    <PageTitle :title="estagio?.cargo + ' em ' + estagio?.empresa"/>
-
-
-    <div class="informacao">
-      <v-label>Empresa: </v-label>
-      <v-card class="infos">
-        {{ estagio?.empresa }}
-      </v-card>
-    </div>
-
-    <div class="row informacao">
-      <div class="colElement">
-        <v-label>Carga horária:</v-label>
-        <v-card class="infos">{{estagio?.cargaHorariaSemanal }} hr/sem</v-card>
-      </div>
-
-      <div class="colElement">
-        <v-label>Valor da bolsa:</v-label>
-        <v-card class="infos">R$ {{estagio?.remuneracao}}</v-card>
-      </div>
-    </div>
-
-    <div class="informacao">
-      <v-label>Vagas:</v-label>
-      <v-card class="infos">{{estagio?.quantidadeVagas}}</v-card>
-    </div>
-
-    <div class="informacao">
-      <v-label>Modalidade:</v-label>
-      <v-card class="infos">{{ estagio?.modalidade }}</v-card>
-    </div>
-
-    <div class="informacao">
-      <v-label>Descrição:</v-label>
-      <v-card class="infos">{{ estagio?.descricao }}</v-card>
-    </div>
-
+    <PedidoEstagio :estagio="estagio"/>
     <ButtonCard title="Contrato" id="btnContrato"
                 :style="{height: '8vh'}" @click="this.$router.push(`/aluno/estagio/id/${this.estagio.id}/formulario`)"/>
   </v-container>
@@ -53,9 +17,10 @@ import ButtonCard from "@/components/ButtonCard.vue";
 import Loading from "@/components/Loading.vue";
 import {getAllEstagios, getEstagioById} from "@/services/Estagio.js";
 import PopUpErro from "@/components/PopUpErro.vue";
+import PedidoEstagio from "@/components/PedidoEstagio.vue";
 
 export default {
-  name: "PedidosEstagioAluno",
+  name: "PageEstagioAluno",
   methods: {getAllEstagios},
   data() {
     return {
@@ -78,6 +43,7 @@ export default {
     this.loading = false;
   },
   components: {
+    PedidoEstagio,
     PopUpErro,
     Loading,
     ButtonCard,

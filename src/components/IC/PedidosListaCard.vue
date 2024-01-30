@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card @click="()=>console.log(`${inscricao.iniciacaoCientifica.nome}`)">
     <v-card-item>
       <v-card-title>{{ inscricao.iniciacaoCientifica?.nome }}</v-card-title>
       <v-card-subtitle>{{
