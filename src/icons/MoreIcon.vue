@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiDotsVertical } from "@mdi/js";
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiDotsVertical } from '@mdi/js'
 
 export default {
-  name: "more-icon",
+  name: 'more-icon',
   components: {
     SvgIcon,
   },
@@ -34,15 +34,15 @@ export default {
     return {
       path: mdiDotsVertical,
       items: null,
-    };
+    }
   },
   methods: {
     getItems() {
-      this.items = this.$props.items;
+      this.items = this.$props.items
     },
   },
   created() {
-    this.getItems();
+    this.getItems()
   },
-};
+}
 </script>

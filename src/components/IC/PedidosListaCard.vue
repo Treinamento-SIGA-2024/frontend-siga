@@ -7,37 +7,41 @@
       }}</v-card-subtitle>
     </v-card-item>
     <v-col class="more-container">
-      <MoreIcon :items="items" />
+      <MoreIcon id="moreIcon" :items="items" />
     </v-col>
   </v-card>
 </template>
 
 <script>
-import MoreIcon from "@/icons/MoreIcon.vue";
+import MoreIcon from '@/icons/MoreIcon.vue'
+import { cancelarIncricaoIC } from '@/services/inscricaoICService'
 export default {
-  name: "PedidosListaCard",
+  name: 'PedidosListaCard',
   props: {
     inscricao: Object,
   },
   methods: {
-    excluir() {
-      
+    async cancelarPedido() {
+      try {
+        const data = await cancelarIncricaoIC(this.inscricao.id)
+      } catch (e) {
+        alert(e.response.data.message)
+      }
     },
   },
   data() {
     return {
-      status: "",
+      status: '',
       items: [
         {
-          title: "excluir",
-          action: this.excluir,
+          title: 'Cancelar',
+          action: this.cancelarPedido,
         },
-        { title: "ola jorge" },
       ],
-    };
+    }
   },
   components: { MoreIcon },
-};
+}
 </script>
 
 <style scoped>
@@ -87,5 +91,9 @@ export default {
 .v-card-subtitle {
   font-weight: bold;
   color: #6a6a6a;
+}
+
+#moreIcon:hover {
+  cursor: pointer;
 }
 </style>
