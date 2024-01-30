@@ -39,21 +39,11 @@
     </v-container>
     
     <div class="card-container">
-      <v-card 
-        v-for="ic in this.icsFiltradas"
-        @click="this.$router.push({ 
-          name: 'PageICAluno',
-          params: { icId: ic.id },
-        })" 
-        class="ic-card"
-      >
-        <v-card-title> {{ ic.nome }} </v-card-title>
-        <v-card-subtitle style="overflow: hidden;"> {{ ic.descricao }} </v-card-subtitle>
-        <v-card-text class="ic-card-text">
-          <div> Professores: {{ ic.professores.length }} </div> 
-          <div> Alunos: {{ ic.inscricoes.length }} </div>
-      </v-card-text>  
-      </v-card>
+      <v-row align="center" justify="center">
+        <v-col v-for="(ic, i) in this.icsFiltradas" :key="i" cols="auto">
+          <CardOferta :iniciacao-cientifica="ic" @click="this.$router.push(`/aluno/ic/id/${ic.id}`)"/>
+        </v-col>
+      </v-row>
     </div>
   </div>
 
@@ -64,6 +54,7 @@ import Header from "@/components/Header.vue"
 import PageTitle from "@/components/PageTitle.vue"
 import PlusIcon from "@/icons/PlusIcon.vue"
 import CloseIcon from "@/icons/CloseIcon.vue"
+import CardOferta from "@/components/CardOferta.vue"
 import { getAllICsDisponiveis } from "@/services/iniciacaoCientifica.js"
 import { getTopicos } from "@/services/topicosService.js"
 import { getAllProfessores } from "@/services/professorService.js"
@@ -77,7 +68,8 @@ export default {
     PageTitle,
     PlusIcon,
     CloseIcon,
-  },
+    CardOferta,
+},
   methods: {
     async getIcs() { this.ics = this.icsFiltradas = await getAllICsDisponiveis(); },
     async getTopicos() {
@@ -191,18 +183,6 @@ export default {
   flex-direction: column;
   align-items: center;
   padding-bottom: 25px;
-}
-
-.ic-card {
-  width: 340px;
-  margin-top: 25px;
-  border-radius: 20px;
-  background-color: #CFEEDC;
-}
-
-.ic-card-text {
-  display: flex;
-  justify-content: space-between;
 }
 
 .container {

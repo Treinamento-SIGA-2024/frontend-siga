@@ -3,7 +3,7 @@
   <v-container>
     <v-row align="center" justify="center">
       <v-col v-for="(iniciacaoCientifica, i) in iniciacoesCientificas" :key="i" cols="auto">
-        <CardIC :iniciacao-cientifica="iniciacaoCientifica" @click="this.$router.push(`/professor/ic/${iniciacaoCientifica.id}`)"/>
+        <CardOferta :iniciacao-cientifica="iniciacaoCientifica" @click="this.$router.push(`/professor/ic/${iniciacaoCientifica.id}`)"/>
       </v-col>
     </v-row>
     <v-container class="listaVazia" v-if="!iniciacoesCientificas.length">
@@ -25,12 +25,11 @@
 
 import {defineComponent} from "vue";
 import PageTitle from "@/components/PageTitle.vue";
-import CardIC from "@/components/CardIC.vue";
+import CardOferta from "@/components/CardOferta.vue";
 import {getAllIcsAtivasByProfessor} from "@/services/IniciacaoCientificaService.js";
-import ButtonCard from "@/components/ButtonCard.vue";
 
 export default defineComponent({
-  components: {ButtonCard, CardIC, PageTitle},
+  components: {CardOferta, PageTitle},
   data() {
     return {
       iniciacoesCientificas: [],
@@ -73,6 +72,7 @@ export default defineComponent({
 .cardMensagem{
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 .cardAction{
