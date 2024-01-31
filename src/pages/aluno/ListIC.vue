@@ -56,6 +56,7 @@ export default {
   align-items: center;
   padding-bottom: 25px;
 }
+
 .ic-card {
   width: 340px;
   margin-top: 25px;
