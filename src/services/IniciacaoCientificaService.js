@@ -10,7 +10,12 @@ export async function getIcAtivos (icId) {
     return response.data;
 }
 
+
 export async function addProfessorToIc(icId, professor) {
     const response = await axios.put(`${api_url}/${icId}/vincular`, professor);
     return response.data;
+}
+export async function  getAllIcsAtivasByProfessor(matricula) {
+    const {data} = await axios.get(`${api_url}/ativas/professor/${matricula}`);
+    return data;
 }
