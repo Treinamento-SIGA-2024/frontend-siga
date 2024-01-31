@@ -11,13 +11,13 @@
     ></PageICdescricao>
     <!--A parte acima foi copiada da página do Aluno-Ver uma IC. Copiamos apenas para ter uma base de como ficaria a listagem dos participantes-->
 
-    <v-card  rounded="xl" style="background-color: var(--green3); margin-top: 20px" min-width="40%">
+    <v-card  rounded="xl" style="background-color: var(--green3); margin-top: 20px" width="40%">
 
-      <v-tabs bg-color="#CFEEDC" v-model="tab"  fixed-tabs selected-class="ativo" >
+      <v-tabs bg-color="#CFEEDC" v-model="tab"  fixed-tabs selected-class="ativo" slider-color="white">
         <v-tab value="alunos"  rounded="ts-xl" @click="this.btnClass = 'botaoInativo'">
           Alunos
         </v-tab>
-        <v-tab value="professores" rounded="te-xl" @click="this.btnClass = 'botaoAtivo'">
+        <v-tab value="professores" rounded="te-xl" @click="this.btnClass = 'botaoAtivo'" >
           Professores
         </v-tab>
       </v-tabs>
@@ -58,17 +58,34 @@
           <p>Professor já está vinculado a essa iniciação científica!</p>
         </v-snackbar>
 
-        <v-window v-model="tab" v-for="(professor) in icData?.professores" key="professor.id" >
+
+        <v-window v-model="tab" >
           <v-window-item value="professores">
-            <ButtonCard :title="professor.nome" :subtitle="'Matrícula: ' + professor.matricula" style="background-color: #CFEEDC"/>
+            <ButtonCard
+                :title="professor.nome"
+                :subtitle="'Matrícula: ' + professor.matricula"
+                style="background-color: #CFEEDC;
+                       display: flex;
+                       align-self: center;
+                "
+                v-for="(professor) in icData?.professores" key="professor.id"
+            />
+          </v-window-item>
+
+          <v-window-item value="alunos" >
+            <h3 v-if="icData?.inscricoes.length === 0" style="color: white">Não há alunos partipando dessa IC no momento.</h3>
+            <ButtonCard
+                :title="aluno.aluno.nome"
+                :subtitle="'Matrícula: ' + aluno.aluno.matricula"
+                style="background-color: #CFEEDC;
+                        display: flex;
+                        align-self: center;
+                "
+                v-for="(aluno) in icData?.inscricoes" key="aluno.aluno.id"
+            />
           </v-window-item>
         </v-window>
 
-        <v-window v-model="tab" v-for="(aluno) in icData.inscricoes" key="aluno.aluno.id" >
-          <v-window-item value="alunos" >
-            <ButtonCard :title="aluno.aluno.nome" :subtitle="'Matrícula: ' + aluno.aluno.matricula" style="background-color: #CFEEDC"/>
-          </v-window-item>
-        </v-window>
       </v-container>
 
 
@@ -124,7 +141,7 @@ export default defineComponent({
   data() {
     return {
       icData : null,
-      tab: null,
+      tab: "alunos",
       btnClass: "botaoInativo",
       dialog: false,
       professores: [],
@@ -137,7 +154,7 @@ export default defineComponent({
   },
   created() {
     this.listIcParticipantes();
-  }
+  },
 
 })
 </script>
