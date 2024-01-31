@@ -9,3 +9,8 @@ export async function getIcAtivos (icId) {
     const response = await axios.get(`${api_url}/${icId}/ativos`)
     return response.data;
 }
+
+export async function addProfessorToIc(icId, professor) {
+    const response = await axios.put(`${api_url}/${icId}/vincular`, professor);
+    return response.data;
+}

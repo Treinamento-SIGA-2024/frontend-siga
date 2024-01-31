@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <PageTitle :title="this.icData.nome"></PageTitle>
+    <PageTitle :title="this.icData?.nome"></PageTitle>
     <ChapeuIC />
     <PageICdescricao
-        :professores="this.icData.professores"
-        :topicos="this.icData.topicos"
-        :remuneracao="this.icData.remuneracao"
-        :cargaHorariaSemanal="this.icData.cargaHorariaSemanal"
-        :descricao="this.icData.descricao"
+        :professores="this.icData?.professores"
+        :topicos="this.icData?.topicos"
+        :remuneracao="this.icData?.remuneracao"
+        :cargaHorariaSemanal="this.icData?.cargaHorariaSemanal"
+        :descricao="this.icData?.descricao"
     ></PageICdescricao>
     <!--A parte acima foi copiada da página do Aluno-Ver uma IC. Copiamos apenas para ter uma base de como ficaria a listagem dos participantes-->
 
@@ -41,6 +41,8 @@
               <v-btn @click="sendCadastro" color="primary">
                 Cadastrar
               </v-btn>
+
+
               <v-btn @click="dialog = false" color="red">
                 Cancelar
               </v-btn>
@@ -49,6 +51,13 @@
 
 
         </v-dialog>
+
+        <v-snackbar v-model="snackbar" v-if="requestCheck" color="success">
+          <p>Professor vinculado com sucesso!</p>
+        </v-snackbar>
+        <v-snackbar v-model="snackbar" v-if="!requestCheck" color="error">
+          <p>Professor já está vinculado a essa iniciação científica!</p>
+        </v-snackbar>
 
         <v-window v-model="tab"  v-for="(professor) in icData.professores" key="professor.id">
             <v-window-item value="professores">
@@ -76,7 +85,7 @@ import {defineComponent} from "vue";
 import PageICdescricao from "@/components/IC/PageICdescricao.vue";
 import PageTitle from "@/components/PageTitle.vue";
 import ChapeuIC from "@/icons/IconeIC.vue";
-import {getIcAtivos} from "@/services/IniciacaoCientificaService.js";
+import {addProfessorToIc, getIcAtivos} from "@/services/IniciacaoCientificaService.js";
 import ButtonCard from "@/components/ButtonCard.vue";
 import PlusIcon from "@/icons/PlusIcon.vue";
 import {getAllProfessores} from "@/services/professorService.js";
@@ -98,10 +107,19 @@ export default defineComponent({
       this.professores = await getAllProfessores();
       this.nomesProfessores = this.professores.map((professor) => professor.nome);
     },
-    sendCadastro() {
-      const index = this.nomesProfessores.indexOf(this.professorSelecionado);
-      console.log(this.professores[index]);
+    async sendCadastro() {
+      try {
+        const index = this.nomesProfessores.indexOf(this.professorSelecionado);
+        const professor = this.professores[index];
+        await addProfessorToIc(this.$route.params.icId, professor);
+        this.requestCheck = true;
+        this.listIcParticipantes();
+      } catch (e) {
+        console.log(e);
+        this.requestCheck = false
+      }
       this.dialog = false;
+      this.snackbar = true;
     }
   },
   data() {
@@ -112,7 +130,9 @@ export default defineComponent({
       dialog: false,
       professores: [],
       nomesProfessores:[],
-      professorSelecionado: ""
+      professorSelecionado: "",
+      snackbar: false,
+      requestCheck: false
 
     }
   },
