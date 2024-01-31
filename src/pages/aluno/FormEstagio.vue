@@ -45,9 +45,10 @@ import ButtonCard from "@/components/ButtonCard.vue";
 import PopUp from '@/components/PopUp.vue';
 import {getEstagioById} from "@/services/Estagio.js";
 import {createAlunoPedidoEstagio} from "@/services/inscricaoEstagioService.js";
+import Loading from "@/components/Loading.vue";
 
 export default defineComponent({
-  components: {ButtonCard, PopUp},
+  components: {Loading, ButtonCard, PopUp},
   data(){
     return {
       togglePopUpAction:false,
@@ -65,10 +66,17 @@ export default defineComponent({
     async getEstagio(id){
       try{
         const response = await getEstagioById(id);
-        console.log(response)
         this.estagio = response;
       }catch(err){
-        console.log(err)
+        if(!err.response || err.response.status === 500) {
+          this.error = "Erro no servidor";
+        }
+        else if (err.response.status === 404) {
+          this.$router.push("/notfound");
+        } else {
+          this.error = err.response.data.message;
+        }
+        this.snackbar = true;
       }
       
     },
@@ -76,7 +84,7 @@ export default defineComponent({
       try {
         const body = {matricula: this.aluno.matricula, estagioId: this.estagio.id}
         const response = await createAlunoPedidoEstagio(body);
-        this.$router.push("/")
+        this.$router.push("/aluno")
       }
       catch (err) {
         if(!err.response || err.response.data.status === 500){
