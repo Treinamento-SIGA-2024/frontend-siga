@@ -8,6 +8,7 @@ import PedidosAluno from '@/pages/aluno/Pedidos.vue';
 import PageEstagioAluno from '@/pages/aluno/PageEstagio.vue';
 import ListEstagioAluno from '@/pages/aluno/ListEstagio.vue';
 import FormEstagioAluno from '@/pages/aluno/FormEstagio.vue';
+import PagePedido from "@/pages/aluno/PagePedido.vue";
 
 // Coordenador
 import HomeCoordenador from '@/pages/coordenador/Home.vue';
@@ -32,7 +33,6 @@ import CreateEstagioSecretaria from '@/pages/secretaria/CreateEstagio.vue';
 import NotFound from '@/pages/NotFound.vue';
 
 import { createWebHistory, createRouter } from 'vue-router';
-import PagePedido from "@/pages/aluno/PagePedido.vue";
 
 const routes = [
   {
@@ -79,10 +79,16 @@ const routes = [
     name: "PedidosAluno",
     component: PedidosAluno
   },
-  { //ransformar em um unico pedido de ic
-    path: "/aluno/pedidos/ic/:id",
-    name: "PagePedido",
+  {
+    path: "/aluno/pedidos/ic/:icId",
+    name: "PagePedidoIc",
     component: PagePedido,
+    props: true
+  },{
+    path: "/aluno/pedidos/estagio/:estagioId",
+    name: "PagePedidoEsatgio",
+    component: PagePedido,
+    props: true
   },
   // Professor
   { path: "/professor", name: "HomeProfessor", component: HomeProfessor },

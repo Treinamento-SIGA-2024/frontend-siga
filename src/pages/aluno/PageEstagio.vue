@@ -4,7 +4,7 @@
     <Loading v-if="loading"/>
   </v-container>
   <v-container v-if="!loading && !erro" id="content">
-    <PedidoEstagio :estagio="estagio"/>
+    <InfoPedido :estagio="estagio"/>
     <ButtonCard title="Contrato" id="btnContrato"
                 :style="{height: '8vh'}" @click="this.$router.push(`/aluno/estagio/id/${this.estagio.id}/formulario`)"/>
   </v-container>
@@ -17,7 +17,7 @@ import ButtonCard from "@/components/ButtonCard.vue";
 import Loading from "@/components/Loading.vue";
 import {getAllEstagios, getEstagioById} from "@/services/Estagio.js";
 import PopUpErro from "@/components/PopUpErro.vue";
-import PedidoEstagio from "@/components/PedidoEstagio.vue";
+import InfoPedido from "@/components/InfoPedido.vue";
 
 export default {
   name: "PageEstagioAluno",
@@ -43,7 +43,7 @@ export default {
     this.loading = false;
   },
   components: {
-    PedidoEstagio,
+    InfoPedido,
     PopUpErro,
     Loading,
     ButtonCard,
