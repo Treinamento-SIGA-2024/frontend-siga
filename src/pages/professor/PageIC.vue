@@ -3,11 +3,11 @@
     <PageTitle :title="this.icData?.nome"></PageTitle>
     <ChapeuIC />
     <PageICdescricao
-        :professores="this.icData?.professores"
-        :topicos="this.icData?.topicos"
-        :remuneracao="this.icData?.remuneracao"
-        :cargaHorariaSemanal="this.icData?.cargaHorariaSemanal"
-        :descricao="this.icData?.descricao"
+      :professores="this.icData?.professores"
+      :topicos="this.icData?.topicos"
+      :remuneracao="this.icData?.remuneracao"
+      :cargaHorariaSemanal="this.icData?.cargaHorariaSemanal"
+      :descricao="this.icData?.descricao"
     ></PageICdescricao>
     <!--A parte acima foi copiada da página do Aluno-Ver uma IC. Copiamos apenas para ter uma base de como ficaria a listagem dos participantes-->
 
@@ -23,6 +23,7 @@
       </v-tabs>
 
       <v-container class="tabsContainer">
+
         <v-dialog v-model="dialog" width="80%" persistent>
           <template v-slot:activator="{props}">
             <v-btn :class="this.btnClass" style="background-color: #CFEEDC" v-bind="props" @click="listProfessores">
@@ -75,6 +76,7 @@
           <v-window-item value="alunos" >
             <h3 v-if="icData?.inscricoes.length === 0" style="color: white">Não há alunos partipando dessa IC no momento.</h3>
             <ButtonCard
+                @click="deletarAluno(aluno.id, this.matriculaProf)"
                 :title="aluno.aluno.nome"
                 :subtitle="'Matrícula: ' + aluno.aluno.matricula"
                 style="background-color: #CFEEDC;
@@ -82,21 +84,16 @@
                         align-self: center;
                 "
                 v-for="(aluno) in icData?.inscricoes" key="aluno.aluno.id"
+                textoBotao="Remover da IC"
             />
           </v-window-item>
         </v-window>
-
       </v-container>
-
-
     </v-card>
-
   </div>
-
 </template>
 
 <script>
-
 import {defineComponent} from "vue";
 import PageICdescricao from "@/components/IC/PageICdescricao.vue";
 import PageTitle from "@/components/PageTitle.vue";
@@ -105,15 +102,17 @@ import {addProfessorToIc, getIcAtivos} from "@/services/IniciacaoCientificaServi
 import ButtonCard from "@/components/ButtonCard.vue";
 import PlusIcon from "@/icons/PlusIcon.vue";
 import {getAllProfessores} from "@/services/professorService.js";
+import { deletarAlunoIC } from '@/services/professorService.js';
+
 
 export default defineComponent({
-  name: "PageIcProfessor",
+  name: 'PageIcProfessor',
   components: {
     PlusIcon,
     ButtonCard,
     ChapeuIC,
     PageTitle,
-    PageICdescricao
+    PageICdescricao,
   },
   methods: {
     async listIcParticipantes () {
@@ -136,7 +135,15 @@ export default defineComponent({
       }
       this.dialog = false;
       this.snackbar = true;
-    }
+    },
+    async deletarAluno(inscricaoId, matriculaProf) {
+      try {
+        await deletarAlunoIC(inscricaoId, matriculaProf);
+        this.listIcParticipantes();
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
   data() {
     return {
@@ -148,8 +155,8 @@ export default defineComponent({
       nomesProfessores:[],
       professorSelecionado: "",
       snackbar: false,
-      requestCheck: false
-
+      requestCheck: false,
+      matriculaProf: "200000001",
     }
   },
   created() {
@@ -167,13 +174,12 @@ export default defineComponent({
   align-items: center;
   padding-bottom: 25px;
 }
-.tabsContainer{
+.tabsContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
 
 /* Fala que não ta sendo usada, mas está sendo usada nos v-tabs */
 .ativo {
@@ -181,6 +187,7 @@ export default defineComponent({
   opacity: 100%;
   color: black;
 }
+
 
 .botaoInativo {
   display: none;
@@ -191,3 +198,4 @@ export default defineComponent({
 }
 
 </style>
+
