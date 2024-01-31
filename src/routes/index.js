@@ -32,12 +32,19 @@ import CreateEstagioSecretaria from '@/pages/secretaria/CreateEstagio.vue';
 import NotFound from '@/pages/NotFound.vue';
 
 import { createWebHistory, createRouter } from 'vue-router';
+import Auth from "@/pages/Auth.vue";
+
 
 const routes = [
   {
     path: "/",
     name: "Login",
     component: Login
+  },
+  {
+    path: "/auth",
+    name: "AuthLogin",
+    component: Auth
   },
 
   // Aluno
