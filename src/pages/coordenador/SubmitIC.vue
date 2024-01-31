@@ -64,7 +64,7 @@ export default {
         },
 
         async rejeitarIC() {
-            let res = await rejeitarIC('200000005', this.propostaIc.id);
+            let res = await rejeitarIC('300000001', this.propostaIc.id);
             console.log(res);
 
             this.$router.push("/coordenador/ic");
