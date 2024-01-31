@@ -8,6 +8,7 @@ import PedidosAluno from '@/pages/aluno/Pedidos.vue';
 import PageEstagioAluno from '@/pages/aluno/PageEstagio.vue';
 import ListEstagioAluno from '@/pages/aluno/ListEstagio.vue';
 import FormEstagioAluno from '@/pages/aluno/FormEstagio.vue';
+import PagePedido from "@/pages/aluno/PagePedido.vue";
 
 // Coordenador
 import HomeCoordenador from '@/pages/coordenador/Home.vue';
@@ -79,9 +80,15 @@ const routes = [
     component: PedidosAluno
   },
   {
-    path: "/aluno/pedidos/estagio/pagina",
-    name: "PedidosEstagioAluno",
-    component: PageEstagioAluno,
+    path: "/aluno/pedidos/ic/:icId",
+    name: "PagePedidoIc",
+    component: PagePedido,
+    props: true
+  },{
+    path: "/aluno/pedidos/estagio/:estagioId",
+    name: "PagePedidoEsatgio",
+    component: PagePedido,
+    props: true
   },
   // Professor
   { path: "/professor", name: "HomeProfessor", component: HomeProfessor },
