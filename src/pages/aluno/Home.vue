@@ -5,8 +5,14 @@
     title="Iniciação Científica"
     @click="this.$router.push('/aluno/ic')"
   />
-  <ButtonCard title="Estágio" @click="this.$router.push('/aluno/estagio')" />
-  <ButtonCard title="Pedidos" @click="this.$router.push('/aluno/pedidos')" />
+  <ButtonCard 
+    title="Estágio" 
+    @click="this.$router.push('/aluno/estagio')" 
+  />
+  <ButtonCard 
+    title="Pedidos" 
+    @click="this.$router.push('/aluno/pedidos')" 
+  />
 </template>
 
 <script>
@@ -27,10 +33,4 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 </style>

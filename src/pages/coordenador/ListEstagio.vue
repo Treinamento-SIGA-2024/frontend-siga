@@ -36,10 +36,10 @@ import PageTitle from "@/components/PageTitle.vue";
 import ButtonCard from "@/components/ButtonCard.vue";
 import { getEstagiosPendentes } from "@/services/coordenadorService.js";
 import Loading from "@/components/Loading.vue";
-import OfertaEstagio from "@/components/ofertaEstagio.vue";
+import CardOferta from "@/components/CardOferta.vue";
 
 export default defineComponent({
-  components: {OfertaEstagio, Loading, ButtonCard, PageTitle, Header },
+  components: {CardOferta, Loading, ButtonCard, PageTitle, Header },
   methods: {
     async getEstagios() {
       const estagios = await getEstagiosPendentes();
