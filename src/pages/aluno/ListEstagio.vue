@@ -71,6 +71,7 @@ import {getAllEstagios,
         getModalidades} from "@/services/Estagio.js";
 import Loading from "@/components/Loading.vue";
 import CardOferta from "@/components/CardOferta.vue";
+import CloseIcon from "@/icons/CloseIcon.vue";
 
 import { watch } from 'vue';
 
@@ -106,6 +107,7 @@ export default {
     PageTitle,
     ButtonCard,
     CardOferta,
+    CloseIcon,
   },
   methods: {
     async getEstagios() {
@@ -148,6 +150,12 @@ export default {
           return true;
         return this.modalidadesSelecionadas.includes(estagio.modalidade);
       });
+    },
+    fechaFiltros() {
+      this.filtros = false;
+      this.cargosSelecionados = [];
+      this.empresasSelecionadas = [];
+      this.modalidadesSelecionadas = [];
     }
   },
 }
