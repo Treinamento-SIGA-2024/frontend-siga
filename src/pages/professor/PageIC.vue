@@ -3,79 +3,107 @@
     <PageTitle :title="this.icData?.nome"></PageTitle>
     <ChapeuIC />
     <PageICdescricao
-        :professores="this.icData?.professores"
-        :topicos="this.icData?.topicos"
-        :remuneracao="this.icData?.remuneracao"
-        :cargaHorariaSemanal="this.icData?.cargaHorariaSemanal"
-        :descricao="this.icData?.descricao"
+      :professores="this.icData?.professores"
+      :topicos="this.icData?.topicos"
+      :remuneracao="this.icData?.remuneracao"
+      :cargaHorariaSemanal="this.icData?.cargaHorariaSemanal"
+      :descricao="this.icData?.descricao"
     ></PageICdescricao>
     <!--A parte acima foi copiada da página do Aluno-Ver uma IC. Copiamos apenas para ter uma base de como ficaria a listagem dos participantes-->
 
-    <v-card  rounded="xl" style="background-color: var(--green3); margin-top: 20px" min-width="40%">
-      <v-tabs bg-color="#CFEEDC" v-model="tab" selected-class="ativo" fixed-tabs>
-        <v-tab value="alunos"  rounded="ts-xl">
-          Alunos
-        </v-tab>
-        <v-tab value="professores" rounded="te-xl">
-          Professores
-        </v-tab>
+    <v-card
+      rounded="xl"
+      style="background-color: var(--green3); margin-top: 20px"
+      min-width="40%"
+    >
+      <v-tabs
+        bg-color="#CFEEDC"
+        v-model="tab"
+        selected-class="ativo"
+        fixed-tabs
+      >
+        <v-tab value="alunos" rounded="ts-xl"> Alunos </v-tab>
+        <v-tab value="professores" rounded="te-xl"> Professores </v-tab>
       </v-tabs>
       <v-container class="tabsContainer">
-        <v-window v-model="tab" v-for="(professor) in icData?.professores" key="professor.id" >
+        <v-window
+          v-model="tab"
+          v-for="professor in icData?.professores"
+          key="professor.id"
+        >
           <v-window-item value="professores">
-            <ButtonCard :title="professor.nome" :subtitle="'Matrícula: ' + professor.matricula" style="background-color: #CFEEDC"/>
+            <ButtonCard
+              :title="professor.nome"
+              :subtitle="'Matrícula: ' + professor.matricula"
+              style="background-color: #cfeedc"
+            />
           </v-window-item>
         </v-window>
-        <v-window v-model="tab" v-for="(aluno) in icData?.inscricoes" key="aluno.aluno.id" >
-
-          <v-window-item value="alunos" >
-            <ButtonCard :title="aluno.aluno.nome" :subtitle="'Matrícula: ' + aluno.aluno.matricula" style="background-color: #CFEEDC"/>
+        <v-window
+          v-model="tab"
+          v-for="aluno in icData?.inscricoes"
+          key="aluno.aluno.id"
+        >
+          <v-window-item value="alunos">
+            <ButtonCard
+              @click="deletarAluno(aluno.id, this.matriculaProf)"
+              :title="aluno.aluno.nome"
+              :subtitle="'Matrícula: ' + aluno.aluno.matricula"
+              style="background-color: #cfeedc"
+              textoBotao="Remover da IC"
+            />
           </v-window-item>
-
         </v-window>
-
+        <span v-if="icData?.inscricoes.length < 1"
+          >Não existe alunos nessa IC!</span
+        >
       </v-container>
-
-
     </v-card>
-
   </div>
-
 </template>
 
 <script>
-
-import {defineComponent} from "vue";
-import PageICdescricao from "@/components/IC/PageICdescricao.vue";
-import PageTitle from "@/components/PageTitle.vue";
-import ChapeuIC from "@/icons/IconeIC.vue";
-import {getIcAtivos} from "@/services/IniciacaoCientificaService.js";
-import ButtonCard from "@/components/ButtonCard.vue";
+import { defineComponent } from 'vue';
+import PageICdescricao from '@/components/IC/PageICdescricao.vue';
+import PageTitle from '@/components/PageTitle.vue';
+import ChapeuIC from '@/icons/IconeIC.vue';
+import { getIcAtivos } from '@/services/IniciacaoCientificaService.js';
+import ButtonCard from '@/components/ButtonCard.vue';
+import { deletarAlunoIC } from '@/services/professorService.js';
 
 export default defineComponent({
-  name: "PageIcProfessor",
+  name: 'PageIcProfessor',
   components: {
     ButtonCard,
     ChapeuIC,
     PageTitle,
-    PageICdescricao
+    PageICdescricao,
   },
   methods: {
-    async listIcParticipantes () {
-      this.icData =  await getIcAtivos(this.$route.params.icId);
-    }
+    async listIcParticipantes() {
+      this.icData = await getIcAtivos(this.$route.params.icId);
+      console.log(this.icData);
+    },
+    async deletarAluno(inscricaoId, matriculaProf) {
+      try {
+        await deletarAlunoIC(inscricaoId, matriculaProf);
+        this.listIcParticipantes();
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
   data() {
     return {
-      icData : null,
-      tab: null
-    }
+      icData: null,
+      tab: null,
+      matriculaProf: 200000001,
+    };
   },
   created() {
     this.listIcParticipantes();
-  }
-
-})
+  },
+});
 </script>
 
 <style scoped>
@@ -86,13 +114,12 @@ export default defineComponent({
   align-items: center;
   padding-bottom: 25px;
 }
-.tabsContainer{
+.tabsContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
 
 /* Fala que não ta sendo usada, mas está sendo usada nos v-tabs */
 .ativo {
