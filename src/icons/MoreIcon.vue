@@ -9,7 +9,7 @@
       ></v-btn>
     </template>
     <v-list>
-      <v-list-item v-for="(item, i) in items" :key="i">
+      <v-list-item id="item" v-for="(item, i) in items" :key="i">
         <v-list-item-title @click="item.action">{{
           item.title
         }}</v-list-item-title>
@@ -46,3 +46,16 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+
+#item {
+  cursor: pointer;
+}
+
+#item:hover {
+  background-color: #e1e1e1;
+  transition-duration: 400ms;
+}
+
+</style>
