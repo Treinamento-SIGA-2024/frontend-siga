@@ -7,6 +7,8 @@
       <p>Adicionar filtros</p>
     </v-btn>
     
+    <Loading v-if="ics.length === 0"/>
+
     <v-container v-if="filtros" class="filter-container">
       
       <CloseIcon @Click="fechaFiltros" id="closeFiltros" alt="Cancelar filtros"/>
@@ -55,6 +57,8 @@ import PageTitle from "@/components/PageTitle.vue"
 import PlusIcon from "@/icons/PlusIcon.vue"
 import CloseIcon from "@/icons/CloseIcon.vue"
 import CardOferta from "@/components/CardOferta.vue"
+import Loading from "@/components/Loading.vue";
+
 import { getAllICsDisponiveis } from "@/services/iniciacaoCientifica.js"
 import { getTopicos } from "@/services/topicosService.js"
 import { getAllProfessores } from "@/services/professorService.js"
@@ -69,6 +73,7 @@ export default {
     PlusIcon,
     CloseIcon,
     CardOferta,
+    Loading,
 },
   methods: {
     async getIcs() { this.ics = this.icsFiltradas = await getAllICsDisponiveis(); },
@@ -108,7 +113,7 @@ export default {
     fechaFiltros() {
       this.filtros = false;
       this.topicosSelecionados = [];
-      this.profes
+      this.professoresSelecionados = [];
     }
   },
   created() {
@@ -133,8 +138,6 @@ export default {
     }
   },
 }
-
-
 </script>
 
 <style scoped>
