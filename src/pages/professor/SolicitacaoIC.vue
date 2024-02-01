@@ -1,7 +1,12 @@
 <template style="justify-content: center">
+  <!-- Notificação de sucesso e erro do cadastro -->
+  <v-snackbar v-model="snackbar" timeout="5000" color="red">
+    <span> {{ snackMessage }}</span>
+  </v-snackbar>
+
   <v-card :flat="true" :font-family="this.global.font">
     <v-card-title style="text-align: center; margin: 17px 0">
-      SOLICITAÇÃO IC
+      REQUERIMENTOS IC
     </v-card-title>
   </v-card>
 
@@ -10,91 +15,88 @@
       v-for="(iniciacao, index) in iniciacoesCientificas"
       :key="index"
     >
-      <v-expansion-panel-title @click="toggleAccordion(index)" expand-icon="mdi-menu-down" collapse-icon="mdi-menu-up">
+      <v-expansion-panel-title
+        @click="toggleAccordion(index)"
+        expand-icon="mdi-menu-down"
+        collapse-icon="mdi-menu-up"
+        class="title"
+      >
         {{ iniciacao.nome }}
       </v-expansion-panel-title>
-      <div v-if="activeIndex === index">
-        <v-row v-for="(inscricao, i) in iniciacao.inscricoes" :key="i" cols="auto">
-          <v-col>
-            <CardSolicitacaoIC
-              :inscricao="inscricao"
-              :iniciacaoCientifica="iniciacao"
-              @refreshSituacao=""
-            />
-          </v-col>
-        </v-row>
-      </div>
+      <Transition name="fade">
+        <div v-if="activeIndex === index">
+          <v-row
+            v-for="(inscricao, i) in iniciacao.inscricoes"
+            :key="i"
+            cols="auto"
+          >
+            <v-col>
+              <CardSolicitacaoIC
+                :inscricao="inscricao"
+                :iniciacaoCientifica="iniciacao"
+                @refreshSituacao=""
+              />
+            </v-col>
+          </v-row>
+          <v-row v-if="iniciacao.inscricoes < 1">
+            <v-col>
+              <span class="semRequerimentos">
+                Não existem inscrições pendentes para essa Iniciação Científica
+              </span>
+            </v-col>
+          </v-row>
+        </div>
+      </Transition>
     </v-expansion-panel>
   </v-expansion-panels>
 
-
-  <v-card :flat="true" class="semDados" v-if="!this.iniciacoesCientificas">
+  <v-card :flat="true" class="semDados" v-if="iniciacoesCientificas.length < 1">
     <PopUp :acoes="metodos" />
-    <Loading/>
   </v-card>
 </template>
 
 <script>
 import DadosPessoais from "@/components/DadosPessoais.vue";
 import CardSolicitacaoIC from "@/components/CardSolicitacaoIC.vue";
-import { getAllIcPendentes } from "@/services/professorService.js";
+import {
+  getAllIcPendentes,
+  getAllRequerimentosIc,
+} from "@/services/professorService.js";
 import Loading from "@/components/Loading.vue";
 import PopUp from "@/components/PopUp.vue";
 import { getIcById } from "@/services/iniciacaoCientifica.js";
+import { Transition } from "vue";
 
 export default {
-  components: { PopUp, Loading, CardSolicitacaoIC, DadosPessoais },
+  components: { PopUp, Loading, CardSolicitacaoIC, DadosPessoais, Transition },
   data() {
     return {
       activeIndex: null,
-      professorMatricula: "200000001",
+      professorMatricula: "200000008",
       icId: "1",
+      snackbar: false,
+      snackMessage: "",
       inscricoes: [],
-      iniciacoesCientificas: [
-        {
-          id: 1,
-          nome: "Primeira IC do mundo",
-          inscricoes: [{ id: 1, aluno: "Vitória", matricula:"2566662" }],
-        },
-        {
-          id: 2,
-          nome: "Projeto de Pesquisa em Biologia",
-          inscricoes: [
-            { id: 2, aluno: "João", matricula:"25695636" },
-            { id: 3, aluno: "Maria", matricula:"25695636" },
-          ],
-        },
-        {
-          id: 3,
-          nome: "Iniciação Científica em Física",
-          inscricoes: [
-            { id: 4, aluno: "Pedro", matricula:"12036589" },
-            { id: 5, aluno: "Ana", matricula:"12036589" },
-            { id: 6, aluno: "Carlos", matricula:"12036589" },
-          ],
-        },
-      ],
+      iniciacoesCientificas: [],
       metodos: {
         msg: "Recarregar página?",
-        aceitarAction: this.getInscricoesIc,
-        cancelarAction: "",
+        aceitarAction: this.getRequerimentos,
+        cancelarAction: this.redirecionar,
       },
     };
   },
   methods: {
+    redirecionar(){
+      this.$router.push('/professor');  
+    },
     async getInscricoesIc() {
-      console.log("ooooi");
       const inscricoes = await getAllIcPendentes(
         this.professorMatricula,
         this.icId
       );
       const ic = await getIcById(this.icId);
-
-      console.log(inscricoes);
-      console.log(ic);
       this.iniciacaoCientifica = ic;
       this.inscricoes = inscricoes;
-      console.log(this.inscricoes.length);
     },
     toggleAccordion(index) {
       if (this.activeIndex === index) {
@@ -103,9 +105,25 @@ export default {
         this.activeIndex = index;
       }
     },
+    async getRequerimentos() {
+      try {
+        const iniciacoesCientificas = await getAllRequerimentosIc(
+          this.professorMatricula
+        );
+        this.iniciacoesCientificas = iniciacoesCientificas;
+      } catch (err) {
+        if (err.response.data.status == 500) {
+          this.snackMessage =
+            "Não foi possível encontrar Iniciações Científicas!\n";
+          this.snackbar = !this.snackbar;
+        }
+        console.log(err.response.data.status);
+      }
+    },
   },
   created() {
     this.getInscricoesIc();
+    this.getRequerimentos();
   },
 };
 </script>
@@ -130,5 +148,28 @@ v-card {
 .recarregarBtn {
   width: 30%;
   background-color: blue;
+}
+.semRequerimentos {
+  justify-content: center;
+  display: flex;
+  font-size: 18px;
+  font-family: "Source Sans Pro";
+  color: #666666;
+  margin: 2%;
+  @media (max-width: 600px) {
+    padding: 15px;
+    font-size: 16px;
+  }
+}
+.title {
+  font-family: "Source Sans Pro";
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
