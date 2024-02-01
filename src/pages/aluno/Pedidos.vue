@@ -81,21 +81,14 @@ export default {
 </script>
 
 <style scoped>
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-}
 
 .aba {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 13vw;
   padding: 0 5px 0 5px;
-
+  width: 200px;
   border-radius: 15px 15px 0 0;
   background-color: #f3f3f3;
 }
@@ -103,4 +96,15 @@ export default {
 .aba:hover {
   cursor: pointer;
 }
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+  .aba {
+    width: 13vw;
+  }
+}
+
 </style>

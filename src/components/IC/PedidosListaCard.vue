@@ -1,7 +1,9 @@
 <template>
-  <v-snackbar :timeout="5000" :color="cor" elevation="24" v-model="snackbar">
+
+  <v-snackbar :timeout="1000 * 1000" v-model="snackbar">
     <span>{{ snackMessage }}</span>
   </v-snackbar>
+
   <v-card>
     <v-card-item style="width: 85%">
       <v-card-title>{{ inscricao.iniciacaoCientifica?.nome }}</v-card-title>
@@ -28,13 +30,19 @@ export default {
       try {
         const data = await cancelarIncricaoIC(this.inscricao.id)
         console.log(data)
-        this.cor = 'green'
+  
         this.snackMessage = data
         this.snackbar = !this.snackbar
       } catch (e) {
-        console.log(e.response.data.message)
-        this.cor = 'red'
-        this.snackMessage = e.response.data.message
+        if (!err.response || err.response.status === 500) {
+          this.snackMessage = "Erro no servidor";
+        }
+        else if (err.response.status === 404) {
+          this.$router.push('/notfound');
+        }
+        else {
+          this.snackMessage = e.response.data.message
+        }
         this.snackbar = !this.snackbar
       }
       this.$emit('updatePage')
@@ -42,7 +50,6 @@ export default {
   },
   data() {
     return {
-      cor: '',
       snackMessage: '',
       snackbar: false,
       status: '',
