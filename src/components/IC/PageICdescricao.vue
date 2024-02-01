@@ -4,7 +4,7 @@
     <v-card-text class="custom-text">
       <span>Professor(es):</span>
       <div class="professores">
-        <p v-for="prof in this.$props.professores"> 
+        <p v-for="prof in this.$props.professores">
             {{ prof.nome }}
         </p>
       </div> 
@@ -42,10 +42,10 @@
 export default {
   name: 'PageICdescricao',
   props: {
-    professores: [],
-    topicos: [],
-    remuneracao: String,
-    cargaHorariaSemanal: String,
+    professores: Array,
+    topicos: Array,
+    remuneracao: Number,
+    cargaHorariaSemanal: Number,
     descricao: String, 
   },
   methods:{
