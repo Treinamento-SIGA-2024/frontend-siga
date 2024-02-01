@@ -7,49 +7,57 @@
     </v-card>
   </v-container>
 
+
   <div class="d-flex align-center flex-column">
     <v-btn max-width="200" color="#C1DEBE" class="registerBtn" @click="goToCadastroIC">
       Cadastrar IC
     </v-btn>
   </div>
 
-  <div
-      class="d-flex align-center flex-column"
-      v-for="(pedido, i) in pedidos"
-      :key="i"
-  >
-    <v-btn width="310" height="80" color="#CFEEDC" style="margin-bottom: 29px;">
-      <div class="pedidosBtn">
-        <span> {{ pedido.nome }} </span>
-      </div>
-      <div class="status">
-        <svg-icon v-if="pedido.situacaoCriacao.descricao == 'Pendente'" color="yellow" type="mdi" :path="path"/>
-        <svg-icon v-if="pedido.situacaoCriacao.descricao == 'Ativo'" color="green" type="mdi" :path="path"/>
-        <svg-icon v-if="pedido.situacaoCriacao.descricao == 'Recusado'" color="red" type="mdi" :path="path"/>
-      </div>
-    </v-btn>
-  </div>
 
+  <v-container v-for="(value, key) in pedidosCategorizados">
+    <div class="aba" @click="abas[key] = !abas[key]"
+         :style="{borderRadius: abas[key] ? '15px 15px 0 0' : '15px'}">
+      <v-card-title>{{key}}</v-card-title>
+      <ArrowDown v-if="!abas[key]"/>
+      <ArrowUp v-if="abas[key]"/>
+    </div>
+    <PedidosLista v-if="abas[key]" :pedidos="value"/>
+  </v-container>
 </template>
 
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
 import {mdiCircle} from "@mdi/js";
 import {getPedidos} from "@/services/professorService.js";
+import PedidosLista from "@/components/IC/PedidosLista.vue";
+import ArrowDown from "@/icons/ArrowDown.vue";
+import ArrowUp from "@/icons/ArrowUp.vue";
 
 export default {
   name: "my-cool-component",
   components: {
+    PedidosLista,
+    ArrowUp, ArrowDown,
     SvgIcon,
   },
   data() {
     return {
       pedidos: [],
+      pedidosCategorizados: {},
+      abas: {},
+      situacoes: [],
       path: mdiCircle,
     }
   },
-  created() {
-    this.getPedidos();
+  async created() {
+    await this.getPedidos();
+    for (let pedido of this.pedidos) {
+      console.log(pedido)
+      if (!this.pedidosCategorizados[pedido.situacaoCriacao.descricao])
+        this.pedidosCategorizados[pedido.situacaoCriacao.descricao] = [];
+      this.pedidosCategorizados[pedido.situacaoCriacao.descricao].push(pedido);
+    }
   },
   methods: {
     async getPedidos() {
@@ -97,4 +105,20 @@ export default {
   width: 20px;
   height: 75px;
 }
+
+.aba {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5px 0 5px;
+  width: 200px;
+  border-radius: 15px 15px 0 0;
+  background-color: #f3f3f3;
+}
+
+.aba:hover {
+  cursor: pointer;
+}
+
 </style>

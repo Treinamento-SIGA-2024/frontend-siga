@@ -9,8 +9,13 @@
           <PedidosListaCard
             @updatePage="updatePage"
             :inscricao="inscricao"
-          >
-          </PedidosListaCard>
+          />
+        </v-col>
+        <v-col v-for="(pedido, i) in this.$props.pedidos" :key="i" cols="auto">
+          <PedidosListaCard
+              @updatePage="updatePage"
+              :pedido="pedido"
+          />
         </v-col>
       </v-row>
     </v-container>
@@ -35,6 +40,7 @@ export default {
   },
   props: {
     inscricoes: Array,
+    pedidos: Array,
   },
 }
 </script>

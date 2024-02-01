@@ -5,15 +5,22 @@
   </v-snackbar>
 
   <v-card>
-    <v-card-item style="width: 85%">
-      <v-card-title>{{ inscricao.iniciacaoCientifica?.nome }}</v-card-title>
-      <v-card-subtitle>{{
-        inscricao.iniciacaoCientifica.professores[0]?.nome
-      }}</v-card-subtitle>
+    <div v-if="inscricao" class="divInscricao">
+      <v-card-item style="width: 85%">
+        <v-card-title>{{ inscricao.iniciacaoCientifica?.nome }}</v-card-title>
+        <v-card-subtitle>{{
+            inscricao.iniciacaoCientifica.professores[0]?.nome
+          }}
+        </v-card-subtitle>
+      </v-card-item>
+      <v-col class="more-container">
+        <MoreIcon id="moreIcon" :items="items" />
+      </v-col>
+    </div>
+    <v-card-item v-if="pedido" style="width: 85%">
+      <v-card-title>{{ pedido.nome }}</v-card-title>
     </v-card-item>
-    <v-col class="more-container">
-      <MoreIcon id="moreIcon" :items="items" />
-    </v-col>
+
   </v-card>
 </template>
 
@@ -24,6 +31,7 @@ export default {
   name: 'PedidosListaCard',
   props: {
     inscricao: Object,
+    pedido: Object,
   },
   methods: {
     async cancelarPedido() {
@@ -112,6 +120,12 @@ export default {
 .v-card-subtitle {
   font-weight: bold;
   color: #6a6a6a;
+}
+
+.divInscricao {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
 #moreIcon:hover {
