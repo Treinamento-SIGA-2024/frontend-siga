@@ -34,7 +34,7 @@
               <CardSolicitacaoIC
                 :inscricao="inscricao"
                 :iniciacaoCientifica="iniciacao"
-                @refreshSituacao=""
+                @refreshSituacao="getRequerimentos"
               />
             </v-col>
           </v-row>

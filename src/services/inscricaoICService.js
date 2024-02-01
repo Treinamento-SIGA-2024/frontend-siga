@@ -10,7 +10,6 @@ export async function getAllInscricoes(alunoId) {
 
 export async function createInscricaoIC(icId, alunoId) {
   const { data } = await axios.post(`${api_url}/IC/${icId}/aluno/${alunoId}`)
-
   return data
 }
 

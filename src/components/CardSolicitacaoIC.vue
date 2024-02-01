@@ -27,6 +27,7 @@ import {putSituacaoInscricaoIcAluno} from "@/services/professorService.js";
 
 export default defineComponent({
   components: {PopUp, PersonalData},
+  emits: ["refreshSituacao"],
   data(){
     return{
       togglePopUp:false,
@@ -51,11 +52,13 @@ export default defineComponent({
   methods:{
     async alterarSituacao(){
       if(this.situacao === "aceitar"){
-        const sendBody = {icId:1, matricula:"200000001",codigo:"001"}
+        /*Matricula mocada por enquanto*/
+        const sendBody = {icId:this.$props.iniciacaoCientifica.id, matricula:"200000001",codigo:"001"}
         const resposta = await putSituacaoInscricaoIcAluno(this.$props.inscricao.id, sendBody)
+        
         console.log(resposta)
       }if(this.situacao === "recusar"){
-        const sendBody = {icId:1, matricula:"200000001",codigo:"002"}
+        const sendBody = {icId:this.$props.iniciacaoCientifica.id, matricula:"200000001",codigo:"002"}
         const resposta = await putSituacaoInscricaoIcAluno(this.$props.inscricao.id, sendBody)
         console.log(resposta)
       }

@@ -8,7 +8,7 @@
             v-for="(topico) in iniciacaoCientifica.topicos"
             key="topico.id"
             :color="randChipColor()"
-            style="margin-right: 5px;"
+            style="margin-right: 5px; margin-bottom: 5px;"
         >
           {{topico.nome}}
         </v-chip>
