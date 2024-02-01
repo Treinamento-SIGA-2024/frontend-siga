@@ -15,7 +15,7 @@ export async function getAllICsDisponiveis() {
 
 export const getIcById = async (icId) => {
     const { data } = await axios.get(`${api_url}/iniciacao_cientifica/${icId}`);
-
+    console.log(data)
     return data;
 };
 
