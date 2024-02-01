@@ -3,6 +3,7 @@
     <DadosPessoais/>
     <ButtonCard title="Iniciação Científica"  @click="this.$router.push('/professor/ic')"/>
     <ButtonCard title="Pedidos" @click="this.$router.push('/professor/pedidos')"/>
+    <ButtonCard title="Requerimentos (Alunos)" @click="this.$router.push('/professor/ic/pagina/solicitacoes')"/>
   </template>
   
   <script>
