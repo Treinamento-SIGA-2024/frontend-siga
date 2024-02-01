@@ -79,25 +79,23 @@
 </template>
 
 <script>
-import PageTitle from "@/components/PageTitle.vue";
-import ButtonCard from "@/components/ButtonCard.vue";
-import OfertaEstagio from "@/components/ofertaEstagio.vue";
+import PageTitle from '@/components/PageTitle.vue'
+import ButtonCard from '@/components/ButtonCard.vue'
 import {
   getTopicos,
   createTopico,
   updateTopicoById,
   deleteTopicoById,
-} from "@/services/topicosService.js";
-import MoreIcon from "@/icons/MoreIcon.vue";
-import PopUp from "@/components/PopUp.vue";
-import Loading from "@/components/Loading.vue";
+} from '@/services/topicosService.js'
+import MoreIcon from '@/icons/MoreIcon.vue'
+import PopUp from '@/components/PopUp.vue'
+import Loading from '@/components/Loading.vue'
 export default {
-  name: "SecretariaTopicos",
+  name: 'SecretariaTopicos',
   props: {
     title: String,
   },
   components: {
-    OfertaEstagio,
     PageTitle,
     ButtonCard,
     MoreIcon,
@@ -108,76 +106,76 @@ export default {
     return {
       idAtual: null,
       loading: true,
-      tituloCreate: "",
-      tituloUpdate: "",
+      tituloCreate: '',
+      tituloUpdate: '',
       toggleCreate: false,
       toggleUpdate: false,
       deletarTopico: false,
       topicos: [],
       idAtual: null,
-    };
+    }
   },
 
   created() {
-    this.getTopicos();
+    this.getTopicos()
   },
 
   methods: {
     async getTopicos() {
       try {
-        this.loading = true;
-        this.topicos = await getTopicos();
+        this.loading = true
+        this.topicos = await getTopicos()
       } catch (error) {
-        console.error(error);
+        console.error(error)
       } finally {
-        this.loading = false;
+        this.loading = false
       }
     },
     resetCreate() {
-      this.tituloCreate = "";
-      this.toggleCreate = false;
+      this.tituloCreate = ''
+      this.toggleCreate = false
     },
     getItems(topicoId) {
       return [
         {
-          title: "Editar",
+          title: 'Editar',
           action: () => this.editTopico(topicoId),
         },
         {
-          title: "Deletar",
+          title: 'Deletar',
           action: () => this.deleteTopico(topicoId),
         },
-      ];
+      ]
     },
     editTopico(topicoId) {
-      this.idAtual = topicoId;
-      this.toggleUpdate = true;
+      this.idAtual = topicoId
+      this.toggleUpdate = true
     },
     deleteTopico(topicoId) {
-      this.idAtual = topicoId;
-      this.deletarTopico = true;
+      this.idAtual = topicoId
+      this.deletarTopico = true
     },
     async createTopico(titulo) {
-      await createTopico({ titulo });
-      this.resetCreate();
-      await this.getTopicos();
+      await createTopico({ titulo })
+      this.resetCreate()
+      await this.getTopicos()
     },
     async confirmDeleteTopico() {
-      await deleteTopicoById(this.idAtual);
-      this.deletarTopico = false;
-      await this.getTopicos();
+      await deleteTopicoById(this.idAtual)
+      this.deletarTopico = false
+      await this.getTopicos()
     },
     resetUpdate() {
-      this.tituloUpdate = "";
-      this.toggleUpdate = false;
+      this.tituloUpdate = ''
+      this.toggleUpdate = false
     },
     async updateTopico(nome) {
-      await updateTopicoById(nome, this.idAtual);
-      this.resetUpdate();
-      await this.getTopicos();
+      await updateTopicoById(nome, this.idAtual)
+      this.resetUpdate()
+      await this.getTopicos()
     },
   },
-};
+}
 </script>
 
 <style scoped>
