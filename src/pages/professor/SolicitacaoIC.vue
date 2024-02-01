@@ -150,6 +150,7 @@ v-card {
 .panels{
   margin: 0 10vw;
   max-width: 80vw ;
+  align-self:center;
 }
 
 .recarregarBtn {
