@@ -26,3 +26,7 @@ export async function createIniciacaoCientifica(params, matricula){
     const { data } = await axios.post(`${url}/iniciacao_cientifica/${matricula}`, params);
     return data;
 }
+export async function getAllRequerimentosIc(matricula){
+    const response = await axios.get(`${url}/inscricoes/ic/${matricula}`);
+    return response.data;
+}
