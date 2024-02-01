@@ -10,7 +10,7 @@
     </v-card-title>
   </v-card>
 
-  <v-expansion-panels variant="accordion">
+  <v-expansion-panels variant="accordion" class="panels">
     <v-expansion-panel
       v-for="(iniciacao, index) in iniciacoesCientificas"
       :key="index"
@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       activeIndex: null,
-      professorMatricula: "200000008",
+      professorMatricula: "200000001",
       icId: "1",
       snackbar: false,
       snackMessage: "",
@@ -143,6 +143,10 @@ v-card {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.panels{
+  margin: 0 10vw;
+  max-width: 80vw ;
 }
 
 .recarregarBtn {
