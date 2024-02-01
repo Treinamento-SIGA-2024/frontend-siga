@@ -3,7 +3,7 @@
     <span>{{ snackMessage }}</span>
   </v-snackbar>
   <v-card>
-    <v-card-item>
+    <v-card-item style="width: 85%">
       <v-card-title>{{ inscricao.iniciacaoCientifica?.nome }}</v-card-title>
       <v-card-subtitle>{{
         inscricao.iniciacaoCientifica.professores[0]?.nome
