@@ -9,6 +9,18 @@ export const getTopicos = async () => {
 
 export async function createTopico(nome) {
     const { data } = await axios.post(`${api_url}`, {nome});
-    
+
+    return data;
+}
+
+export async function updateTopicoById(nome,id) {
+    const { data } = await axios.put(`${api_url}/${id}`, {nome});
+    console.log(data)
+    return data;
+}
+
+export async function deleteTopicoById(id) {
+    const { data } = await axios.delete(`${api_url}/${id}`);
+
     return data;
 }

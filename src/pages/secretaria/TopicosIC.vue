@@ -11,13 +11,12 @@
           <v-container>
             <v-row>
               <v-col>
-                <v-text-field v-model="titulo" label="Título" required/>
+                <v-text-field v-model="tituloCreate" label="Título" required/>
               </v-col>
             </v-row>
             <div class="submit">
-              <v-btn class="salvar" @click="this.createTopico(titulo)" >Salvar</v-btn>
-              <v-btn class="cancelar" @click="resetUpdate; toggleCreate = !toggleCreate">Cancelar</v-btn>
-              <!-- resetUpdate não está funcionando junto com o dialog, apenas separado -->
+              <v-btn class="salvar" @click="this.createTopico(tituloCreate)" >Salvar</v-btn>
+              <v-btn class="cancelar" @click="resetCreate">Cancelar</v-btn>
             </div>
           </v-container>
         </v-card>
@@ -31,47 +30,46 @@
         <v-col id="more-container">
           <MoreIcon id="moreIcon" :items="items"/>
         </v-col>
+        <v-row justify="center">
+          <v-dialog v-model="toggleUpdate" persistent style="width:450px">
+            <v-card>
+              <v-card-title id="text">
+                Editar Tópico
+              </v-card-title>
+              <v-container>
+                <v-row>
+                  <v-col>
+                    <v-text-field v-model="tituloUpdate" label="Novo Título" required/>
+                  </v-col>
+                </v-row>
+                <div class="submit">
+                  <v-btn class="salvar" @click="this.updateTopico(tituloUpdate)">Salvar</v-btn>
+                  <v-btn class="cancelar" @click="resetUpdate">Cancelar</v-btn>
+                </div>
+              </v-container>
+            </v-card>
+          </v-dialog>
+        </v-row>
+
+        <v-row justify="center">
+          <v-dialog v-model="deletarTopico" persistent style="width:350px">
+            <v-card>
+              <v-card-title id="text">
+                Tem certeza?
+              </v-card-title>
+              <v-container>
+                <div class="submit">
+                  <v-btn class="salvar">Sim</v-btn>
+                  <v-btn class="cancelar" @click="deletarTopico = !deletarTopico">Não</v-btn>
+                </div>
+              </v-container>
+            </v-card>
+          </v-dialog>
+        </v-row>
       </v-card>
     </v-row>
   </v-container>
 
-  <v-row justify="center">
-    <v-dialog v-model="editorTopico" persistent style="width:450px">
-      <v-card>
-        <v-card-title id="text">
-          Editar Tópico
-        </v-card-title>
-        <v-container>
-          <v-row>
-            <v-col>
-              <v-text-field v-model="novoTitulo" label="Novo Título" required/>
-            </v-col>
-          </v-row>
-          <div class="submit">
-            <v-btn class="salvar">Salvar</v-btn>
-            <v-btn class="cancelar" @click="resetUpdate">Cancelar</v-btn>
-            <!-- resetUpdate não está funcionando junto com o dialog, apenas separado -->
-          </div>
-        </v-container>
-      </v-card>
-    </v-dialog>
-  </v-row>
-
-  <v-row justify="center">
-    <v-dialog v-model="deletarTopico" persistent style="width:350px">
-      <v-card>
-        <v-card-title id="text">
-          Tem certeza?
-        </v-card-title>
-        <v-container>
-          <div class="submit">
-            <v-btn class="salvar">Sim</v-btn>
-            <v-btn class="cancelar" @click="deletarTopico = !deletarTopico">Não</v-btn>
-          </div>
-        </v-container>
-      </v-card>
-    </v-dialog>
-  </v-row>
   <Loading v-if="loading" />
 </template>
 
@@ -80,19 +78,19 @@
 import PageTitle from "@/components/PageTitle.vue";
 import ButtonCard from "@/components/ButtonCard.vue";
 import OfertaEstagio from "@/components/ofertaEstagio.vue";
-import { getTopicos, createTopico } from "@/services/topicosService.js";
+import {getTopicos, createTopico, updateTopicoById, deleteTopicoById} from "@/services/topicosService.js";
 import MoreIcon from '@/icons/MoreIcon.vue';
 import PopUp from "@/components/PopUp.vue";
 import Loading from "@/components/Loading.vue";
-import loading from "@/components/Loading.vue";
 export default {
   data() {
     return {
+      idAtual: null,
       loading: true,
-      titulo: '',
-      novoTitulo: '',
+      tituloCreate: '',
+      tituloUpdate: '',
       toggleCreate: false,
-      editorTopico: false,
+      toggleUpdate: false,
       deletarTopico: false,
       topicos: [],
       items: [
@@ -124,33 +122,43 @@ export default {
   },
 
   created() {
-    this.loading = true;
+
     this.getTopicos();
-    this.loading = !this.loading;
+
   },
 
   methods: {
     resetUpdate() {
-      this.novoTitulo = '';
-      this.editorTopico = !this.editorTopico
+      this.tituloUpdate = '';
+      this.toggleUpdate = !this.toggleUpdate;
     },
     resetCreate() {
-      this.titulo = '';
+      this.tituloCreate = '';
+      this.toggleCreate = !this.toggleCreate;
+
     },
     async getTopicos() {
+      this.loading = true;
       this.topicos = await getTopicos();
-      console.log(this.topicos)
+      this.loading = !this.loading;
     },
-    deleteTopico() {
-      this.deletarTopico = true
+    async deleteTopico() {
+      this.deletarTopico = true;
+      await deleteTopicoById(id);
+      this.deletarTopico = false;
+      await this.getTopicos();
     },
     editTopico() {
-      this.editorTopico = true
+      this.toggleUpdate = true
     },
     async createTopico(nome) {
       await createTopico(nome);
       this.resetCreate();
-      this.toggleCreate = !this.toggleCreate;
+      await this.getTopicos();
+    },
+    async updateTopico(nome,id) {
+      await updateTopicoById(nome,id);
+      this.resetUpdate();
       await this.getTopicos();
     }
   },
@@ -207,10 +215,6 @@ export default {
   color: white;
   background-color: #EB5757;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.21);
-}
-
-MoreIcon > items:hover {
-  cursor: pointer;
 }
 
 </style>
