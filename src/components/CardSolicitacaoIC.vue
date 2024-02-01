@@ -2,7 +2,6 @@
   <div>
   <v-card :flat="true" :font-family="this.global.font">
     <v-container class="infoCard">
-      <v-card-title>{{ this.$props.iniciacaoCientifica.nome }}</v-card-title>
         <v-card-subtitle class="subtitle">
         Aluno: {{ this.$props?.inscricao.aluno.nome }} <br>
         Matrícula:{{ this.$props?.inscricao.aluno.matricula }}
@@ -89,6 +88,9 @@ export default defineComponent({
   height: 148px;
   border-radius: 10px;
   margin-top: 20px;
+  @media(min-width: 600px) {
+    max-width: 40%;
+  }
 }
 .botoes{
   display: flex;
