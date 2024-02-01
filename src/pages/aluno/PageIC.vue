@@ -1,15 +1,19 @@
 <template>
   <div class="container">
-    <PageTitle :title="this.icData.nome"></PageTitle>
-    <ChapeuIC />
-    <PageICdescricao
-      :professores="this.icData.professores"
-      :topicos="this.icData.topicos"
-      :remuneracao="this.icData.remuneracao"
-      :cargaHorariaSemanal="this.icData.cargaHorariaSemanal"
-      :descricao="this.icData.descricao"
+    <PageTitle :title="this.icData?.nome"></PageTitle>
+    <Loading v-if="icData == null"/>
+
+    <ChapeuIC v-if="icData != null"/>
+    <PageICdescricao 
+      v-if="icData != null"
+      :professores="this.icData?.professores"
+      :topicos="this.icData?.topicos"
+      :remuneracao="this.icData?.remuneracao"
+      :cargaHorariaSemanal="this.icData?.cargaHorariaSemanal"
+      :descricao="this.icData?.descricao"
     ></PageICdescricao>
     <PageICbotao
+      v-if="icData != null"
       title="Solicitar IC"
       :IniciacaoID="this.$route.params.icId"
     ></PageICbotao>
@@ -21,6 +25,7 @@ import PageTitle from '@/components/PageTitle.vue';
 import ChapeuIC from '@/icons/IconeIC.vue';
 import PageICdescricao from '@/components/IC/PageICdescricao.vue';
 import PageICbotao from '@/components/IC/PageICbotao.vue';
+import Loading from '@/components/Loading.vue';
 
 import { getIcById } from '@/services/iniciacaoCientifica.js';
 
@@ -31,6 +36,7 @@ export default {
     ChapeuIC,
     PageICdescricao,
     PageICbotao,
+    Loading,
   },
   methods: {
     async getIcData() {

@@ -58,7 +58,7 @@ export default {
   },
   data() {
     return {
-      alunoId: 18,
+      alunoId: 20,
       snackbar: false,
       snackMessage: '',
       popupColor: '',
@@ -73,6 +73,7 @@ export default {
         this.popupColor = 'green';
         this.snackbar = !this.snackbar;
       } catch (e) {
+        console.log(e)
         this.popupColor = 'red';
         this.snackMessage = e.response.data.message;
         this.snackbar = !this.snackbar;

@@ -1,7 +1,7 @@
 <template>
   <v-app class="app">
-    <Header/>
-    <ButtonBack/>
+    <Header v-if="!isLoginPage"/>
+    <ButtonBack v-if="!isLoginPage"/>
     <router-view/>
   </v-app>
 </template>
@@ -17,6 +17,11 @@ export default {
     Header,
     ButtonBack
   },
+  computed: {
+    isLoginPage() {
+      return this.$route.name === 'AuthLogin'; // Substitua 'Login' com o nome da sua rota de login
+    },
+  }
 }
 
 </script>

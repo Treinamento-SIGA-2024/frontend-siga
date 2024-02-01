@@ -2,7 +2,6 @@
   <div>
   <v-card :flat="true" :font-family="this.global.font">
     <v-container class="infoCard">
-      <v-card-title>{{ this.$props.iniciacaoCientifica.nome }}</v-card-title>
         <v-card-subtitle class="subtitle">
         Aluno: {{ this.$props?.inscricao.aluno.nome }} <br>
         Matrícula:{{ this.$props?.inscricao.aluno.matricula }}
@@ -28,6 +27,7 @@ import {putSituacaoInscricaoIcAluno} from "@/services/professorService.js";
 
 export default defineComponent({
   components: {PopUp, PersonalData},
+  emits: ["refreshSituacao"],
   data(){
     return{
       togglePopUp:false,
@@ -52,11 +52,13 @@ export default defineComponent({
   methods:{
     async alterarSituacao(){
       if(this.situacao === "aceitar"){
-        const sendBody = {icId:1, matricula:"200000001",codigo:"001"}
+        /*Matricula mocada por enquanto*/
+        const sendBody = {icId:this.$props.iniciacaoCientifica.id, matricula:"200000001",codigo:"001"}
         const resposta = await putSituacaoInscricaoIcAluno(this.$props.inscricao.id, sendBody)
+        
         console.log(resposta)
       }if(this.situacao === "recusar"){
-        const sendBody = {icId:1, matricula:"200000001",codigo:"002"}
+        const sendBody = {icId:this.$props.iniciacaoCientifica.id, matricula:"200000001",codigo:"002"}
         const resposta = await putSituacaoInscricaoIcAluno(this.$props.inscricao.id, sendBody)
         console.log(resposta)
       }
@@ -89,6 +91,9 @@ export default defineComponent({
   height: 148px;
   border-radius: 10px;
   margin-top: 20px;
+  @media(min-width: 600px) {
+    max-width: 40%;
+  }
 }
 .botoes{
   display: flex;

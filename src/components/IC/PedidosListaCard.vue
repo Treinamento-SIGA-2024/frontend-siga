@@ -1,38 +1,68 @@
 <template>
+
+  <v-snackbar :timeout="1000 * 1000" v-model="snackbar">
+    <span>{{ snackMessage }}</span>
+  </v-snackbar>
+
   <v-card>
-    <v-card-item>
+    <v-card-item style="width: 85%">
       <v-card-title>{{ inscricao.iniciacaoCientifica?.nome }}</v-card-title>
       <v-card-subtitle>{{
         inscricao.iniciacaoCientifica.professores[0]?.nome
       }}</v-card-subtitle>
     </v-card-item>
-    <div class="status-container">
-      <div
-        class="status"
-        v-bind:class="{
-          'status-ativo': inscricao.situacaoInscricao.descricao === 'Ativo',
-          'status-recusado':
-            inscricao.situacaoInscricao.descricao === 'Recusado',
-          'status-pendente':
-            inscricao.situacaoInscricao.descricao === 'Pendente',
-        }"
-      ></div>
-    </div>
+    <v-col class="more-container">
+      <MoreIcon id="moreIcon" :items="items" />
+    </v-col>
   </v-card>
 </template>
 
 <script>
+import MoreIcon from '@/icons/MoreIcon.vue'
+import { cancelarIncricaoIC } from '@/services/inscricaoICService'
 export default {
   name: 'PedidosListaCard',
   props: {
     inscricao: Object,
   },
+  methods: {
+    async cancelarPedido() {
+      try {
+        const data = await cancelarIncricaoIC(this.inscricao.id)
+        console.log(data)
+  
+        this.snackMessage = data
+        this.snackbar = !this.snackbar
+      } catch (e) {
+        if (!err.response || err.response.status === 500) {
+          this.snackMessage = "Erro no servidor";
+        }
+        else if (err.response.status === 404) {
+          this.$router.push('/notfound');
+        }
+        else {
+          this.snackMessage = e.response.data.message
+        }
+        this.snackbar = !this.snackbar
+      }
+      this.$emit('updatePage')
+    },
+  },
   data() {
     return {
+      snackMessage: '',
+      snackbar: false,
       status: '',
-    };
+      items: [
+        {
+          title: 'Cancelar',
+          action: this.cancelarPedido,
+        },
+      ],
+    }
   },
-};
+  components: { MoreIcon },
+}
 </script>
 
 <style scoped>
@@ -68,7 +98,7 @@ export default {
   cursor: pointer;
 }
 
-.status-container {
+.more-container {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -82,5 +112,9 @@ export default {
 .v-card-subtitle {
   font-weight: bold;
   color: #6a6a6a;
+}
+
+#moreIcon:hover {
+  cursor: pointer;
 }
 </style>

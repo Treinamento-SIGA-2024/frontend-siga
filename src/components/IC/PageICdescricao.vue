@@ -1,10 +1,10 @@
 <template>
-  <v-card flat="true">
+  <v-card class="container-wrap" flat="true">
 
     <v-card-text class="custom-text">
       <span>Professor(es):</span>
       <div class="professores">
-        <p v-for="prof in this.$props.professores"> 
+        <p v-for="prof in this.$props.professores">
             {{ prof.nome }}
         </p>
       </div> 
@@ -42,10 +42,10 @@
 export default {
   name: 'PageICdescricao',
   props: {
-    professores: [],
-    topicos: [],
-    remuneracao: String,
-    cargaHorariaSemanal: String,
+    professores: Array,
+    topicos: Array,
+    remuneracao: Number,
+    cargaHorariaSemanal: Number,
     descricao: String, 
   },
   methods:{
@@ -66,7 +66,9 @@ export default {
 </script>
 
 <style scoped>
-
+  .container-wrap{
+    width: 70%;
+  }
   .custom-text {
     padding: 1rem;
     color: #666;
@@ -78,5 +80,9 @@ export default {
   span {
     font-weight: bold;
   }
-
+  @media (min-width: 760px) {
+    .container-wrap{
+      width: 40%;
+    }
+  }
 </style>
