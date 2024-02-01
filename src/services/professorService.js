@@ -38,3 +38,7 @@ export async function deletarAlunoIC(inscricaoId, matriculaProf) {
   );
   return data;
 }
+export async function getAllRequerimentosIc(matricula){
+    const response = await axios.get(`${url}/inscricoes/ic/${matricula}`);
+    return response.data;
+}
