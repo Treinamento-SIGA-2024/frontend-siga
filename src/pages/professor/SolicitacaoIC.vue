@@ -50,9 +50,11 @@
     </v-expansion-panel>
   </v-expansion-panels>
 
-  <v-card :flat="true" class="semDados" v-if="iniciacoesCientificas.length < 1">
+  <!-- Comentei pq tá com um bug estranho -->
+  <!-- <v-card :flat="true" class="semDados" v-if="iniciacoesCientificas.length < 1">
     <PopUp :acoes="metodos" />
-  </v-card>
+  </v-card> -->
+  
 </template>
 
 <script>
@@ -122,8 +124,9 @@ export default {
     },
   },
   created() {
-    this.getInscricoesIc();
     this.getRequerimentos();
+    this.getInscricoesIc();
+   
   },
 };
 </script>

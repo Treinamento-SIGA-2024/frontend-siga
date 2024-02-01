@@ -1,30 +1,42 @@
-import axios from "axios";
+import axios from 'axios';
 
-const url = "http://localhost:8080";
+const url = 'http://localhost:8080';
 
-export async function getAllProfessores(){
-    const response = await axios.get(`${url}/professor`);
-    return response.data;
+export async function getAllProfessores() {
+  const response = await axios.get(`${url}/professor`);
+  return response.data;
 }
 
-export async function getAllIcPendentes(matricula, icId){
-    const { data } = await axios.get(`${url}/inscricoes/ic/${matricula}/${icId}`);
-    return data;
+export async function getAllIcPendentes(matricula, icId) {
+  const { data } = await axios.get(`${url}/inscricoes/ic/${matricula}/${icId}`);
+  return data;
 }
 
-export async function putSituacaoInscricaoIcAluno(pedidoId,body){
-    const {data} = await  axios.put(`${url}/inscricoes/ic/${pedidoId}`, body);
-    return data
+export async function putSituacaoInscricaoIcAluno(pedidoId, body) {
+  const { data } = await axios.put(`${url}/inscricoes/ic/${pedidoId}`, body);
+  return data;
 }
 
-export async function getPedidos(matricula){
-    const response = await axios.get(`${url}/professor/${matricula}/iniciacoes_cientificas`);
-    return response.data;
+export async function getPedidos(matricula) {
+  const response = await axios.get(
+    `${url}/professor/${matricula}/iniciacoes_cientificas`
+  );
+  return response.data;
 }
 
-export async function createIniciacaoCientifica(params, matricula){
-    const { data } = await axios.post(`${url}/iniciacao_cientifica/${matricula}`, params);
-    return data;
+export async function createIniciacaoCientifica(params, matricula) {
+  const { data } = await axios.post(
+    `${url}/iniciacao_cientifica/${matricula}`,
+    params
+  );
+  return data;
+}
+
+export async function deletarAlunoIC(inscricaoId, matriculaProf) {
+  const { data } = await axios.put(
+    `${url}/inscricoes/ic/${inscricaoId}/${matriculaProf}`
+  );
+  return data;
 }
 export async function getAllRequerimentosIc(matricula){
     const response = await axios.get(`${url}/inscricoes/ic/${matricula}`);
