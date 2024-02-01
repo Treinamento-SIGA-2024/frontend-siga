@@ -1,79 +1,104 @@
 <template>
   <PageTitle title="TÓPICOS - IC"/>
   <div class="d-flex align-center flex-column">
-    <v-btn id="novoTopicoBtn" v-if="!toggle" @click="toggle = !toggle">
+    <v-btn id="novoTopicoBtn" @click="toggleCreate = !toggleCreate">
       NOVO TÓPICO
     </v-btn>
-    <v-card id="createTopico" v-show="toggle">
-      <v-form id="form">
-        <v-container id="novoTopicoText">
-          <v-text-field id="novoTitulo" v-model="titulo" variant="outlined"
-                        style="width: 90%; background-color: white; align-self: center"/>
-        </v-container>
-        <div class="submit">
-          <v-btn class="salvar" @click="resetForm; toggle = !toggle">Salvar</v-btn>
-          <v-btn class="cancelar" @click="resetForm; toggle = !toggle">Cancelar</v-btn>
-        </div>
-      </v-form>
-    </v-card>
-  </div>
-  <v-container>
-    <v-row align="center" justify="center">
-      <v-card id="topico-card">
-        <v-card-title id="topico-card-title"> Computação </v-card-title>
-        <v-col id="more-container">
-          <MoreIcon id="moreIcon" :items="items" />
-        </v-col>
-      </v-card>
-    </v-row>
-  </v-container>
     <v-row justify="center">
-      <v-dialog v-model="dialog" persistent style="width:450px">
+      <v-dialog v-model="toggleCreate" persistent style="width:450px">
         <v-card>
-          <v-card-title id="text">
-            Editar Tópico
-          </v-card-title>
+          <v-card-title id="text"> Novo Tópico </v-card-title>
           <v-container>
             <v-row>
-              <v-col >
-                <v-text-field v-model="novoTitulo" label="Novo Título" required />
+              <v-col>
+                <v-text-field v-model="titulo" label="Título" required/>
               </v-col>
             </v-row>
             <div class="submit">
-              <v-btn class="salvar">Salvar</v-btn>
-              <v-btn class="cancelar" @click="resetUpdate; dialog = !dialog">Cancelar</v-btn>  <!-- resetUpdate não está funcionando junto com o dialog, apenas separado -->
+              <v-btn class="salvar" @click="this.createTopico(titulo)" >Salvar</v-btn>
+              <v-btn class="cancelar" @click="resetUpdate; toggleCreate = !toggleCreate">Cancelar</v-btn>
+              <!-- resetUpdate não está funcionando junto com o dialog, apenas separado -->
             </div>
           </v-container>
         </v-card>
       </v-dialog>
     </v-row>
+  </div>
+  <v-container v-if="!loading">
+    <v-row align="center" justify="center">
+      <v-card id="topico-card" v-for="topico in topicos">
+        <v-card-title id="topico-card-title"> {{ topico.nome }}</v-card-title>
+        <v-col id="more-container">
+          <MoreIcon id="moreIcon" :items="items"/>
+        </v-col>
+      </v-card>
+    </v-row>
+  </v-container>
+
+  <v-row justify="center">
+    <v-dialog v-model="editorTopico" persistent style="width:450px">
+      <v-card>
+        <v-card-title id="text">
+          Editar Tópico
+        </v-card-title>
+        <v-container>
+          <v-row>
+            <v-col>
+              <v-text-field v-model="novoTitulo" label="Novo Título" required/>
+            </v-col>
+          </v-row>
+          <div class="submit">
+            <v-btn class="salvar">Salvar</v-btn>
+            <v-btn class="cancelar" @click="resetUpdate">Cancelar</v-btn>
+            <!-- resetUpdate não está funcionando junto com o dialog, apenas separado -->
+          </div>
+        </v-container>
+      </v-card>
+    </v-dialog>
+  </v-row>
+
+  <v-row justify="center">
+    <v-dialog v-model="deletarTopico" persistent style="width:350px">
+      <v-card>
+        <v-card-title id="text">
+          Tem certeza?
+        </v-card-title>
+        <v-container>
+          <div class="submit">
+            <v-btn class="salvar">Sim</v-btn>
+            <v-btn class="cancelar" @click="deletarTopico = !deletarTopico">Não</v-btn>
+          </div>
+        </v-container>
+      </v-card>
+    </v-dialog>
+  </v-row>
+  <Loading v-if="loading" />
 </template>
 
-
-
-
-<!-- v-for="topico in topicos" -->
-<!--{{ topico.nome }}-->
 <script>
 
 import PageTitle from "@/components/PageTitle.vue";
 import ButtonCard from "@/components/ButtonCard.vue";
 import OfertaEstagio from "@/components/ofertaEstagio.vue";
-import {getTopicos} from "@/services/topicosService.js";
-import MoreIcon from '@/icons/MoreIcon.vue'
-
+import { getTopicos, createTopico } from "@/services/topicosService.js";
+import MoreIcon from '@/icons/MoreIcon.vue';
+import PopUp from "@/components/PopUp.vue";
+import Loading from "@/components/Loading.vue";
+import loading from "@/components/Loading.vue";
 export default {
   data() {
     return {
+      loading: true,
       titulo: '',
       novoTitulo: '',
-      toggle: false,
-      dialog: false,
-      topicos:[],
+      toggleCreate: false,
+      editorTopico: false,
+      deletarTopico: false,
+      topicos: [],
       items: [
         {
           title: 'Editar',
-          action: this.editDialog,
+          action: this.editTopico,
         },
         {
           title: 'Deletar',
@@ -94,20 +119,39 @@ export default {
     PageTitle,
     ButtonCard,
     MoreIcon,
+    PopUp,
+    Loading,
+  },
+
+  created() {
+    this.loading = true;
+    this.getTopicos();
+    this.loading = !this.loading;
   },
 
   methods: {
-    resetForm() {
-      this.titulo = '';
-    },
     resetUpdate() {
       this.novoTitulo = '';
+      this.editorTopico = !this.editorTopico
+    },
+    resetCreate() {
+      this.titulo = '';
     },
     async getTopicos() {
       this.topicos = await getTopicos();
+      console.log(this.topicos)
     },
-    editDialog() {
-      this.dialog = true
+    deleteTopico() {
+      this.deletarTopico = true
+    },
+    editTopico() {
+      this.editorTopico = true
+    },
+    async createTopico(nome) {
+      await createTopico(nome);
+      this.resetCreate();
+      this.toggleCreate = !this.toggleCreate;
+      await this.getTopicos();
     }
   },
 }
@@ -118,13 +162,14 @@ export default {
 #topico-card {
   display: flex;
   width: 340px;
-  margin-top: 25px;
+  margin: 15px;
   border-radius: 20px;
   background-color: var(--green0);
 }
 
 #topico-card-title {
   align-self: center;
+  padding: 8px 0 10px 10px;
 }
 
 #more-container {
@@ -132,6 +177,7 @@ export default {
   justify-content: flex-end;
   align-items: center;
   width: 100%;
+  padding: 12px 12px 12px 0;
 }
 
 #text {
@@ -140,30 +186,7 @@ export default {
 
 #novoTopicoBtn {
   background-color: var(--green1);
-}
-
-#form {
-  display: flex;
-  flex-direction: column;
-}
-
-#novoTitulo {
-  width: 80%;
-  background-color: white;
-  align-self: center
-}
-
-#createTopico {
-  background-color: var(--green0);
-  height: 160px;
-  width: 310px;
-}
-
-#novoTopicoText {
-  font-size: 1.2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  margin: 25px 20px 40px 20px;
 }
 
 .submit {
@@ -186,38 +209,8 @@ export default {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.21);
 }
 
-MoreIcon > items:hover  {
+MoreIcon > items:hover {
   cursor: pointer;
-}
-
-#edit {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-#editar {
-  width: 90px;
-  color: white;
-  background-color: #2752ae;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.21);
-}
-
-.HomeCard {
-  width: 310px;
-  align-self: center;
-  font-size: 16px;
-  border-radius: 15px;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  margin-top: 30px;
-  background-color: var(--green1);
-}
-
-.HomeCard:hover {
-  cursor: pointer;
-  background-color: var(--green2);
-  transition-duration: 500ms;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.22);
 }
 
 </style>
