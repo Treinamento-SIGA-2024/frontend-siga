@@ -1,76 +1,116 @@
 <template>
   <div id="popDiv" v-if="popUpTemCerteza">
-    <PopUp :acoes="metodos"/>
+    <PopUp :acoes="metodos" />
   </div>
-  <PageTitle title="NOVA PROPOSTA DE ESTÁGIO"/>
+  <PageTitle title="Criar oferta de estágio" />
   <v-container v-model="formValido">
     <v-form id="form" v-model="formValido">
-
       <v-btn id="limpar" @click="resetForm">Limpar</v-btn>
 
       <p>Função:</p>
-      <v-text-field v-model="funcao" variant="outlined"
-                    :rules="[v => !!v || 'Este campo é obrigatório']"/>
+      <v-text-field
+        v-model="funcao"
+        variant="outlined"
+        :rules="[v => !!v || 'Este campo é obrigatório']"
+      />
 
       <p>Nome da Empresa:</p>
-      <v-text-field v-model="empresa" variant="outlined"
-                    :rules="[v => !!v || 'Este campo é obrigatório']"/>
+      <v-text-field
+        v-model="empresa"
+        variant="outlined"
+        :rules="[v => !!v || 'Este campo é obrigatório']"
+      />
 
       <div class="camposRow">
         <div class="filhosRow">
-          <p class="labelCampos">Remunerado? </p>
-          <v-checkbox-btn :color="this.global.colors.green3" v-model="remunerado"
-                          :label="remunerado ? 'Sim' : 'Não'"
-                          :rules="[v => !!v || 'Este campo é obrigatório']"></v-checkbox-btn>
+          <p class="labelCampos">Remunerado?</p>
+          <v-checkbox-btn
+            :color="this.global.colors.green3"
+            v-model="remunerado"
+            :label="remunerado ? 'Sim' : 'Não'"
+            :rules="[v => !!v || 'Este campo é obrigatório']"
+          ></v-checkbox-btn>
         </div>
 
         <div class="filhosRow">
           <p class="labelCampos">Valor da bolsa:</p>
-          <v-text-field prefix="R$" :disabled="!remunerado" v-model="bolsa"  variant="outlined"
-                        :rules="[v => !!v || 'Este campo é obrigatório',
-                        /^\d*[\.,]?\d+$/.test(v) || 'Digite apenas números']"/>
+          <v-text-field
+            prefix="R$"
+            :disabled="!remunerado"
+            v-model="bolsa"
+            variant="outlined"
+            :rules="[
+              v => !!v || 'Este campo é obrigatório',
+              /^\d*[\.,]?\d+$/.test(v) || 'Digite apenas números',
+            ]"
+          />
         </div>
       </div>
 
       <div class="camposRow">
         <div class="filhosRow">
           <p>Carga Horária:</p>
-          <v-text-field suffix="horas/sem" v-model="horas" variant="outlined"
-                        :rules="[v => !!v || 'Este campo é obrigatório',
-                        /^\d+$/.test(v) || 'Digite apenas números']"/>
+          <v-text-field
+            suffix="horas/sem"
+            v-model="horas"
+            variant="outlined"
+            :rules="[
+              v => !!v || 'Este campo é obrigatório',
+              /^\d+$/.test(v) || 'Digite apenas números',
+            ]"
+          />
         </div>
 
         <div class="filhosRow">
           <p>Vagas disponíveis:</p>
-          <v-text-field v-model="vagas" variant="outlined"
-                        :rules="[v => !!v || 'Este campo é obrigatório',
-                        /^\d+$/.test(v) || 'Digite apenas números']"/>
+          <v-text-field
+            v-model="vagas"
+            variant="outlined"
+            :rules="[
+              v => !!v || 'Este campo é obrigatório',
+              /^\d+$/.test(v) || 'Digite apenas números',
+            ]"
+          />
         </div>
       </div>
 
       <p>Modalidade:</p>
       <div id="selectDiv">
-        <v-select v-model="modalidade" variant="outlined"
-                  id="select" label="Selecione" :items="itens"
-                  :rules="[v => !!v || 'Este campo é obrigatório']"/>
+        <v-select
+          v-model="modalidade"
+          variant="outlined"
+          id="select"
+          label="Selecione"
+          :items="itens"
+          :rules="[v => !!v || 'Este campo é obrigatório']"
+        />
       </div>
 
       <p>Descrição:</p>
-      <v-textarea v-model="descricao" variant="outlined"
-                  :rules="[v => !!v || 'Este campo é obrigatório']"/>
+      <v-textarea
+        v-model="descricao"
+        variant="outlined"
+        :rules="[v => !!v || 'Este campo é obrigatório']"
+      />
 
       <div id="submit">
-        <ButtonCard id="salvar" title="Salvar"
-                    :style="{height: '50px'}"
-                    @click="popUpTemCerteza = true"/>
-        <ButtonCard id="cancelar" title="Cancelar"
-                    :style="{height: '50px'}"
-                    @click="this.$router.push('/secretaria')"/>
+        <ButtonCard
+          id="salvar"
+          title="Salvar"
+          :style="{ height: '50px' }"
+          @click="popUpTemCerteza = true"
+        />
+        <ButtonCard
+          id="cancelar"
+          title="Cancelar"
+          :style="{ height: '50px' }"
+          @click="this.$router.push('/secretaria')"
+        />
       </div>
     </v-form>
     <v-snackbar v-model="erro.have" color="red">
       <div id="snackErro">
-        <v-card-text id="erroText">Erro: {{erro.msg}}</v-card-text>
+        <v-card-text id="erroText">Erro: {{ erro.msg }}</v-card-text>
         <v-btn @click="erro.have = false">X</v-btn>
       </div>
     </v-snackbar>
@@ -78,24 +118,23 @@
 </template>
 
 <script>
-
-import Header from "@/components/Header.vue";
-import PageTitle from "@/components/PageTitle.vue";
-import ButtonCard from "@/components/ButtonCard.vue";
-import '@mdi/font/css/materialdesignicons.css';
-import {createEstagio} from "@/services/Estagio.js";
-import PopUp from "@/components/PopUp.vue";
-import PopUpErro from "@/components/PopUpErro.vue";
+import Header from '@/components/Header.vue'
+import PageTitle from '@/components/PageTitle.vue'
+import ButtonCard from '@/components/ButtonCard.vue'
+import '@mdi/font/css/materialdesignicons.css'
+import { createEstagio } from '@/services/Estagio.js'
+import PopUp from '@/components/PopUp.vue'
+import PopUpErro from '@/components/PopUpErro.vue'
 
 export default {
-  name: "SecretariaInicial",
+  name: 'SecretariaInicial',
   data() {
     return {
       popUpTemCerteza: false,
 
       erro: {
         have: false,
-        msg: ""
+        msg: '',
       },
       formValido: false,
       funcao: '',
@@ -109,28 +148,28 @@ export default {
       descricao: '',
 
       metodos: {
-        msg: "Deseja enviar a proposta?",
+        msg: 'Deseja enviar a proposta?',
         aceitarAction: this.submit,
         cancelarAction: () => {
           this.popUpTemCerteza = false
-        }
+        },
       },
     }
   },
 
   methods: {
     resetForm() {
-      this.funcao = '';
-      this.empresa = '';
-      this.remunerado = false;
-      this.bolsa = 0;
-      this.horas = '';
-      this.vagas = '';
-      this.modalidade = null;
-      this.descricao = '';
+      this.funcao = ''
+      this.empresa = ''
+      this.remunerado = false
+      this.bolsa = 0
+      this.horas = ''
+      this.vagas = ''
+      this.modalidade = null
+      this.descricao = ''
     },
     async submit() {
-      if(this.formValido){
+      if (this.formValido) {
         await createEstagio({
           cargo: this.funcao,
           empresa: this.empresa,
@@ -139,15 +178,14 @@ export default {
           quantidadeVagas: this.vagas,
           modalidade: this.modalidade,
           descricao: this.descricao,
-        });
-        this.resetForm();
+        })
+        this.resetForm()
+      } else {
+        this.erro.have = true
+        this.erro.msg = 'Dados inválidos'
       }
-      else {
-        this.erro.have = true;
-        this.erro.msg = "Dados inválidos";
-      }
-      this.popUpTemCerteza = false;
-    }
+      this.popUpTemCerteza = false
+    },
   },
 
   components: {
@@ -157,13 +195,11 @@ export default {
     Header,
     PageTitle,
     ButtonCard,
-  }
+  },
 }
-
 </script>
 
 <style scoped>
-
 #select {
   height: 20px;
 }
@@ -186,14 +222,14 @@ export default {
 #salvar {
   width: 150px;
   color: white;
-  background-color: #27AE60;
+  background-color: #27ae60;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.21);
 }
 
 #cancelar {
   width: 150px;
   color: white;
-  background-color: #EB5757;
+  background-color: #eb5757;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.21);
 }
 
@@ -243,5 +279,4 @@ export default {
   justify-content: space-between;
   flex-direction: row;
 }
-
 </style>

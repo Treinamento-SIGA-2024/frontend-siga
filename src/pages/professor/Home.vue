@@ -5,15 +5,15 @@
 		:matricula="this.usuario.matricula"
 	/>
 	<ButtonCard
-		title="Iniciação Científica"
+		title="Minhas Iniciações Científicas"
 		@click="this.$router.push('/professor/ic')"
 	/>
 	<ButtonCard
-		title="Pedidos"
+		title="Minhas propostas de IC"
 		@click="this.$router.push('/professor/pedidos')"
 	/>
     <ButtonCard 
-		title="Requerimentos (Alunos)" 
+		title="Requerimentos de Alunos (IC)" 
 		@click="this.$router.push('/professor/ic/pagina/solicitacoes')"
 	/>
 </template>

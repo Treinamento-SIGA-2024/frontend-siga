@@ -5,11 +5,17 @@
 		:matricula="this.usuario.matricula"
 	/>
 	<ButtonCard
-		title="Iniciação Científica"
+		title="Ofertas de Iniciação Científica"
 		@click="this.$router.push('/aluno/ic')"
 	/>
-	<ButtonCard title="Estágio" @click="this.$router.push('/aluno/estagio')" />
-	<ButtonCard title="Pedidos" @click="this.$router.push('/aluno/pedidos')" />
+	<ButtonCard 
+		title="Ofertas de Estágio"
+		@click="this.$router.push('/aluno/estagio')"
+	/>
+	<ButtonCard 
+		title="Minhas Inscrições"
+		@click="this.$router.push('/aluno/pedidos')"
+	/>
 </template>
 
 <script>

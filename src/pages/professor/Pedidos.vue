@@ -1,11 +1,5 @@
 <template>
-	<v-container>
-		<v-card :flat="true">
-			<v-card-title>
-				<div class="title">Pedidos</div>
-			</v-card-title>
-		</v-card>
-	</v-container>
+  <PageTitle title="Minhas Propostas de IC" />
 
 	<div class="d-flex align-center flex-column">
 		<v-btn
@@ -52,15 +46,17 @@
 </template>
 
 <script>
-import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiCircle } from "@mdi/js";
-import { getPedidos } from "@/services/professorService.js";
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiCircle } from '@mdi/js'
+import { getPedidos } from '@/services/professorService.js'
+import PageTitle from '@/components/PageTitle.vue'
 import { getUsuario } from "@/services/sessaoService";
 
 export default {
 	name: "my-cool-component",
 	components: {
 		SvgIcon,
+		PageTitle,
 	},
 	data() {
 		return {
@@ -88,16 +84,6 @@ export default {
 </script>
 
 <style scoped>
-.title {
-	color: #282828;
-	font-size: 35px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-family: Source Sans Pro;
-	color: #666666;
-}
-
 .registerBtn {
 	margin-bottom: 5vh;
 	font-family: Source Sans Pro;

@@ -1,5 +1,5 @@
 <template>
-  <PageTitle title="TÓPICOS - IC" />
+  <PageTitle title="Tópicos de Iniciação Científica" />
   <div class="d-flex align-center flex-column">
     <v-btn id="novoTopicoBtn" @click="toggleCreate = !toggleCreate">
       NOVO TÓPICO

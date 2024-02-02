@@ -5,10 +5,13 @@
 		:matricula="this.usuario.matricula"
 	/>
 	<ButtonCard
-		title="Iniciação Científica"
+		title="Propostas de Iniciação Científica"
 		@click="redirectTo('/coordenador/ic')"
-	/>
-	<ButtonCard title="Estágio" @click="redirectTo('/coordenador/estagio')" />
+  />
+	<ButtonCard
+    title="Pedidos de Estágio"
+    @click="redirectTo('/coordenador/estagio')" 
+  />
 </template>
 
 <script>
