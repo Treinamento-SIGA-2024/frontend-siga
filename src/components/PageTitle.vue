@@ -1,13 +1,13 @@
 <template>
-	<div class="title-container">
-		<v-card :flat="true">
-			<v-card-title class="text-wrap">
-				<div class="title">
-					{{ this.$props.title }}
-				</div>
-			</v-card-title>
-		</v-card>
-	</div>
+  <div class="title-container">
+    <v-card :flat="true">
+      <v-card-title class="text-wrap">
+        <div class="title">
+          {{ this.$props.title }}
+        </div>
+      </v-card-title>
+    </v-card>
+  </div>
 </template>
 
 <script>

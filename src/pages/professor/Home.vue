@@ -12,6 +12,10 @@
 		title="Pedidos"
 		@click="this.$router.push('/professor/pedidos')"
 	/>
+    <ButtonCard 
+		title="Requerimentos (Alunos)" 
+		@click="this.$router.push('/professor/ic/pagina/solicitacoes')"
+	/>
 </template>
 
 <script>

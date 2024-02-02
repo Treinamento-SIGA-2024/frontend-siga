@@ -4,7 +4,7 @@ import { config } from "./config";
 const api_url = "http://localhost:8080/iniciacao_cientifica";
 
 export const createIniciacaoCientifica = async (params) => {
-	const { data } = await axios.post(`${api_url}`, params, config);
+	const { data } = await axios.post(`${api_url}`, params, config());
 	return data;
 };
 

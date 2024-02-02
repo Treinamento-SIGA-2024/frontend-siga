@@ -61,9 +61,7 @@ export default {
 	},
 	data() {
 		return {
-			aluno: {
-				id: "",
-			},
+			usuario: null,
 			snackbar: false,
 			snackMessage: "",
 			popupColor: "",
@@ -73,7 +71,8 @@ export default {
 		async createInscricaoIC() {
 			try {
 				console.log(this.$data);
-				await createInscricaoIC(this.IniciacaoID, this.aluno.id);
+        console.log(this.usuario)
+				await createInscricaoIC(this.IniciacaoID, this.usuario.id);
 				this.snackMessage = "Inscrição realizada com sucesso!";
 				this.popupColor = "green";
 				this.snackbar = !this.snackbar;

@@ -3,9 +3,19 @@
     <v-card v-if="iniciacaoCientifica != null" class="card">
       <v-card-title> {{ iniciacaoCientifica.nome }}</v-card-title>
       <v-card-subtitle style="overflow: hidden;"> {{ iniciacaoCientifica.descricao }}</v-card-subtitle>
-        <v-card-text class="ic-card-text">
-          <div> Professores: {{ iniciacaoCientifica.professores.length }}</div>
-          <div> Alunos: {{ iniciacaoCientifica.inscricoes.length }}</div>
+      <v-card-text>
+        <v-chip
+            v-for="(topico) in iniciacaoCientifica.topicos"
+            key="topico.id"
+            :color="randChipColor()"
+            style="margin-right: 5px; margin-bottom: 5px;"
+        >
+          {{topico.nome}}
+        </v-chip>
+      </v-card-text>
+      <v-card-text class="ic-card-text">
+        <div> Professores: {{ iniciacaoCientifica.professores.length }}</div>
+        <div> Alunos: {{ iniciacaoCientifica.inscricoes.length }}</div>
       </v-card-text>
     </v-card>
 
@@ -30,6 +40,19 @@ export default defineComponent({
   props: {
     iniciacaoCientifica: null,
     estagio: null,
+  },
+  methods: {
+    randChipColor() {
+      const colors = [
+        'primary',
+        'secondary',
+        'red',
+        'green',
+      ]
+      let randIndex = Math.floor(Math.random() * 3);
+
+      return colors[randIndex];
+    }
   }
 })
 </script>

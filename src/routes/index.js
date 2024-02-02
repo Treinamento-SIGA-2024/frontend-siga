@@ -26,8 +26,9 @@ import PedidosProfessor from "@/pages/professor/Pedidos.vue";
 import SolicitacaoIC from "@/pages/professor/SolicitacaoIC.vue";
 
 // Secretaria
-import HomeSecretaria from "@/pages/secretaria/Home.vue";
-import CreateEstagioSecretaria from "@/pages/secretaria/CreateEstagio.vue";
+import HomeSecretaria from '@/pages/secretaria/Home.vue';
+import CreateEstagioSecretaria from '@/pages/secretaria/CreateEstagio.vue';
+import TopicosIC from "@/pages/secretaria/TopicosIC.vue";
 
 // Not found
 import NotFound from "@/pages/NotFound.vue";
@@ -144,13 +145,22 @@ const routes = [
 		props: true,
 	},
 
-	// Secretaria
-	{ path: "/secretaria", name: "HomeSecretaria", component: HomeSecretaria },
-	{
-		path: "/secretaria/estagio",
-		name: "CreateEstagioSecretaria",
-		component: CreateEstagioSecretaria,
-	},
+  // Secretaria
+  { path: "/secretaria",
+    name: "HomeSecretaria",
+    component: HomeSecretaria
+  },
+  {
+    path: "/secretaria/estagio",
+    name: "CreateEstagioSecretaria",
+    component: CreateEstagioSecretaria,
+  },
+  {
+    path: "/secretaria/topico",
+    name: "TopicosSecretaria",
+    component: TopicosIC,
+  },
+
 
 	// Not found
 	{

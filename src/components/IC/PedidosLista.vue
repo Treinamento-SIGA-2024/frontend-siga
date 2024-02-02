@@ -1,16 +1,20 @@
 <template>
-	<main>
-		<v-snackbar :timeout="2500" color="red" elevation="24" v-model="snackbar">
-			<span>{{ snackMessage }}</span>
-		</v-snackbar>
-		<v-container>
-			<v-row>
-				<v-col v-for="(inscricao, i) in inscricoes" :key="i" cols="auto">
-					<PedidosListaCard :inscricao="inscricao"></PedidosListaCard>
-				</v-col>
-			</v-row>
-		</v-container>
-	</main>
+  <main>
+    <v-snackbar :timeout="2500" color="red" elevation="24" v-model="snackbar">
+      <span>{{ snackMessage }}</span>
+    </v-snackbar>
+    <v-container style="width: 100%">
+      <v-row>
+        <v-col v-for="(inscricao, i) in this.$props.inscricoes" :key="i" cols="auto">
+          <PedidosListaCard
+            @updatePage="updatePage"
+            :inscricao="inscricao"
+          >
+          </PedidosListaCard>
+        </v-col>
+      </v-row>
+    </v-container>
+  </main>
 </template>
 
 <script>
@@ -30,6 +34,9 @@ export default {
 			inscricoes: [],
 			aluno: {},
 		};
+	},
+	props: {
+    inscricoes: Array,
 	},
 
 	async created() {
