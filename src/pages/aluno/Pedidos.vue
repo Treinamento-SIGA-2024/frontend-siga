@@ -9,7 +9,7 @@
       @click="abas[key] = !abas[key]"
       :style="{ borderRadius: abas[key] ? '15px 15px 0 0' : '15px' }"
     >
-      <v-card-title>{{ key }}</v-card-title>
+      <v-card-title>{{ key }} ( {{value.length}} )</v-card-title>
       <ArrowDown v-if="!abas[key]" />
       <ArrowUp v-if="abas[key]" />
     </div>
@@ -96,7 +96,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 0 5px 0 5px;
-  width: 200px;
+  width: 220px;
   border-radius: 15px 15px 0 0;
   background-color: #f3f3f3;
 }
@@ -111,7 +111,7 @@ export default {
     place-items: center;
   }
   .aba {
-    width: 13vw;
+    width: 17vw;
   }
 }
 </style>
