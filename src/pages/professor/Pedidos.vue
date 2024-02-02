@@ -18,7 +18,7 @@
   <v-container v-for="(value, key) in pedidosCategorizados">
     <div class="aba" @click="abas[key] = !abas[key]"
          :style="{borderRadius: abas[key] ? '15px 15px 0 0' : '15px'}">
-      <v-card-title>{{key}}</v-card-title>
+      <v-card-title>{{key}} ( {{value.length}} )</v-card-title>
       <ArrowDown v-if="!abas[key]"/>
       <ArrowUp v-if="abas[key]"/>
     </div>
@@ -44,7 +44,10 @@ export default {
   data() {
     return {
       pedidos: [],
-      pedidosCategorizados: {},
+      pedidosCategorizados: {
+        Pendentes: [],
+        Recusadas: [],
+      },
       abas: {},
       situacoes: [],
       path: mdiCircle,
@@ -54,9 +57,16 @@ export default {
     await this.getPedidos();
     for (let pedido of this.pedidos) {
       console.log(pedido)
-      if (!this.pedidosCategorizados[pedido.situacaoCriacao.descricao])
+      if(pedido.situacaoCriacao.descricao === "Pendente") {
+        this.pedidosCategorizados["Pendentes"].push(pedido);
+      }
+      else if (pedido.situacaoCriacao.descricao === "Recusada") {
+        this.pedidosCategorizados["Recusadas"].push(pedido);
+      }
+
+      /* if (!this.pedidosCategorizados[pedido.situacaoCriacao.descricao])
         this.pedidosCategorizados[pedido.situacaoCriacao.descricao] = [];
-      this.pedidosCategorizados[pedido.situacaoCriacao.descricao].push(pedido);
+      this.pedidosCategorizados[pedido.situacaoCriacao.descricao].push(pedido); */
     }
   },
   methods: {

@@ -24,9 +24,11 @@
 
 <script>
 import PedidosListaCard from './PedidosListaCard.vue'
+import {putSituacaoInscricaoIcAluno} from "@/services/professorService.js";
 
 export default {
   name: 'PedidosLista',
+  methods: {putSituacaoInscricaoIcAluno},
   components: {
     PedidosListaCard,
   },

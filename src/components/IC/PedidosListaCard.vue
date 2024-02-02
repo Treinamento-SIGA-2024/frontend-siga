@@ -4,7 +4,7 @@
     <span>{{ snackMessage }}</span>
   </v-snackbar>
 
-  <v-card>
+  <v-card @click="redireciona">
     <div v-if="inscricao" class="divInscricao">
       <v-card-item style="width: 85%">
         <v-card-title>{{ inscricao.iniciacaoCientifica?.nome }}</v-card-title>
@@ -20,7 +20,6 @@
     <v-card-item v-if="pedido" style="width: 85%">
       <v-card-title>{{ pedido.nome }}</v-card-title>
     </v-card-item>
-
   </v-card>
 </template>
 
@@ -30,14 +29,13 @@ import { cancelarIncricaoIC } from '@/services/inscricaoICService'
 export default {
   name: 'PedidosListaCard',
   props: {
-    inscricao: Object,
-    pedido: Object,
+    inscricao: null,
+    pedido: null,
   },
   methods: {
     async cancelarPedido() {
       try {
         const data = await cancelarIncricaoIC(this.inscricao.id)
-        console.log(data)
   
         this.snackMessage = data
         this.snackbar = !this.snackbar
@@ -55,6 +53,12 @@ export default {
       }
       this.$emit('updatePage')
     },
+    redireciona() {
+      if (this.$props.pedido != null)
+        this.$router.push(`/professor/ic/${this.$props.pedido?.id}`);
+      else
+        this.$router.push(`/aluno/ic/id/${this.$props.inscricao?.iniciacaoCientifica.id}`);
+    }
   },
   data() {
     return {
