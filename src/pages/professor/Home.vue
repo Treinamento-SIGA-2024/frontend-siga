@@ -1,40 +1,55 @@
 <template>
-  <PageTitle title="PORTAL DO PROFESSOR" />
-  <DadosPessoais />
-  <ButtonCard
-    title="Minhas Iniciações Científicas"
-    @click="this.$router.push('/professor/ic')"
-  />
-  <ButtonCard
-    title="Minhas propostas de IC"
-    @click="this.$router.push('/professor/pedidos')"
-  />
-  <ButtonCard
-    title="Requerimentos de Alunos (IC)"
-    @click="this.$router.push('/professor/ic/pagina/solicitacoes')"
-  />
+	<PageTitle title="PORTAL DO PROFESSOR" />
+	<DadosPessoais
+		:nome="this.usuario.nome"
+		:matricula="this.usuario.matricula"
+	/>
+	<ButtonCard
+		title="Minhas Iniciações Científicas"
+		@click="this.$router.push('/professor/ic')"
+	/>
+	<ButtonCard
+		title="Minhas propostas de IC"
+		@click="this.$router.push('/professor/pedidos')"
+	/>
+    <ButtonCard 
+		title="Requerimentos de Alunos (IC)" 
+		@click="this.$router.push('/professor/ic/pagina/solicitacoes')"
+	/>
 </template>
 
 <script>
-import PageTitle from '@/components/PageTitle.vue'
-import ButtonCard from '@/components/ButtonCard.vue'
-import DadosPessoais from '@/components/DadosPessoais.vue'
+import PageTitle from "@/components/PageTitle.vue";
+import ButtonCard from "@/components/ButtonCard.vue";
+import DadosPessoais from "@/components/DadosPessoais.vue";
+import { getUsuario } from "@/services/sessaoService";
 
 export default {
-  name: 'ProfessorInicial',
-  components: {
-    DadosPessoais,
-    PageTitle,
-    ButtonCard,
-  },
-}
+	data() {
+		return {
+			usuario: {
+				nome: "",
+				matricula: "",
+			},
+		};
+	},
+	async created() {
+		this.usuario = await getUsuario();
+	},
+	name: "ProfessorInicial",
+	components: {
+		DadosPessoais,
+		PageTitle,
+		ButtonCard,
+	},
+};
 </script>
 
 <style scoped>
 .container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 </style>

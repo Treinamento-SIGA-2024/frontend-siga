@@ -12,11 +12,11 @@
 
 <script>
 export default {
-  name: 'PageTitle',
-  props: {
-    title: String,
-  },
-}
+	name: "PageTitle",
+	props: {
+		title: String,
+	},
+};
 </script>
 
 <style scoped>
@@ -25,11 +25,11 @@ export default {
   margin-bottom: 25px;
 }
 .title {
-  color: hsl(0, 0%, 16%);
-  font-size: 1.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+	color: hsl(0, 0%, 16%);
+	font-size: 1.4rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
 }
 </style>

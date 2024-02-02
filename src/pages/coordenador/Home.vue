@@ -1,31 +1,46 @@
 <template>
-  <PageTitle title="PORTAL DO COORDENADOR" />
-  <DadosPessoais />
-  <ButtonCard
-    title="Propostas de Iniciação Científica"
-    @click="redirectTo('/coordenador/ic')"
+	<PageTitle title="PORTAL DO COORDENADOR" />
+	<DadosPessoais
+		:nome="this.usuario.nome"
+		:matricula="this.usuario.matricula"
+	/>
+	<ButtonCard
+		title="Propostas de Iniciação Científica"
+		@click="redirectTo('/coordenador/ic')"
   />
-  <ButtonCard
+	<ButtonCard
     title="Pedidos de Estágio"
-    @click="redirectTo('/coordenador/estagio')"
+    @click="redirectTo('/coordenador/estagio')" 
   />
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import Header from '@/components/Header.vue'
-import PageTitle from '@/components/PageTitle.vue'
-import DadosPessoais from '@/components/DadosPessoais.vue'
-import ButtonCard from '@/components/ButtonCard.vue'
+import { defineComponent } from "vue";
+import Header from "@/components/Header.vue";
+import PageTitle from "@/components/PageTitle.vue";
+import DadosPessoais from "@/components/DadosPessoais.vue";
+import ButtonCard from "@/components/ButtonCard.vue";
+import { getUsuario } from "@/services/sessaoService";
 
 export default defineComponent({
-  components: { ButtonCard, DadosPessoais, PageTitle, Header },
-  methods: {
-    redirectTo(path) {
-      this.$router.push(path)
-    },
-  },
-})
+	data() {
+		return {
+			usuario: {
+				nome: "",
+				matricula: "",
+			},
+		};
+	},
+	async created() {
+		this.usuario = await getUsuario();
+	},
+	components: { ButtonCard, DadosPessoais, PageTitle, Header },
+	methods: {
+		redirectTo(path) {
+			this.$router.push(path);
+		},
+	},
+});
 </script>
 
 <style scoped></style>
