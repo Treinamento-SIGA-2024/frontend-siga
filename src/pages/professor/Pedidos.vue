@@ -63,10 +63,6 @@ export default {
       else if (pedido.situacaoCriacao.descricao === "Recusada") {
         this.pedidosCategorizados["Recusadas"].push(pedido);
       }
-
-      /* if (!this.pedidosCategorizados[pedido.situacaoCriacao.descricao])
-        this.pedidosCategorizados[pedido.situacaoCriacao.descricao] = [];
-      this.pedidosCategorizados[pedido.situacaoCriacao.descricao].push(pedido); */
     }
   },
   methods: {
