@@ -112,7 +112,6 @@ export default {
       toggleUpdate: false,
       deletarTopico: false,
       topicos: [],
-      idAtual: null,
     }
   },
 
@@ -156,7 +155,7 @@ export default {
       this.deletarTopico = true
     },
     async createTopico(titulo) {
-      await createTopico({ titulo })
+      await createTopico(titulo)
       this.resetCreate()
       await this.getTopicos()
     },
