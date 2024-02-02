@@ -25,7 +25,7 @@
 <script>
 import { createSessao } from "@/services/sessaoService";
 export default {
-	name: "loginForm",
+	name: "LoginForm",
 	data() {
 		return {
 			form: {

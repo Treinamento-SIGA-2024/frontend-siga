@@ -2,15 +2,12 @@
 	<LoginForm v-if="this.usuario === null" :onLogin="updateUsuario" />
 	<v-container v-else-if="this.usuario.cargos.length > 1">
 		<PageTitle title="BEM-VINDO(A)" />
-		<v-container class="options">
-			<ButtonCard
-				title="Coordenador"
-				@click="this.$router.push('/coordenador')"
-			/>
-			<ButtonCard
-				title="Secretaria"
-				@click="this.$router.push('/secretaria')"
-			/>
+		<v-container class="options" >
+      <ButtonCard
+          :title="cargo.nome"
+          @click="this.$router.push(`/${cargo.nome.toLowerCase()}`)"
+          v-for="(cargo) in this.usuario.cargos"
+      />
 		</v-container>
 	</v-container>
 </template>
@@ -35,7 +32,7 @@ export default {
 		};
 	},
 	async created() {
-		this.updateUsuario();
+		await this.updateUsuario();
 	},
 	methods: {
 		async updateUsuario() {

@@ -1,9 +1,9 @@
-const Authorization = localStorage.getItem("sessao");
+const token = localStorage.getItem("sessao");
 
 export const config = {
 	headers: {
 		"Content-Type": "application/json",
-		Authorization,
+		"Authorization": token,
 	},
 };
 
