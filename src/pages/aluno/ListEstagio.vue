@@ -1,55 +1,56 @@
 <template>
-  <PageTitle title="PROPOSTAS DE ESTÁGIO" />
-  <Loading v-if="estagios.length === 0"/>
+  <PageTitle title="Propostas de Estágio" />
+  <Loading v-if="estagios.length === 0" />
 
   <v-btn v-if="!filtros && !snackbar" id="addFiltro" @click="filtros = true">
-      <PlusIcon />
-      <p>Adicionar filtros</p>
-    </v-btn>
-    
-    <v-container v-if="filtros" class="filter-container">
-      
-      <CloseIcon @Click="fechaFiltros" id="closeFiltros" alt="Cancelar filtros"/>
+    <PlusIcon />
+    <p>Adicionar filtros</p>
+  </v-btn>
 
-      <div class="selects-container">
-        
-        <h3 style="margin-bottom:20px" >Aplique os filtros desejados</h3>
+  <v-container v-if="filtros" class="filter-container">
+    <CloseIcon @Click="fechaFiltros" id="closeFiltros" alt="Cancelar filtros" />
 
-        <v-autocomplete 
-          clearable
-          label="Selecione as empresas"
-          :items="this.empresas"
-          multiple
-          variant="outlined"
-          v-model="empresasSelecionadas"
-        ></v-autocomplete>
+    <div class="selects-container">
+      <h3 style="margin-bottom: 20px">Aplique os filtros desejados</h3>
 
-        <v-autocomplete
-          clearable
-          label="Selecione os cargos"
-          :items="this.cargos"
-          multiple
-          variant="outlined"
-          v-model="cargosSelecionados"
-        ></v-autocomplete>
+      <v-autocomplete
+        clearable
+        label="Selecione as empresas"
+        :items="this.empresas"
+        multiple
+        variant="outlined"
+        v-model="empresasSelecionadas"
+      ></v-autocomplete>
 
-        <v-autocomplete
-          clearable
-          label="Selecione as modalidades"
-          :items="this.modalidades"
-          multiple
-          variant="outlined"
-          v-model="modalidadesSelecionadas"
-        ></v-autocomplete>
-      </div>
-      
-    </v-container>
+      <v-autocomplete
+        clearable
+        label="Selecione os cargos"
+        :items="this.cargos"
+        multiple
+        variant="outlined"
+        v-model="cargosSelecionados"
+      ></v-autocomplete>
+
+      <v-autocomplete
+        clearable
+        label="Selecione as modalidades"
+        :items="this.modalidades"
+        multiple
+        variant="outlined"
+        v-model="modalidadesSelecionadas"
+      ></v-autocomplete>
+    </div>
+  </v-container>
 
   <v-container>
-    <v-row align="center" justify="center" v-if="estagiosFiltrados.length !== 0">
-      <v-col v-for="(estagio) in estagiosFiltrados" :key="estagio.id" cols="auto">
-        <CardOferta 
-          :estagio="estagio" 
+    <v-row
+      align="center"
+      justify="center"
+      v-if="estagiosFiltrados.length !== 0"
+    >
+      <v-col v-for="estagio in estagiosFiltrados" :key="estagio.id" cols="auto">
+        <CardOferta
+          :estagio="estagio"
           @click="this.$router.push(`/aluno/estagio/id/${estagio.id}`)"
         />
       </v-col>
@@ -61,41 +62,41 @@
 </template>
 
 <script>
+import Header from '@/components/Header.vue'
+import ButtonCard from '@/components/ButtonCard.vue'
+import PageTitle from '@/components/PageTitle.vue'
+import {
+  getAllEstagios,
+  getEmpresas,
+  getCargos,
+  getModalidades,
+} from '@/services/Estagio.js'
+import Loading from '@/components/Loading.vue'
+import CardOferta from '@/components/CardOferta.vue'
+import CloseIcon from '@/icons/CloseIcon.vue'
 
-import Header from "@/components/Header.vue";
-import ButtonCard from "@/components/ButtonCard.vue";
-import PageTitle from "@/components/PageTitle.vue";
-import {getAllEstagios, 
-        getEmpresas,
-        getCargos, 
-        getModalidades} from "@/services/Estagio.js";
-import Loading from "@/components/Loading.vue";
-import CardOferta from "@/components/CardOferta.vue";
-import CloseIcon from "@/icons/CloseIcon.vue";
-
-import { watch } from 'vue';
-
+import { watch } from 'vue'
 
 export default {
-  name: "ListEstagioAluno",
+  name: 'ListEstagioAluno',
   created() {
-    this.estagios = this.getEstagios();
+    this.estagios = this.getEstagios()
 
-    watch(() => this.empresasSelecionadas, this.filterCards);
-    watch(() => this.cargosSelecionados, this.filterCards);
-    watch(() => this.modalidadesSelecionadas, this.filterCards);
+    watch(() => this.empresasSelecionadas, this.filterCards)
+    watch(() => this.cargosSelecionados, this.filterCards)
+    watch(() => this.modalidadesSelecionadas, this.filterCards)
   },
   data() {
     return {
       estagios: [],
       filtros: false,
       snackbar: false,
-      error: "",
+      error: '',
 
       empresas: [],
       empresasSelecionadas: [],
       cargos: [],
-      cargosSelecionados:[],
+      cargosSelecionados: [],
       modalidades: [],
       modalidadesSelecionadas: [],
       estagiosFiltrados: [],
@@ -112,63 +113,59 @@ export default {
   methods: {
     async getEstagios() {
       try {
-        const estagios = await getAllEstagios();
-        this.estagios = estagios;
-      }
-      catch (err) {
-        if(!err.response || err.response.data.status === 500){
-          this.error = "Erro do servidor.";
-          this.snackbar = !this.snackbar;
-          this.estagios = [];
-        }else{
-          this.error = "Não foi possível acessar as Iniciações Cientítficas.\n" +
-                        `Erro: ${err.response.data.message}`;
-          this.snackbar = !this.snackbar;
-          this.estagios = [];
+        const estagios = await getAllEstagios()
+        this.estagios = estagios
+      } catch (err) {
+        if (!err.response || err.response.data.status === 500) {
+          this.error = 'Erro do servidor.'
+          this.snackbar = !this.snackbar
+          this.estagios = []
+        } else {
+          this.error =
+            'Não foi possível acessar as Iniciações Cientítficas.\n' +
+            `Erro: ${err.response.data.message}`
+          this.snackbar = !this.snackbar
+          this.estagios = []
         }
       }
-      this.estagiosFiltrados = this.estagios;
-      this.empresas = getEmpresas(this.estagios);
-      this.cargos = getCargos(this.estagios);
-      this.modalidades = getModalidades(this.estagios);
+      this.estagiosFiltrados = this.estagios
+      this.empresas = getEmpresas(this.estagios)
+      this.cargos = getCargos(this.estagios)
+      this.modalidades = getModalidades(this.estagios)
     },
     filterCards() {
-      this.estagiosFiltrados = this.estagios.filter((estagio) => {
-        if (this.empresasSelecionadas.length === 0)
-          return true;
-        return this.empresasSelecionadas.includes(estagio.empresa);
-      });
+      this.estagiosFiltrados = this.estagios.filter(estagio => {
+        if (this.empresasSelecionadas.length === 0) return true
+        return this.empresasSelecionadas.includes(estagio.empresa)
+      })
 
-      this.estagiosFiltrados = this.estagiosFiltrados.filter((estagio) => {
-        if (this.cargosSelecionados.length === 0)
-          return true;
-        return this.cargosSelecionados.includes(estagio.cargo);
-      });
+      this.estagiosFiltrados = this.estagiosFiltrados.filter(estagio => {
+        if (this.cargosSelecionados.length === 0) return true
+        return this.cargosSelecionados.includes(estagio.cargo)
+      })
 
-      this.estagiosFiltrados = this.estagiosFiltrados.filter((estagio) => {
-        if (this.modalidadesSelecionadas.length === 0)
-          return true;
-        return this.modalidadesSelecionadas.includes(estagio.modalidade);
-      });
+      this.estagiosFiltrados = this.estagiosFiltrados.filter(estagio => {
+        if (this.modalidadesSelecionadas.length === 0) return true
+        return this.modalidadesSelecionadas.includes(estagio.modalidade)
+      })
     },
     fechaFiltros() {
-      this.filtros = false;
-      this.cargosSelecionados = [];
-      this.empresasSelecionadas = [];
-      this.modalidadesSelecionadas = [];
-    }
+      this.filtros = false
+      this.cargosSelecionados = []
+      this.empresasSelecionadas = []
+      this.modalidadesSelecionadas = []
+    },
   },
 }
 </script>
 
 <style scoped>
-
 #addFiltro {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  
-  align-self: center; 
+
+  align-self: center;
 
   color: white;
   font-weight: bold;
@@ -181,7 +178,7 @@ export default {
 }
 
 #closeFiltros:hover {
-  cursor: pointer
+  cursor: pointer;
 }
 
 .filter-container {
@@ -204,11 +201,9 @@ export default {
 @media (max-width: 700px) {
   .filter-container {
     width: 95vw;
-    
   }
   .selects-container {
     width: 85 vw;
   }
 }
-
 </style>

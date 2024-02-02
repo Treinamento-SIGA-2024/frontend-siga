@@ -19,36 +19,22 @@
 </template>
 
 <script>
-import SvgIcon from '@jamescoyle/vue-icon'
-import { mdiDotsVertical } from '@mdi/js'
+import { mdiDotsVertical } from "@mdi/js";
 
 export default {
-  name: 'more-icon',
-  components: {
-    SvgIcon,
-  },
+  name: "MoreIcon",
   props: {
-    items: Object,
+    items: Array,
   },
   data() {
     return {
       path: mdiDotsVertical,
-      items: null,
-    }
+    };
   },
-  methods: {
-    getItems() {
-      this.items = this.$props.items
-    },
-  },
-  created() {
-    this.getItems()
-  },
-}
+};
 </script>
 
 <style scoped>
-
 #item {
   cursor: pointer;
 }
@@ -57,5 +43,4 @@ export default {
   background-color: #e1e1e1;
   transition-duration: 400ms;
 }
-
 </style>

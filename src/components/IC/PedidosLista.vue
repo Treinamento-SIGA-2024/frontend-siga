@@ -23,47 +23,66 @@
 </template>
 
 <script>
-import PedidosListaCard from './PedidosListaCard.vue'
-import {putSituacaoInscricaoIcAluno} from "@/services/professorService.js";
+import PedidosListaCard from "./PedidosListaCard.vue";
+import { getAllInscricoes } from "@/services/inscricaoICService.js";
+import { getUsuario } from "@/services/sessaoService";
 
 export default {
-  name: 'PedidosLista',
-  methods: {putSituacaoInscricaoIcAluno},
-  components: {
-    PedidosListaCard,
-  },
-  data() {
-    return {
-      snackbar: false,
-      snackMessage: '',
-      inscricoes: [],
-      alunoID: 20,
-    }
-  },
-  props: {
+	name: "PedidosLista",
+	components: {
+		PedidosListaCard,
+	},
+	data() {
+		return {
+			snackbar: false,
+			snackMessage: "",
+			inscricoes: [],
+			aluno: {},
+		};
+	},
+	props: {
     inscricoes: Array,
     pedidos: Array,
-  },
-}
+	},
+
+	async created() {
+		this.aluno = await getUsuario();
+		this.getInscricoes();
+	},
+	methods: {
+		async getInscricoes() {
+			try {
+				const inscricoes = await getAllInscricoes(this.aluno.id);
+				this.inscricoes = inscricoes;
+				console.log(inscricoes);
+			} catch (e) {
+				console.log(e.response.data.message);
+				this.snackMessage = e.response.data.message;
+				this.snackbar = !this.snackbar;
+			}
+			this.$emit("updatePage");
+		},
+	},
+};
 </script>
 
 <style scoped>
 main {
-  width: 100%;
+	width: 100%;
 }
 
 .v-col-auto {
-  width: 100%;
+	width: 100%;
 }
 
 .v-container {
-  background-color: #f3f3f3;
-  border-radius: 0 15px 15px 15px;
+	background-color: #f3f3f3;
+	border-radius: 0px 15px 15px 15px;
 }
 
 @media (min-width: 1024px) {
-  .v-container {
-    width: 100vw;
-  }
+	.v-container {
+		width: 100vw;
+	}
 }
 </style>
