@@ -1,46 +1,61 @@
 <template>
-  <v-container>
-    <v-card :flat="true">
-      <v-card-title>
-        <div class="title">Pedidos</div>
-      </v-card-title>
-    </v-card>
-  </v-container>
+  <PageTitle title="Minhas Propostas de IC" />
 
   <div class="d-flex align-center flex-column">
-    <v-btn max-width="200" color="#C1DEBE" class="registerBtn" @click="goToCadastroIC">
+    <v-btn
+      max-width="200"
+      color="#C1DEBE"
+      class="registerBtn"
+      @click="goToCadastroIC"
+    >
       Cadastrar IC
     </v-btn>
   </div>
 
   <div
-      class="d-flex align-center flex-column"
-      v-for="(pedido, i) in pedidos"
-      :key="i"
+    class="d-flex align-center flex-column"
+    v-for="(pedido, i) in pedidos"
+    :key="i"
   >
-    <v-btn width="310" height="80" color="#CFEEDC" style="margin-bottom: 29px;">
+    <v-btn width="310" height="80" color="#CFEEDC" style="margin-bottom: 29px">
       <div class="pedidosBtn">
         <span> {{ pedido.nome }} </span>
       </div>
       <div class="status">
-        <svg-icon v-if="pedido.situacaoCriacao.descricao == 'Pendente'" color="yellow" type="mdi" :path="path"/>
-        <svg-icon v-if="pedido.situacaoCriacao.descricao == 'Ativo'" color="green" type="mdi" :path="path"/>
-        <svg-icon v-if="pedido.situacaoCriacao.descricao == 'Recusado'" color="red" type="mdi" :path="path"/>
+        <svg-icon
+          v-if="pedido.situacaoCriacao.descricao == 'Pendente'"
+          color="yellow"
+          type="mdi"
+          :path="path"
+        />
+        <svg-icon
+          v-if="pedido.situacaoCriacao.descricao == 'Ativo'"
+          color="green"
+          type="mdi"
+          :path="path"
+        />
+        <svg-icon
+          v-if="pedido.situacaoCriacao.descricao == 'Recusado'"
+          color="red"
+          type="mdi"
+          :path="path"
+        />
       </div>
     </v-btn>
   </div>
-
 </template>
 
 <script>
-import SvgIcon from "@jamescoyle/vue-icon";
-import {mdiCircle} from "@mdi/js";
-import {getPedidos} from "@/services/professorService.js";
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiCircle } from '@mdi/js'
+import { getPedidos } from '@/services/professorService.js'
+import PageTitle from '@/components/PageTitle.vue'
 
 export default {
-  name: "my-cool-component",
+  name: 'my-cool-component',
   components: {
     SvgIcon,
+    PageTitle,
   },
   data() {
     return {
@@ -49,31 +64,21 @@ export default {
     }
   },
   created() {
-    this.getPedidos();
+    this.getPedidos()
   },
   methods: {
     async getPedidos() {
-      const ped = await getPedidos("200000001");
-      this.pedidos = ped;
+      const ped = await getPedidos('200000001')
+      this.pedidos = ped
     },
     goToCadastroIC() {
-        this.$router.push('/professor/cadastroIC')
+      this.$router.push('/professor/cadastroIC')
     },
-  }
-};
+  },
+}
 </script>
 
 <style scoped>
-.title {
-  color: #282828;
-  font-size: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Source Sans Pro;
-  color: #666666;
-}
-
 .registerBtn {
   margin-bottom: 5vh;
   font-family: Source Sans Pro;

@@ -4,11 +4,7 @@
     <span> {{ snackMessage }}</span>
   </v-snackbar>
 
-  <v-card :flat="true" :font-family="this.global.font">
-    <v-card-title style="text-align: center; margin: 17px 0">
-      REQUERIMENTOS IC
-    </v-card-title>
-  </v-card>
+  <PageTitle title="Solicitações de Inscrição em Iniciações Científicas" />
 
   <v-expansion-panels variant="accordion" class="panels">
     <v-expansion-panel
@@ -54,81 +50,87 @@
   <!-- <v-card :flat="true" class="semDados" v-if="iniciacoesCientificas.length < 1">
     <PopUp :acoes="metodos" />
   </v-card> -->
-  
 </template>
 
 <script>
-import DadosPessoais from "@/components/DadosPessoais.vue";
-import CardSolicitacaoIC from "@/components/CardSolicitacaoIC.vue";
+import DadosPessoais from '@/components/DadosPessoais.vue'
+import CardSolicitacaoIC from '@/components/CardSolicitacaoIC.vue'
+import PageTitle from '@/components/PageTitle.vue'
 import {
   getAllIcPendentes,
   getAllRequerimentosIc,
-} from "@/services/professorService.js";
-import Loading from "@/components/Loading.vue";
-import PopUp from "@/components/PopUp.vue";
-import { getIcById } from "@/services/iniciacaoCientifica.js";
-import { Transition } from "vue";
+} from '@/services/professorService.js'
+import Loading from '@/components/Loading.vue'
+import PopUp from '@/components/PopUp.vue'
+import { getIcById } from '@/services/iniciacaoCientifica.js'
+import { Transition } from 'vue'
 
 export default {
-  components: { PopUp, Loading, CardSolicitacaoIC, DadosPessoais, Transition },
+  components: {
+    PopUp,
+    Loading,
+    CardSolicitacaoIC,
+    DadosPessoais,
+    Transition,
+    PageTitle,
+  },
   data() {
     return {
       activeIndex: null,
-      professorMatricula: "200000001",
-      icId: "1",
+      professorMatricula: '200000001',
+      icId: '1',
       snackbar: false,
-      snackMessage: "",
+      snackMessage: '',
       inscricoes: [],
       iniciacoesCientificas: [],
       metodos: {
-        msg: "Recarregar página?",
+        msg: 'Recarregar página?',
         aceitarAction: this.getRequerimentos,
         cancelarAction: this.redirecionar,
       },
-    };
+    }
   },
   methods: {
-    redirecionar(){
-      this.$router.push('/professor');  
+    redirecionar() {
+      this.$router.push('/professor')
     },
     async getInscricoesIc() {
       const inscricoes = await getAllIcPendentes(
         this.professorMatricula,
-        this.icId
-      );
-      const ic = await getIcById(this.icId);
-      this.iniciacaoCientifica = ic;
-      this.inscricoes = inscricoes;
+        this.icId,
+      )
+      const ic = await getIcById(this.icId)
+      this.iniciacaoCientifica = ic
+      this.inscricoes = inscricoes
     },
     toggleAccordion(index) {
       if (this.activeIndex === index) {
-        this.activeIndex = null;
+        this.activeIndex = null
       } else {
-        this.activeIndex = index;
+        this.activeIndex = index
       }
     },
     async getRequerimentos() {
       try {
         const iniciacoesCientificas = await getAllRequerimentosIc(
-          this.professorMatricula
-        );
-        this.iniciacoesCientificas = iniciacoesCientificas;
+          this.professorMatricula,
+        )
+        this.iniciacoesCientificas = iniciacoesCientificas
       } catch (err) {
         if (err.response.data.status == 500) {
           this.snackMessage =
-            "Não foi possível encontrar Iniciações Científicas!\n";
-          this.snackbar = !this.snackbar;
+            'Não foi possível encontrar Iniciações Científicas!\n'
+          this.snackbar = !this.snackbar
         }
-        console.log(err.response.data.status);
+        console.log(err.response.data.status)
       }
     },
   },
   created() {
-    this.getRequerimentos();
-    this.getInscricoesIc();
-   
+    this.getRequerimentos()
+    this.getInscricoesIc()
   },
-};
+}
 </script>
 
 <style scoped>
@@ -147,10 +149,10 @@ v-card {
   align-items: center;
   justify-content: center;
 }
-.panels{
+.panels {
   margin: 0 10vw;
-  max-width: 80vw ;
-  align-self:center;
+  max-width: 80vw;
+  align-self: center;
 }
 
 .recarregarBtn {
@@ -161,7 +163,7 @@ v-card {
   justify-content: center;
   display: flex;
   font-size: 18px;
-  font-family: "Source Sans Pro";
+  font-family: 'Source Sans Pro';
   color: #666666;
   margin: 2%;
   @media (max-width: 600px) {
@@ -170,7 +172,7 @@ v-card {
   }
 }
 .title {
-  font-family: "Source Sans Pro";
+  font-family: 'Source Sans Pro';
 }
 .fade-enter-active,
 .fade-leave-active {

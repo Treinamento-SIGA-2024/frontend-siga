@@ -16,13 +16,13 @@ export default {
   props: {
     title: String,
   },
-};
+}
 </script>
 
 <style scoped>
-
 .title-container {
-  margin-top: 25px;
+  margin-top: 10px;
+  margin-bottom: 25px;
 }
 .title {
   color: hsl(0, 0%, 16%);

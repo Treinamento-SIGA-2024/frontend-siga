@@ -2,24 +2,24 @@
   <PageTitle title="PORTAL DO ALUNO" />
   <DadosPessoais />
   <ButtonCard
-    title="Iniciação Científica"
+    title="Ofertas de Iniciação Científica"
     @click="this.$router.push('/aluno/ic')"
   />
-  <ButtonCard 
-    title="Estágio" 
-    @click="this.$router.push('/aluno/estagio')" 
+  <ButtonCard
+    title="Ofertas de Estágio"
+    @click="this.$router.push('/aluno/estagio')"
   />
-  <ButtonCard 
-    title="Pedidos" 
-    @click="this.$router.push('/aluno/pedidos')" 
+  <ButtonCard
+    title="Minhas Inscrições"
+    @click="this.$router.push('/aluno/pedidos')"
   />
 </template>
 
 <script>
-import Header from '@/components/Header.vue';
-import PageTitle from '@/components/PageTitle.vue';
-import ButtonCard from '@/components/ButtonCard.vue';
-import DadosPessoais from '@/components/DadosPessoais.vue';
+import Header from '@/components/Header.vue'
+import PageTitle from '@/components/PageTitle.vue'
+import ButtonCard from '@/components/ButtonCard.vue'
+import DadosPessoais from '@/components/DadosPessoais.vue'
 
 export default {
   name: 'AlunoInicial',
@@ -29,8 +29,7 @@ export default {
     PageTitle,
     ButtonCard,
   },
-};
+}
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
