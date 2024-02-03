@@ -3,13 +3,13 @@
   <PedidosBotoes></PedidosBotoes>
   <Loading v-if="loading"></Loading>
 
-  <v-container v-for="(value, key) in inscricoesCategorizadas">
+  <v-container v-for="(value, key) in inscricoesCategorizadas" :key="key">
     <div
       class="aba"
       @click="abas[key] = !abas[key]"
       :style="{ borderRadius: abas[key] ? '15px 15px 0 0' : '15px' }"
     >
-      <v-card-title>{{ key }} ( {{value.length}} )</v-card-title>
+      <v-card-title>{{ key }} ( {{ value.length }} )</v-card-title>
       <ArrowDown v-if="!abas[key]" />
       <ArrowUp v-if="abas[key]" />
     </div>
@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     stopLoading() {
-      this.loading = !this.loading
+      this.loading = false
     },
     async getInscricoes() {
       try {
