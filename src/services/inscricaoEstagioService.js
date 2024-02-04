@@ -5,3 +5,9 @@ export const createAlunoPedidoEstagio = async (params) => {
     console.log(data)
     return data;
 }
+
+export async function getInscricaoEstagio(aluno_id){
+    const { data } = await axios.get(`${api_url}/inscricoes/estagio/aluno/${aluno_id}`)
+    console.log(data)
+    return data;
+}
