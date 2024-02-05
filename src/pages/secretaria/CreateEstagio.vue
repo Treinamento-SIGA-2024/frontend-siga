@@ -254,13 +254,15 @@ export default {
 
 #popDiv {
   position: fixed;
-  z-index: 1;
+  z-index: 99999999999;
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
+  left: 0;
+  top: 0;
 }
 
 #erroText {
