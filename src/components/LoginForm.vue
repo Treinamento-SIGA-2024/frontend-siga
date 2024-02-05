@@ -1,4 +1,5 @@
 <template>
+	<LoginTitle />
 	<v-form @submit.prevent="login">
 		<v-text-field
 			class="login-input"
@@ -24,8 +25,13 @@
 
 <script>
 import { createSessao } from "@/services/sessaoService";
+import LoginTitle from "./LoginTitle.vue";
+
 export default {
 	name: "LoginForm",
+	components: {
+		LoginTitle
+	},
 	data() {
 		return {
 			form: {
@@ -55,7 +61,7 @@ export default {
 }
 
 .v-form {
-	padding: 40px 20px 0 20px;
+	padding: 0 20px 0 20px;
 }
 
 .v-container {

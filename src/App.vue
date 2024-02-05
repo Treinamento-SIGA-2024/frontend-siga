@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     isLoginPage() {
-      return this.$route.name === 'AuthLogin' // Substitua 'Login' com o nome da sua rota de login
+      return this.$route.name === 'Login' // Substitua 'Login' com o nome da sua rota de login
     },
   },
 }
