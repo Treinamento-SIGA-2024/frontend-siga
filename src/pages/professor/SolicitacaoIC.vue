@@ -64,6 +64,7 @@ import Loading from '@/components/Loading.vue'
 import PopUp from '@/components/PopUp.vue'
 import { getIcById } from '@/services/iniciacaoCientifica.js'
 import { Transition } from 'vue'
+import {getUsuario} from "@/services/sessaoService.js";
 
 export default {
   components: {
@@ -86,21 +87,17 @@ export default {
         aceitarAction: this.getRequerimentos,
         cancelarAction: this.redirecionar,
       },
+      usuario: {
+        nome: "",
+        matricula:""
+      }
     }
   },
   methods: {
     redirecionar() {
       this.$router.push('/professor')
     },
-    async getInscricoesIc() {
-      const inscricoes = await getAllIcPendentes(
-        this.professorMatricula,
-        this.icId,
-      )
-      const ic = await getIcById(this.icId)
-      this.iniciacaoCientifica = ic
-      this.inscricoes = inscricoes
-    },
+
     toggleAccordion(index) {
       if (this.activeIndex === index) {
         this.activeIndex = null
@@ -122,9 +119,9 @@ export default {
       }
     },
   },
-  created() {
+  async created() {
     this.getRequerimentos()
-    this.getInscricoesIc()
+    this.usuario = await getUsuario()
   },
 }
 </script>
