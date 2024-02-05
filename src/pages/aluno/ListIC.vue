@@ -82,7 +82,8 @@ export default {
     async getIcsAluno(){
       try{
         this.ics = this.icsFiltradas = await getIcsAlunoInscrito()
-        console.log(this.icsFiltradas)
+        this.tab = "disponiveis"
+        //console.log("Agora ta disponivel")
       }catch (err){
         console.log(err.response)
       }
@@ -141,6 +142,7 @@ export default {
       professores: [],
       professoresSelecionados: [],
       filtros: false,
+      tab:"minhas"
     }
   },
 }
@@ -185,14 +187,6 @@ export default {
   width: 50vw;
 }
 
-.card-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 25px;
-}
-
 .container {
   display: flex;
   flex-direction: column;
@@ -203,7 +197,7 @@ export default {
     width: 95vw;
   }
   .selects-container {
-    width: 85 vw;
+    width: 85vw;
   }
 }
 </style>

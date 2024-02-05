@@ -13,7 +13,7 @@
       :descricao="this.icData?.descricao"
     ></PageICdescricao>
     <PageICbotao
-      v-if="icData != null"
+      v-if="icData != null && !icDoAluno"
       title="Solicitar IC"
       :IniciacaoID="this.$route.params.icId"
     ></PageICbotao>
@@ -27,7 +27,8 @@ import PageICdescricao from '@/components/IC/PageICdescricao.vue';
 import PageICbotao from '@/components/IC/PageICbotao.vue';
 import Loading from '@/components/Loading.vue';
 
-import { getIcById } from '@/services/iniciacaoCientifica.js';
+import {getIcById, getIcsAlunoInscrito} from '@/services/iniciacaoCientifica.js';
+import {getUserBySessao} from "@/services/sessaoService.js";
 
 export default {
   name: 'PageIc',
@@ -41,6 +42,11 @@ export default {
   methods: {
     async getIcData() {
       const responseData = await getIcById(this.$route.params.icId);
+      const icsInscrito = await getIcsAlunoInscrito()
+      const icContains = icsInscrito.filter(ic=>ic.id === responseData.id)
+      if(icContains.length){
+        this.icDoAluno = true
+      }
       this.icData = responseData;
     },
   },
@@ -50,6 +56,7 @@ export default {
   data() {
     return {
       icData: null,
+      icDoAluno: false
     };
   },
 };
