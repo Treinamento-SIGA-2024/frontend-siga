@@ -106,7 +106,7 @@ export default {
       }
     },
     async getInscricoesEstagio() {
-      const inscricoesEstagio = await getInscricaoEstagio(this.alunoID);
+      const inscricoesEstagio = await getInscricaoEstagio();
       this.inscricoesEstagio = inscricoesEstagio;
       this.$emit('updatePage');
     },
