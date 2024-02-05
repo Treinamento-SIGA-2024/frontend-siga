@@ -39,7 +39,7 @@ export default {
   
         this.snackMessage = data
         this.snackbar = !this.snackbar
-      } catch (e) {
+      } catch (err) {
         if (!err.response || err.response.status === 500) {
           this.snackMessage = "Erro no servidor";
         }
@@ -47,7 +47,7 @@ export default {
           this.$router.push('/notfound');
         }
         else {
-          this.snackMessage = e.response.data.message
+          this.snackMessage = err.response.data.message
         }
         this.snackbar = !this.snackbar
       }
