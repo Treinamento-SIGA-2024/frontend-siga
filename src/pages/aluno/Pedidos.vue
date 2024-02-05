@@ -163,19 +163,19 @@ export default {
 
 .button-selected {
   background-color: #F3F3F3 !important;
-  opacity: 1 !important;
+  color: #000000 !important;
 }
 
 .estagio {
   background-color: #a8a8a866;
   border-top-left-radius: 23px;
-  opacity: 0.3;
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .ic {
   background-color: #a8a8a866;
   border-top-right-radius: 23px;
-  opacity: 0.3;
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .button-container {
