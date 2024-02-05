@@ -5,7 +5,7 @@
   </v-snackbar>
 
   <v-card>
-    <v-card-item style="width: 85%">
+    <v-card-item @click="this.$router.push(`/aluno/pedidos/estagio/${inscricaoEstagio.estagio.id}`)" style="width: 85%">
       <v-card-title>{{inscricaoEstagio.estagio.cargo}}</v-card-title>
       <v-card-subtitle>
         {{inscricaoEstagio.estagio.descricao}}</v-card-subtitle>

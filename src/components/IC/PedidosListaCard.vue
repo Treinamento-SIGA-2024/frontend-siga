@@ -57,7 +57,7 @@ export default {
       if (this.$props.pedido != null)
         this.$router.push(`/professor/ic/${this.$props.pedido?.id}`);
       else
-        this.$router.push(`/aluno/ic/id/${this.$props.inscricao?.iniciacaoCientifica.id}`);
+        this.$router.push(`/aluno/pedidos/ic/${this.$props.inscricao?.iniciacaoCientifica.id}`);
     }
   },
   data() {
