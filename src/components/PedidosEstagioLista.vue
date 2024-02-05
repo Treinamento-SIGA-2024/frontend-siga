@@ -3,7 +3,7 @@
     <v-container style="width: 100%">
       <v-row>
         <v-col v-for="(inscricaoEstagio, i) in this.$props.inscricoesEstagio" :key="i" cols="auto">
-          <pedidos-estagio-lista-card
+          <pedidos-estagio-lista-card @updatePage="this.$emit('updatePage')"
             :inscricao-estagio="inscricaoEstagio"
           />
         </v-col>

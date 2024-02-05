@@ -15,7 +15,7 @@
       <ArrowDown v-if="!abas[key]"/>
       <ArrowUp v-if="abas[key]"/>
     </div>
-    <PedidosLista  v-if="abas[key]" @updatePage="stopLoading" :inscricoes="value"/>
+    <PedidosLista  v-if="abas[key]" @updatePage="() => {stopLoading(); atualizaCategorias();}" :inscricoes="value"/>
   </v-container>
 
   <v-container v-show="!loading" v-if="isEstagio" v-for="(inscricaoEstagio, key) in inscricoesEstagioCategorizadas">
@@ -25,7 +25,7 @@
       <ArrowDown v-if="!abasEstagio[key]"/>
       <ArrowUp v-if="abasEstagio[key]"/>
     </div>
-  <pedidos-estagio-lista v-if="abasEstagio[key]" :inscricoes-estagio="inscricaoEstagio" @updatePage="stopLoading"></pedidos-estagio-lista>
+  <pedidos-estagio-lista v-if="abasEstagio[key]" :inscricoes-estagio="inscricaoEstagio" @updatePage="() => {stopLoading(); atualizaCategorias();}"></pedidos-estagio-lista>
   </v-container>
 </template>
 
@@ -70,21 +70,12 @@ export default {
     await this.getSituacoes();
     await this.getInscricoes();
     await this.getInscricoesEstagio();
-
-    for (let inscricao of this.inscricoes) {
-      this.inscricoesCategorizadas[inscricao.situacaoInscricao.descricao].push(
-        inscricao,
-      )
-    }
-
-    for (let inscricaoEstagio of this.inscricoesEstagio){
-      this.inscricoesEstagioCategorizadas[inscricaoEstagio.situacaoInscricao.descricao].push(inscricaoEstagio);
-    }
-    this.loading = false;
+    this.atualizaCategorias();
   },
   methods: {
     stopLoading() {
       this.loading = false
+
     },
     async getInscricoes() {
       try {
@@ -110,12 +101,29 @@ export default {
       this.inscricoesEstagio = inscricoesEstagio;
       this.$emit('updatePage');
     },
-
     async changeListagem(botao) {
       if (this.botaoSelecionado !== botao) {
         this.botaoSelecionado = botao;
         this.isEstagio = (botao === 'Estagio');
       }
+    },
+    async atualizaCategorias () {
+      for (let situacao of this.situacoes) {
+        this.inscricoesCategorizadas[situacao.descricao] = [];
+        this.inscricoesEstagioCategorizadas[situacao.descricao] = [];
+      }
+      await this.getInscricoes();
+      await this.getInscricoesEstagio();
+
+      for (let inscricao of this.inscricoes) {
+        this.inscricoesCategorizadas[inscricao.situacaoInscricao.descricao].push(
+            inscricao,
+        )
+      }
+      for (let inscricaoEstagio of this.inscricoesEstagio){
+        this.inscricoesEstagioCategorizadas[inscricaoEstagio.situacaoInscricao.descricao].push(inscricaoEstagio);
+      }
+      this.loading = false;
     }
   },
 }
