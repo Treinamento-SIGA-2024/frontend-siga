@@ -51,26 +51,43 @@ export default {
 	},
 	methods: {
 		async getPropostaIc() {
-			const responseData = await getIcById(this.$route.params.icId);
-			this.propostaIc = responseData;
+			try {
+				const responseData = await getIcById(this.$route.params.icId);
+				this.propostaIc = responseData;
+			}
+			catch (err) {
+				this.$emit("erro", err);
+			}
 		},
 
 		async aprovarIC() {
-			let res = await aprovarIC(this.usuario.matricula, this.propostaIc.id);
-			console.log(res);
+			try {
+				await aprovarIC(this.usuario.matricula, this.propostaIc.id);
+				this.$router.push("/coordenador/ic");
+			} catch (err) {
+				this.$emit("erro", err);
+			}
 
-			this.$router.push("/coordenador/ic");
 		},
 
 		async rejeitarIC() {
-			let res = await rejeitarIC(this.usuario.matricula, this.propostaIc.id);
-			console.log(res);
+			try {
+				await rejeitarIC(this.usuario.matricula, this.propostaIc.id);
+				this.$router.push("/coordenador/ic");
+			}
+			catch (err) {
+				this.$emit("erro", err);
+			}
 
-			this.$router.push("/coordenador/ic");
 		},
 	},
 	async created() {
-		this.usuario = await getUsuario();
+		try {
+			this.usuario = await getUsuario();
+		}
+		catch (err) {
+			this.$emit("erro", err);
+		}
 		this.getPropostaIc();
 	},
 	data() {

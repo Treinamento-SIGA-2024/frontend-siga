@@ -1,8 +1,5 @@
 <template>
   <main>
-    <v-snackbar :timeout="2500" color="red" elevation="24" v-model="snackbar">
-      <span>{{ snackMessage }}</span>
-    </v-snackbar>
     <v-container style="width: 100%">
       <v-row>
         <v-col v-for="(inscricao, i) in this.$props.inscricoes" :key="i" cols="auto">
@@ -34,8 +31,6 @@ export default {
 	},
 	data() {
 		return {
-			snackbar: false,
-			snackMessage: "",
 			inscricoes: [],
 			aluno: {},
 		};
@@ -54,11 +49,8 @@ export default {
 			try {
 				const inscricoes = await getAllInscricoes(this.aluno.id);
 				this.inscricoes = inscricoes;
-				console.log(inscricoes);
-			} catch (e) {
-				console.log(e.response.data.message);
-				this.snackMessage = e.response.data.message;
-				this.snackbar = !this.snackbar;
+			} catch (err) {
+				this.$emit("erro", err);
 			}
 			this.$emit("updatePage");
 		},

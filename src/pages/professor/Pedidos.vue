@@ -14,7 +14,7 @@
 
 
   <v-container v-for="(value, key) in pedidosCategorizados">
-    <div class="aba" @click="abas[key] = !abas[key]"
+    <div class="aba" @click="() => {abas[key] = !abas[key]}"
          :style="{borderRadius: abas[key] ? '15px 15px 0 0' : '15px'}">
       <v-card-title>{{key}} ( {{value.length}} )</v-card-title>
       <ArrowDown v-if="!abas[key]"/>
@@ -58,22 +58,29 @@ export default {
 		};
 	},
 	async created() {
-		this.usuario = await getUsuario();
-		await this.getPedidos();
-    for (let pedido of this.pedidos) {
-      console.log(pedido)
-      if(pedido.situacaoCriacao.descricao === "Pendente") {
-        this.pedidosCategorizados["Pendentes"].push(pedido);
-      }
-      else if (pedido.situacaoCriacao.descricao === "Recusada") {
-        this.pedidosCategorizados["Recusadas"].push(pedido);
-      }
-    }
+		try {
+			this.usuario = await getUsuario();
+			await this.getPedidos();
+			for (let pedido of this.pedidos) {
+				if(pedido.situacaoCriacao.descricao === "Pendente") {
+					this.pedidosCategorizados["Pendentes"].push(pedido);
+				}
+				else if (pedido.situacaoCriacao.descricao === "Recusada") {
+					this.pedidosCategorizados["Recusadas"].push(pedido);
+				}
+			}
+		} catch (err) {
+			this.$emit("erro", err);
+		}
 	},
 	methods: {
 		async getPedidos() {
-			const ped = await getPedidos(this.usuario.matricula);
-			this.pedidos = ped;
+			try {
+				const ped = await getPedidos(this.usuario.matricula);
+				this.pedidos = ped;
+			} catch (err) {
+				this.$emit("erro", err);
+			}
 		},
 		goToCadastroIC() {
 			this.$router.push("/professor/cadastroIC");

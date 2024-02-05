@@ -1,9 +1,4 @@
 <template>
-
-  <v-snackbar :timeout="1000 * 1000" v-model="snackbar">
-    <span>{{ snackMessage }}</span>
-  </v-snackbar>
-
   <v-card @click="redireciona">
     <div v-if="inscricao" class="divInscricao">
       <v-card-item style="width: 85%">
@@ -36,21 +31,10 @@ export default {
     async cancelarPedido() {
       try {
         const data = await cancelarIncricaoIC(this.inscricao.id)
-  
-        this.snackMessage = data
-        this.snackbar = !this.snackbar
-      } catch (e) {
-        if (!err.response || err.response.status === 500) {
-          this.snackMessage = "Erro no servidor";
-        }
-        else if (err.response.status === 404) {
-          this.$router.push('/notfound');
-        }
-        else {
-          this.snackMessage = e.response.data.message
-        }
-        this.snackbar = !this.snackbar
-      }
+        this.$emit("sucesso", "Inscrição cancelada com sucesso!")
+      } catch (err) {
+				this.$emit("erro", err);
+			}
       this.$emit('updatePage')
     },
     redireciona() {
@@ -62,8 +46,6 @@ export default {
   },
   data() {
     return {
-      snackMessage: '',
-      snackbar: false,
       status: '',
       items: [
         {

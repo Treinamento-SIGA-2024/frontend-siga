@@ -34,16 +34,9 @@ export async function createIniciacaoCientifica(params, matricula) {
 }
 
 export async function deletarAlunoIC(inscricaoId) {
-  try {
-    await axios.put(
-      `${url}/inscricoes/ic/expulsar/id/${inscricaoId}`,
-      {},
-      config(),
-    )
-  } catch (err) {
-    console.log(err)
-  }
-  return
+  await axios.put(
+    `${url}/inscricoes/ic/expulsar/id/${inscricaoId}`,
+    {}, config());
 }
 export async function getAllRequerimentosIc() {
   const response = await axios.get(`${url}/inscricoes/ic`, config())

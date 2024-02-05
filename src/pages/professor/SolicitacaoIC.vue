@@ -1,8 +1,4 @@
 <template style="justify-content: center">
-  <!-- Notificação de sucesso e erro do cadastro -->
-  <v-snackbar v-model="snackbar" timeout="5000" color="red">
-    <span> {{ snackMessage }}</span>
-  </v-snackbar>
 
   <PageTitle title="Solicitações de Inscrição em Iniciações Científicas" />
 
@@ -77,8 +73,6 @@ export default {
   data() {
     return {
       activeIndex: null,
-      snackbar: false,
-      snackMessage: '',
       inscricoes: [],
       iniciacoesCientificas: [],
       metodos: {
@@ -93,13 +87,15 @@ export default {
       this.$router.push('/professor')
     },
     async getInscricoesIc() {
-      const inscricoes = await getAllIcPendentes(
-        this.professorMatricula,
-        this.icId,
-      )
-      const ic = await getIcById(this.icId)
-      this.iniciacaoCientifica = ic
-      this.inscricoes = inscricoes
+      try {
+        const inscricoes = await getAllIcPendentes(this.professorMatricula,this.icId);
+        const ic = await getIcById(this.icId)
+        this.iniciacaoCientifica = ic
+        this.inscricoes = inscricoes
+      }
+      catch (err) {
+				this.$emit("erro", err);
+			}
     },
     toggleAccordion(index) {
       if (this.activeIndex === index) {
@@ -113,13 +109,8 @@ export default {
         const iniciacoesCientificas = await getAllRequerimentosIc()
         this.iniciacoesCientificas = iniciacoesCientificas
       } catch (err) {
-        if (err.response.data.status == 500) {
-          this.snackMessage =
-            'Não foi possível encontrar Iniciações Científicas!\n'
-          this.snackbar = !this.snackbar
-        }
-        console.log(err.response.data.status)
-      }
+				this.$emit("erro", err);
+			}
     },
   },
   created() {

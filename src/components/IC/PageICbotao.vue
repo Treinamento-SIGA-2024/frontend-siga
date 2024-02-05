@@ -1,12 +1,4 @@
 <template>
-	<v-snackbar
-		:timeout="2500"
-		:color="popupColor"
-		elevation="24"
-		v-model="snackbar"
-	>
-		<span>{{ snackMessage }}</span>
-	</v-snackbar>
 	<v-dialog>
 		<template v-slot:activator="{ props }">
 			<v-btn class="buttonCard" stacked elevation="4" v-bind="props">{{
@@ -62,24 +54,15 @@ export default {
 	data() {
 		return {
 			usuario: null,
-			snackbar: false,
-			snackMessage: "",
-			popupColor: "",
 		};
 	},
 	methods: {
 		async createInscricaoIC() {
 			try {
-				console.log(this.$data);
-        console.log(this.usuario)
 				await createInscricaoIC(this.IniciacaoID, this.usuario.id);
-				this.snackMessage = "Inscrição realizada com sucesso!";
-				this.popupColor = "green";
-				this.snackbar = !this.snackbar;
-			} catch (e) {
-				this.popupColor = "red";
-				this.snackMessage = e.response.data.message;
-				this.snackbar = !this.snackbar;
+				this.$emit("sucesso", "Inscrição realizada com sucesso!")
+			} catch (err) {
+				this.$emit("erro", err);
 			}
 		},
 	},

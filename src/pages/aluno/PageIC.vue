@@ -40,8 +40,13 @@ export default {
   },
   methods: {
     async getIcData() {
-      const responseData = await getIcById(this.$route.params.icId);
-      this.icData = responseData;
+      try {
+        const responseData = await getIcById(this.$route.params.icId);
+        this.icData = responseData;
+      }
+      catch (err) {
+        this.$emit("erro", err);
+      }
     },
   },
   created() {

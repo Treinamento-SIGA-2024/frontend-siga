@@ -32,7 +32,12 @@ export default defineComponent({
 		};
 	},
 	async created() {
-		this.usuario = await getUsuario();
+		try {
+			this.usuario = await getUsuario();
+		}
+		catch (err) {
+        	this.$emit("erro", err);
+      	}
 	},
 	components: { ButtonCard, DadosPessoais, PageTitle, Header },
 	methods: {

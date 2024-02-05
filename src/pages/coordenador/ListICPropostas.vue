@@ -30,7 +30,12 @@ export default {
   },
   methods: {
     async getICsPendentes() {
-      this.propostasIcs = await getICsPendentes()
+      try {
+        this.propostasIcs = await getICsPendentes();
+      }
+      catch (err) {
+        this.$emit("erro", err);
+      }
     },
   },
   created() {

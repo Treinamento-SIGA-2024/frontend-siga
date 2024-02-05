@@ -49,10 +49,6 @@
 			/>
 		</v-container>
 	</div>
-
-	<v-snackbar v-model="snackbar" :timeout="1000 * 1000">
-		<span> {{ error }}</span>
-	</v-snackbar>
 </template>
 
 <script>
@@ -80,8 +76,6 @@ export default defineComponent({
 			},
 			estagio: null,
 			estagioId: Number,
-			error: String,
-			snackbar: false,
 		};
 	},
 	methods: {
@@ -90,14 +84,7 @@ export default defineComponent({
 				const response = await getEstagioById(id);
 				this.estagio = response;
 			} catch (err) {
-				if (!err.response || err.response.status === 500) {
-					this.error = "Erro no servidor";
-				} else if (err.response.status === 404) {
-					this.$router.push("/notfound");
-				} else {
-					this.error = err.response.data.message;
-				}
-				this.snackbar = true;
+				this.$emit('erro', err);
 			}
 		},
 		async postPedidoEstagio() {
@@ -109,19 +96,17 @@ export default defineComponent({
 				const response = await createAlunoPedidoEstagio(body);
 				this.$router.push("/aluno");
 			} catch (err) {
-				if (!err.response || err.response.data.status === 500) {
-					this.error = "Erro do servidor.";
-				} else {
-					this.error =
-						"Não foi possível enviar o formulário.\n" +
-						`Erro: ${err.response.data.message}`;
-				}
-				this.snackbar = !this.snackbar;
+				this.$emit('erro', err);
 			}
 		},
 	},
 	async created() {
-		this.aluno = await getUsuario();
+		try {
+			this.aluno = await getUsuario();
+		}
+		catch (err) {
+			this.$emit("erro", err);
+		}
 		this.estagioId = this.$route.params.id;
 		this.getEstagio(this.estagioId);
 	},

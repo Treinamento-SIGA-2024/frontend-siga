@@ -75,30 +75,37 @@ export default {
   methods: {
     stopLoading() {
       this.loading = false
-
     },
     async getInscricoes() {
       try {
         const inscricoes = await getAllInscricoes(this.alunoID)
         this.inscricoes = inscricoes
-      } catch (e) {
-        this.snackMessage = e.response.data.message
-        this.snackbar = !this.snackbar
+      } catch (err) {
+        this.$emit("erro", err);
       }
       this.$emit('updatePage')
     },
     async getSituacoes() {
-      this.situacoes = await getAllSituacoes()
-      for (let situacao of this.situacoes) {
-        this.inscricoesCategorizadas[situacao.descricao] = [];
-        this.inscricoesEstagioCategorizadas[situacao.descricao] = [];
-        this.abas[situacao.descricao] = false;
-        this.abasEstagio[situacao.descricao] = false;
+      try {
+        this.situacoes = await getAllSituacoes()
+        for (let situacao of this.situacoes) {
+          this.inscricoesCategorizadas[situacao.descricao] = [];
+          this.inscricoesEstagioCategorizadas[situacao.descricao] = [];
+          this.abas[situacao.descricao] = false;
+          this.abasEstagio[situacao.descricao] = false;
+        }
+      } catch (err) {
+        this.$emit("erro", err);
       }
     },
     async getInscricoesEstagio() {
-      const inscricoesEstagio = await getInscricaoEstagio();
-      this.inscricoesEstagio = inscricoesEstagio;
+      try {
+        const inscricoesEstagio = await getInscricaoEstagio();
+        this.inscricoesEstagio = inscricoesEstagio;
+      }
+      catch (err) {
+        this.$emit("erro", err);
+      }
       this.$emit('updatePage');
     },
     async changeListagem(botao) {

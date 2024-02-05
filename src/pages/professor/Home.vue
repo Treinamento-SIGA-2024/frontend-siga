@@ -34,7 +34,11 @@ export default {
 		};
 	},
 	async created() {
-		this.usuario = await getUsuario();
+		try {
+			this.usuario = await getUsuario();
+		} catch (err) {
+			this.$emit("erro", err);
+		}
 	},
 	name: "ProfessorInicial",
 	components: {

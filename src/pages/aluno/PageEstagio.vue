@@ -1,9 +1,8 @@
 <template>
 	<v-container>
-		<PopUpErro :erro="erro" />
 		<Loading v-if="loading" />
 	</v-container>
-	<v-container v-if="!loading && !erro" id="content">
+	<v-container v-if="!loading" id="content">
 		<InfoPedido :estagio="estagio" />
 		<ButtonCard
 			title="Contrato"
@@ -21,7 +20,6 @@ import PageTitle from "@/components/PageTitle.vue";
 import ButtonCard from "@/components/ButtonCard.vue";
 import Loading from "@/components/Loading.vue";
 import { getAllEstagios, getEstagioById } from "@/services/Estagio.js";
-import PopUpErro from "@/components/PopUpErro.vue";
 import InfoPedido from "@/components/InfoPedido.vue";
 import { getUsuario } from "@/services/sessaoService";
 
@@ -35,7 +33,6 @@ export default {
 				required: true,
 			},
 			loading: true,
-			erro: false,
 			usuario: {
 				nome: "",
 				matricula: "",
@@ -43,18 +40,18 @@ export default {
 		};
 	},
 	async created() {
-		this.usuario = await getUsuario();
 		try {
+			this.usuario = await getUsuario();
 			const estagio = await getEstagioById(this.$route.params.id);
 			this.estagio = estagio;
-		} catch (e) {
-			this.erro = e.response.data.message;
-		}
+		} 
+		catch (err) {
+        	this.$emit("erro", err);
+      	}
 		this.loading = false;
 	},
 	components: {
 		InfoPedido,
-		PopUpErro,
 		Loading,
 		ButtonCard,
 		PageTitle,

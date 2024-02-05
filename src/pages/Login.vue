@@ -32,7 +32,11 @@ export default {
 		};
 	},
 	async created() {
-		await this.updateUsuario();
+		try {
+			await this.updateUsuario();
+		} catch (err) {
+			this.$emit("erro", err);
+		}
 	},
 	methods: {
 		async updateUsuario() {

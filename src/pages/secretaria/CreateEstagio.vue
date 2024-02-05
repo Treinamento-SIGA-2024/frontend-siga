@@ -108,12 +108,6 @@
         />
       </div>
     </v-form>
-    <v-snackbar v-model="erro.have" color="red">
-      <div id="snackErro">
-        <v-card-text id="erroText">Erro: {{ erro.msg }}</v-card-text>
-        <v-btn @click="erro.have = false">X</v-btn>
-      </div>
-    </v-snackbar>
   </v-container>
 </template>
 
@@ -124,7 +118,6 @@ import ButtonCard from '@/components/ButtonCard.vue'
 import '@mdi/font/css/materialdesignicons.css'
 import { createEstagio } from '@/services/Estagio.js'
 import PopUp from '@/components/PopUp.vue'
-import PopUpErro from '@/components/PopUpErro.vue'
 
 export default {
   name: 'SecretariaInicial',
@@ -170,16 +163,21 @@ export default {
     },
     async submit() {
       if (this.formValido) {
-        await createEstagio({
-          cargo: this.funcao,
-          empresa: this.empresa,
-          remuneracao: this.remunerado ? this.bolsa : 0,
-          cargaHorariaSemanal: this.horas,
-          quantidadeVagas: this.vagas,
-          modalidade: this.modalidade,
-          descricao: this.descricao,
-        })
-        this.resetForm()
+        try {
+          await createEstagio({
+            cargo: this.funcao,
+            empresa: this.empresa,
+            remuneracao: this.remunerado ? this.bolsa : 0,
+            cargaHorariaSemanal: this.horas,
+            quantidadeVagas: this.vagas,
+            modalidade: this.modalidade,
+            descricao: this.descricao,
+          })
+          this.resetForm()
+        }
+        catch (err) {
+				  this.$emit("erro", err);
+			  }
       } else {
         this.erro.have = true
         this.erro.msg = 'Dados inválidos'
@@ -189,7 +187,6 @@ export default {
   },
 
   components: {
-    PopUpErro,
     PopUp,
     title: String,
     Header,

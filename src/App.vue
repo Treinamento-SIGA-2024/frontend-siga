@@ -1,8 +1,13 @@
 <template>
   <v-app class="app">
+    <v-snackbar v-model="snackbar" 
+    :timeout="1000 * 10">
+		  <span> {{ snackMsg }}</span>
+	  </v-snackbar>
     <Header v-if="!isLoginPage" />
     <ButtonBack v-if="!isLoginPage" />
-    <router-view />
+    <router-view @erro="mostraSnackErro"
+      @sucesso="mostraSnackSucesso"/>
   </v-app>
 </template>
 
@@ -16,11 +21,36 @@ export default {
     Header,
     ButtonBack,
   },
+  data() {
+    return {
+      snackMsg: "",
+      snackbar: false,
+      snackColor: String
+    }
+  },
   computed: {
     isLoginPage() {
       return this.$route.name === 'AuthLogin' // Substitua 'Login' com o nome da sua rota de login
     },
   },
+  methods: {
+    mostraSnackErro(err) {
+      if (!err.response || err.response.status === 500) {
+					this.snackMsg = "Erro no servidor";
+				} else if (err.response.status === 404) {
+					this.$router.push("/notfound");
+				} else {
+					this.snackMsg = err.response.data.message;
+				}
+        this.snackColor = "red";
+				this.snackbar = true;
+    },
+    mostraSnackSucesso (msg) {
+      this.snackMsg = msg;
+      this.snackColor = "green";
+      this.snackbar = true;
+    },
+  }
 }
 </script>
 

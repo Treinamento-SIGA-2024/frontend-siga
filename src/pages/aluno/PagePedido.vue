@@ -1,9 +1,8 @@
 <template>
   <div>
-    <InfoPedido v-if="estagio || iniciacaoCientifica" :estagio="this.estagio" :iniciacaoCientifica="this.iniciacaoCientifica"/>
-    <v-snackbar v-model="snackbar" :timeout=10000>
-      <span> {{ error }}</span>
-    </v-snackbar>
+    <InfoPedido v-if="estagio || iniciacaoCientifica" 
+    :estagio="this.estagio" 
+    :iniciacaoCientifica="this.iniciacaoCientifica"/>
   </div>
 </template>
 
@@ -13,7 +12,6 @@ import {defineComponent} from "vue";
 import PageTitle from "@/components/PageTitle.vue";
 import ButtonCard from "@/components/ButtonCard.vue";
 import InfoPedido from "@/components/InfoPedido.vue";
-import axios from "axios";
 import {getIcById} from "@/services/iniciacaoCientifica.js";
 import {getEstagioById} from "@/services/Estagio.js";
 
@@ -33,18 +31,16 @@ export default defineComponent({
       try{
         const ic = await getIcById(icId);
         this.iniciacaoCientifica = ic;
-      }catch (err){
-        this.error = err.response.data.message
-        this.snackbar = !this.snackbar;
+      } catch (err) {
+        this.$emit("erro", err);
       }
     },
     async getEstagio(estagioId){
       try{
         const estagio = await getEstagioById(estagioId);
         this.estagio = estagio;
-      }catch (err){
-        this.error = err.response.data.message
-        this.snackbar = !this.snackbar;
+      } catch (err) {
+        this.$emit("erro", err);
       }
     }
   },
@@ -52,8 +48,6 @@ export default defineComponent({
     return {
       iniciacaoCientifica: null,
       estagio: null,
-      error: "",
-      snackbar: false
     }
   }
 })

@@ -67,13 +67,6 @@
           </v-card>
         </v-dialog>
 
-        <v-snackbar v-model="snackbar" v-if="requestCheck" color="success">
-          <p>Professor vinculado com sucesso!</p>
-        </v-snackbar>
-        <v-snackbar v-model="snackbar" v-if="!requestCheck" color="error">
-          <p>Professor já está vinculado a essa iniciação científica!</p>
-        </v-snackbar>
-
         <v-window v-model="tab">
           <v-window-item value="professores">
             <ButtonCard
@@ -138,33 +131,40 @@ export default defineComponent({
   },
   methods: {
     async listIcParticipantes() {
-      this.icData = await getIcAtivos(this.$route.params.icId)
+      try {
+        this.icData = await getIcAtivos(this.$route.params.icId)
+      }
+      catch (err) {
+				this.$emit("erro", err);
+			}
     },
     async listProfessores() {
-      this.professores = await getAllProfessores()
-      this.nomesProfessores = this.professores.map(professor => professor.nome)
+      try {
+        this.professores = await getAllProfessores()
+        this.nomesProfessores = this.professores.map(professor => professor.nome)
+      } catch (err) {
+				this.$emit("erro", err);
+			}
     },
     async sendCadastro() {
       try {
         const index = this.nomesProfessores.indexOf(this.professorSelecionado)
         const professor = this.professores[index]
         await addProfessorToIc(this.$route.params.icId, professor)
-        this.requestCheck = true
+        this.$emit("sucesso", "Professor vinculado com sucesso!")
         this.listIcParticipantes()
-      } catch (e) {
-        console.log(e)
-        this.requestCheck = false
-      }
+      } catch (err) {
+				this.$emit("erro", err);
+			}
       this.dialog = false
-      this.snackbar = true
     },
     async deletarAluno(inscricaoId) {
       try {
         await deletarAlunoIC(inscricaoId)
         this.listIcParticipantes()
-      } catch (e) {
-        console.log(e)
-      }
+      } catch (err) {
+				this.$emit("erro", err);
+			}
     },
   },
   data() {
@@ -176,8 +176,6 @@ export default defineComponent({
       professores: [],
       nomesProfessores: [],
       professorSelecionado: '',
-      snackbar: false,
-      requestCheck: false,
     }
   },
   created() {

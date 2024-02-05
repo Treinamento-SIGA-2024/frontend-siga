@@ -29,9 +29,6 @@
       </v-card>
     </v-container>
   </v-container>
-  <v-snackbar v-model="snackbar" timeout="5000">
-    <span> {{ error }}</span>
-  </v-snackbar>
 </template>
 
 <script>
@@ -45,8 +42,6 @@ export default defineComponent({
   data() {
     return {
       iniciacoesCientificas: [],
-      error: '',
-      snackbar: false,
     }
   },
   methods: {
@@ -57,16 +52,8 @@ export default defineComponent({
         )
         this.iniciacoesCientificas = iniciacoesCientificas
       } catch (err) {
-        if (err.response.data.status === 500) {
-          this.error = 'Erro do servidor.'
-          this.snackbar = !this.snackbar
-        } else {
-          this.error =
-            'Não foi possível acessar as Iniciações Cientítficas.\n' +
-            `Erro: ${err.response.data.message}`
-          this.snackbar = !this.snackbar
-        }
-      }
+				this.$emit("erro", err);
+			}
     },
   },
   created() {

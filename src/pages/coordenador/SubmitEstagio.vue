@@ -217,16 +217,31 @@ export default {
   methods: {
     async getEstagio() {
       const estagioId = this.$route.params.estagioId;
-      this.estagio = await getEstagio(estagioId);
+      try {
+        this.estagio = await getEstagio(estagioId);
+      }
+      catch (err) {
+        this.$emit("erro", err);
+      }
     },
     goToEstagios() {
       this.$router.push({ name: "ListEstagioCoordenador" });
     },
     async aprovarEstagio() {
-      await aprovarEstagio(this.estagio.id);
+      try {
+        await aprovarEstagio(this.estagio.id);
+      }
+      catch (err) {
+        this.$emit("erro", err);
+      }
     },
     async rejeitarEstagio() {
-      await rejeitarEstagio(this.estagio.id);
+      try {
+        await rejeitarEstagio(this.estagio.id);
+      }
+      catch (err) {
+        this.$emit("erro", err);
+      }
     },
   },
   created() {

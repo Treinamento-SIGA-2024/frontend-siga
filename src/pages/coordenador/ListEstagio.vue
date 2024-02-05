@@ -39,9 +39,13 @@ export default defineComponent({
   components: { CardOferta, Loading, ButtonCard, PageTitle, Header },
   methods: {
     async getEstagios() {
-      const estagios = await getEstagiosPendentes()
-      this.estagios = estagios
-      this.loading = false
+      try {
+        const estagios = await getEstagiosPendentes()
+        this.estagios = estagios
+        this.loading = false
+      } catch (err) {
+        this.$emit("erro", err);
+      }
     },
   },
   data() {

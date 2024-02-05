@@ -2,7 +2,7 @@
   <PageTitle title="Propostas de Estágio" />
   <Loading v-if="estagios.length === 0" />
 
-  <v-btn v-if="!filtros && !snackbar" id="addFiltro" @click="filtros = true">
+  <v-btn v-if="!filtros" id="addFiltro" @click="filtros = true">
     <PlusIcon />
     <p>Adicionar filtros</p>
   </v-btn>
@@ -56,9 +56,6 @@
       </v-col>
     </v-row>
   </v-container>
-  <v-snackbar v-model="snackbar" :timeout="1000 * 1000">
-    <span> {{ error }}</span>
-  </v-snackbar>
 </template>
 
 <script>
@@ -90,8 +87,6 @@ export default {
     return {
       estagios: [],
       filtros: false,
-      snackbar: false,
-      error: '',
 
       empresas: [],
       empresasSelecionadas: [],
@@ -116,17 +111,7 @@ export default {
         const estagios = await getAllEstagios()
         this.estagios = estagios
       } catch (err) {
-        if (!err.response || err.response.data.status === 500) {
-          this.error = 'Erro do servidor.'
-          this.snackbar = !this.snackbar
-          this.estagios = []
-        } else {
-          this.error =
-            'Não foi possível acessar as Iniciações Cientítficas.\n' +
-            `Erro: ${err.response.data.message}`
-          this.snackbar = !this.snackbar
-          this.estagios = []
-        }
+        this.$emit('erro', err);
       }
       this.estagiosFiltrados = this.estagios
       this.empresas = getEmpresas(this.estagios)

@@ -1,8 +1,4 @@
 <template>
-	<!-- Notificação de sucesso e erro do cadastro -->
-	<v-snackbar v-model="snackbar" timeout="5000">
-		<span> {{ snackMessage }}</span>
-	</v-snackbar>
 
 	<!-- Ainda eh necessário componentizar essa página  -->
 	<!-- Titulo -->
@@ -95,8 +91,6 @@ export default {
 				return "Valor inválido";
 			},
 		],
-		snackbar: false,
-		snackMessage: "",
 		topicos: [],
 		registrationData: {
 			nome: "",
@@ -109,21 +103,21 @@ export default {
 	}),
 	methods: {
 		async getTopics() {
-			const tops = await getTopicos();
-			this.topicos = tops;
+			try {
+				const tops = await getTopicos();
+				this.topicos = tops;
+			} catch (err) {
+				this.$emit("erro", err);
+			}
 		},
 		async createIC() {
 			console.log(this.registrationData);
 			try {
 				await createIniciacaoCientifica(this.registrationData);
-				this.snackMessage = "Legal, você criou uma proposta de IC!";
-				this.snackbar = !this.snackbar;
+				this.$emit("sucesso", "Legal, você criou uma proposta de IC!")
 				setTimeout(() => this.$router.push("/professor/pedidos"), 3000);
-			} catch (e) {
-				this.snackMessage =
-					"Não foi possível criar uma iniciação científica!\n" +
-					`Erro: ${e.response.data.message}`;
-				this.snackbar = !this.snackbar;
+			} catch (err) {
+				this.$emit("erro", err);
 			}
 		},
 	},

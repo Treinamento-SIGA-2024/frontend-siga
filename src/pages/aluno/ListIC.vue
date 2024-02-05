@@ -78,17 +78,32 @@ export default {
   },
   methods: {
     async getIcs() {
-      this.ics = this.icsFiltradas = await getAllICsDisponiveis()
+      try {
+        this.ics = this.icsFiltradas = await getAllICsDisponiveis();
+      }
+      catch (err) {
+        this.$emit("erro", err);
+      }
     },
     async getTopicos() {
-      let tmp = await getTopicos()
-      tmp = tmp.map(topico => topico.nome)
-      this.topicos = tmp
+      try {
+        let tmp = await getTopicos();
+        tmp = tmp.map(topico => topico.nome);
+        this.topicos = tmp;
+      }
+      catch (err) {
+        this.$emit("erro", err);
+      }
     },
     async getProfessores() {
-      let tmp = await getAllProfessores()
-      tmp = tmp.map(professor => professor.nome)
-      this.professores = tmp
+      try {
+        let tmp = await getAllProfessores()
+        tmp = tmp.map(professor => professor.nome)
+        this.professores = tmp
+      }
+      catch (err) {
+        this.$emit("erro", err);
+      }
     },
     filterCards() {
       this.icsFiltradas = []

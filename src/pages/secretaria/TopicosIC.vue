@@ -124,9 +124,9 @@ export default {
       try {
         this.loading = true
         this.topicos = await getTopicos()
-      } catch (error) {
-        console.error(error)
-      } finally {
+      } catch (err) {
+				this.$emit("erro", err);
+			} finally {
         this.loading = false
       }
     },
@@ -155,23 +155,35 @@ export default {
       this.deletarTopico = true
     },
     async createTopico(titulo) {
-      await createTopico(titulo)
-      this.resetCreate()
-      await this.getTopicos()
+      try {
+        await createTopico(titulo)
+        this.resetCreate()
+        await this.getTopicos()
+      } catch (err) {
+				this.$emit("erro", err);
+			}
     },
     async confirmDeleteTopico() {
-      await deleteTopicoById(this.idAtual)
-      this.deletarTopico = false
-      await this.getTopicos()
+      try {
+        await deleteTopicoById(this.idAtual)
+        this.deletarTopico = false
+        await this.getTopicos()
+      } catch (err) {
+				this.$emit("erro", err);
+			}
     },
     resetUpdate() {
       this.tituloUpdate = ''
       this.toggleUpdate = false
     },
     async updateTopico(nome) {
-      await updateTopicoById(nome, this.idAtual)
-      this.resetUpdate()
-      await this.getTopicos()
+      try {
+        await updateTopicoById(nome, this.idAtual)
+        this.resetUpdate()
+        await this.getTopicos()
+      } catch (err) {
+				this.$emit("erro", err);
+			}
     },
   },
 }
