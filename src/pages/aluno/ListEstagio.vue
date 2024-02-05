@@ -42,7 +42,7 @@
     </div>
   </v-container>
 
-  <v-container>
+  <v-container id="content">
     <v-row
       align="center"
       justify="center"
@@ -179,6 +179,12 @@ export default {
 
 #closeFiltros:hover {
   cursor: pointer;
+}
+
+#content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .filter-container {

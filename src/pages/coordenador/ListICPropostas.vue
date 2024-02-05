@@ -1,34 +1,32 @@
 <template>
-  <div>
-    <PageTitle title="Propostas de Iniciação Científica" />
-    <div class="card-container">
-      <v-card
-        v-for="p in this.propostasIcs"
-        @click="
-          this.$router.push({
-            name: 'SubmitICCoordenador',
-            params: { icId: p.id },
-          })
-        "
-        class="ic-card"
-      >
-        <v-card-title> {{ p.nome }} </v-card-title>
-        <v-card-subtitle>
-          Professor: {{ p.professores[0].nome }}
-        </v-card-subtitle>
-      </v-card>
-    </div>
+  <PageTitle title="Propostas de Iniciação Científica" />
+  <div class="card-container">
+    <v-row align="center" justify="center">
+      <v-col v-for="(pedido, i) in this.propostasIcs" :key="i" cols="auto">
+        <CardOferta
+          @click="
+            this.$router.push({
+              name: 'SubmitICCoordenador',
+              params: { icId: pedido.id },
+            })
+          "
+          :iniciacao-cientifica="pedido"
+        />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
 import PageTitle from '@/components/PageTitle.vue'
 import { getICsPendentes } from '@/services/coordenadorService.js'
+import CardOferta from '@/components/CardOferta.vue'
 
 export default {
   name: 'ListICPropostas',
   components: {
     PageTitle,
+    CardOferta,
   },
   methods: {
     async getICsPendentes() {
@@ -48,19 +46,10 @@ export default {
 
 <style scoped>
 .card-container {
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 25px;
-}
-.ic-card {
-  width: 340px;
-  margin-top: 25px;
-  padding-top: 10px;
-  padding-bottom: 20px;
-  border-radius: 20px;
-  background-color: #cfeedc;
-  text-align: center;
+  justify-content: center;
+  margin-left: 0px;
 }
 </style>

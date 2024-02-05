@@ -1,6 +1,6 @@
 <template>
   <PageTitle title="Minhas iniciações científicas" />
-  <v-container>
+  <v-container id="content">
     <v-row align="center" justify="center">
       <v-col
         v-for="(iniciacaoCientifica, i) in iniciacoesCientificas"
@@ -76,6 +76,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
+#content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .listaVazia {
   height: 50vh;
   display: flex;

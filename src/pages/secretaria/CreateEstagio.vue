@@ -41,7 +41,7 @@
             variant="outlined"
             :rules="[
               v => !!v || 'Este campo é obrigatório',
-              /^\d*[\.,]?\d+$/.test(v) || 'Digite apenas números',
+              v => /^\d*[\.]?\d+$/.test(v) || 'Digite apenas números',
             ]"
           />
         </div>
@@ -56,7 +56,7 @@
             variant="outlined"
             :rules="[
               v => !!v || 'Este campo é obrigatório',
-              /^\d+$/.test(v) || 'Digite apenas números',
+              v => /^\d+$/.test(v) || 'Digite apenas números',
             ]"
           />
         </div>
@@ -68,7 +68,7 @@
             variant="outlined"
             :rules="[
               v => !!v || 'Este campo é obrigatório',
-              /^\d+$/.test(v) || 'Digite apenas números',
+              v => /^\d+$/.test(v) || 'Digite apenas números',
             ]"
           />
         </div>

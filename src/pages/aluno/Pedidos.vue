@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     stopLoading() {
-      this.loading = !this.loading
+      this.loading = false
     },
     async getInscricoes() {
       try {
