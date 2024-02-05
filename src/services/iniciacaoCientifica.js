@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {config} from "@/services/config.js";
 const api_url = 'http://localhost:8080';
 
 export const getAllIcs = async () => {
@@ -8,7 +9,7 @@ export const getAllIcs = async () => {
 };
 
 export async function getAllICsDisponiveis() {
-    const response = await axios.get(`${api_url}/iniciacao_cientifica/aceitas`);
+    const response = await axios.get(`${api_url}/iniciacao_cientifica/aceitas`, config());
     console.log(response.data);
     return response.data;
   }
@@ -18,5 +19,11 @@ export const getIcById = async (icId) => {
     console.log(data)
     return data;
 };
+
+export async function getIcsAlunoInscrito(){
+    const { data } = await axios.get(`${api_url}/iniciacao_cientifica/aluno`, config());
+    console.log(data)
+    return data;
+}
 
 

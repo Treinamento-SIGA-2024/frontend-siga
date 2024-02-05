@@ -39,16 +39,8 @@
       </div>
     </v-container>
 
-    <div class="card-container">
-      <v-row align="center" justify="center">
-        <v-col v-for="(ic, i) in this.icsFiltradas" :key="i" cols="auto">
-          <CardOferta
-            :iniciacao-cientifica="ic"
-            @click="this.$router.push(`/aluno/ic/id/${ic.id}`)"
-          />
-        </v-col>
-      </v-row>
-    </div>
+    <ListIcTab :ics="this.icsFiltradas" :getIcsDisponiveis="this.getIcs" :getIcsAluno="this.getIcsAluno" />
+
   </div>
 </template>
 
@@ -59,8 +51,9 @@ import PlusIcon from '@/icons/PlusIcon.vue'
 import CloseIcon from '@/icons/CloseIcon.vue'
 import CardOferta from '@/components/CardOferta.vue'
 import Loading from '@/components/Loading.vue'
+import ListIcTab from "@/components/ListIcTab.vue"
 
-import { getAllICsDisponiveis } from '@/services/iniciacaoCientifica.js'
+import { getAllICsDisponiveis, getIcsAlunoInscrito } from '@/services/iniciacaoCientifica.js'
 import { getTopicos } from '@/services/topicosService.js'
 import { getAllProfessores } from '@/services/professorService.js'
 
@@ -69,6 +62,7 @@ import { watch } from 'vue'
 export default {
   name: 'ListIC',
   components: {
+    ListIcTab,
     Header,
     PageTitle,
     PlusIcon,
@@ -78,7 +72,20 @@ export default {
   },
   methods: {
     async getIcs() {
-      this.ics = this.icsFiltradas = await getAllICsDisponiveis()
+      try{
+        this.ics = this.icsFiltradas = await getAllICsDisponiveis()
+        console.log(this.icsFiltradas)
+      }catch (err){
+        console.log(err.response)
+      }
+    },
+    async getIcsAluno(){
+      try{
+        this.ics = this.icsFiltradas = await getIcsAlunoInscrito()
+        console.log(this.icsFiltradas)
+      }catch (err){
+        console.log(err.response)
+      }
     },
     async getTopicos() {
       let tmp = await getTopicos()
