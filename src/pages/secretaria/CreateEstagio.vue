@@ -31,7 +31,7 @@
             :label="remunerado ? 'Sim' : 'Não'"
             :rules="[v => !!v || 'Este campo é obrigatório']"
           ></v-checkbox-btn
-          >/
+          >
         </div>
 
         <div class="filhosRow">
