@@ -77,8 +77,6 @@ export default {
   data() {
     return {
       activeIndex: null,
-      professorMatricula: '200000001',
-      icId: '1',
       snackbar: false,
       snackMessage: '',
       inscricoes: [],
@@ -112,9 +110,7 @@ export default {
     },
     async getRequerimentos() {
       try {
-        const iniciacoesCientificas = await getAllRequerimentosIc(
-          this.professorMatricula,
-        )
+        const iniciacoesCientificas = await getAllRequerimentosIc()
         this.iniciacoesCientificas = iniciacoesCientificas
       } catch (err) {
         if (err.response.data.status == 500) {
