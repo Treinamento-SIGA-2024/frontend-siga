@@ -2,26 +2,34 @@
   <PageTitle title="Pedidos"></PageTitle>
   <v-container class="button-holder">
     <div class="button-container">
-      <v-btn class="estagio" :class="{'button-selected': isEstagio}" @click="changeListagem('Estagio')"><span class="button-name">Estágio</span></v-btn>
-      <v-btn class="ic" :class="{'button-selected': !isEstagio}" @click="changeListagem('IC')"><span class="button-name">IC</span></v-btn>
+      <v-btn class="estagio" :class="{'button-selected': isEstagio}" 
+      @click="changeListagem('Estagio')"><span class="button-name">Estágio</span></v-btn>
+      <v-btn class="ic" :class="{'button-selected': !isEstagio}" 
+      @click="changeListagem('IC')"><span class="button-name">IC</span></v-btn>
     </div>
   </v-container>
   <Loading v-if="loading"></Loading>
 
-  <v-container v-show="!loading" v-if="!isEstagio" v-for="(value, key) in inscricoesCategorizadas">
+  <v-container v-show="!loading" v-if="!isEstagio" 
+    v-for="(value, key) in inscricoesCategorizadas">
     <div class="aba" @click="abas[key] = !abas[key]"
          :style="{borderRadius: abas[key] ? '15px 15px 0 0' : '15px'}">
-      <v-card-title>{{key}}</v-card-title>
+      <v-card-title>
+        {{key}} ({{ value.length }})
+      </v-card-title>
       <ArrowDown v-if="!abas[key]"/>
       <ArrowUp v-if="abas[key]"/>
     </div>
     <PedidosLista  v-if="abas[key]" @updatePage="() => {stopLoading(); atualizaCategorias();}" :inscricoes="value"/>
   </v-container>
 
-  <v-container v-show="!loading" v-if="isEstagio" v-for="(inscricaoEstagio, key) in inscricoesEstagioCategorizadas">
+  <v-container v-show="!loading" v-if="isEstagio" 
+    v-for="(inscricaoEstagio, key) in inscricoesEstagioCategorizadas">
     <div class="aba" @click="abasEstagio[key] = !abasEstagio[key]"
          :style="{borderRadius: abasEstagio[key] ? '15px 15px 0 0' : '15px'}">
-      <v-card-title>{{key}}</v-card-title>
+      <v-card-title>
+        {{key}} ({{ inscricaoEstagio.length }})
+      </v-card-title>
       <ArrowDown v-if="!abasEstagio[key]"/>
       <ArrowUp v-if="abasEstagio[key]"/>
     </div>
@@ -61,7 +69,6 @@ export default {
       inscricoesEstagioCategorizadas: {},
       abas: {},
       abasEstagio: {},
-      alunoID: 9,
       isEstagio: false,
       botaoSelecionado: 'IC'
     }
@@ -79,13 +86,12 @@ export default {
     },
     async getInscricoes() {
       try {
-        const inscricoes = await getAllInscricoes(this.alunoID)
+        const inscricoes = await getAllInscricoes()
         this.inscricoes = inscricoes
       } catch (e) {
         this.snackMessage = e.response.data.message
         this.snackbar = !this.snackbar
       }
-      this.$emit('updatePage')
     },
     async getSituacoes() {
       this.situacoes = await getAllSituacoes()
@@ -99,7 +105,6 @@ export default {
     async getInscricoesEstagio() {
       const inscricoesEstagio = await getInscricaoEstagio();
       this.inscricoesEstagio = inscricoesEstagio;
-      this.$emit('updatePage');
     },
     async changeListagem(botao) {
       if (this.botaoSelecionado !== botao) {
@@ -156,14 +161,21 @@ export default {
   box-shadow: 2px 2px 2px #00000052;
 }
 
+.button-selected {
+  background-color: #F3F3F3 !important;
+  color: #000000 !important;
+}
+
 .estagio {
   background-color: #a8a8a866;
   border-top-left-radius: 23px;
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .ic {
   background-color: #a8a8a866;
   border-top-right-radius: 23px;
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .button-container {
@@ -176,10 +188,6 @@ export default {
 
 .button-holder {
   padding: 0;
-}
-
-.button-selected {
-  background-color: #F3F3F3;
 }
 
 @media (min-width: 1024px) {

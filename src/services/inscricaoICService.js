@@ -1,9 +1,10 @@
 import axios from 'axios'
+import { config } from './config';
 
 const api_url = 'http://localhost:8080/inscricoes'
 
-export async function getAllInscricoes(alunoId) {
-  const { data } = await axios.get(`${api_url}/IC/aluno/${alunoId}`)
+export async function getAllInscricoes() {
+  const { data } = await axios.get(`${api_url}/IC/aluno`, config());
 
   return data
 }
