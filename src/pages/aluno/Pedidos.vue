@@ -25,7 +25,7 @@
       <ArrowDown v-if="!abasEstagio[key]"/>
       <ArrowUp v-if="abasEstagio[key]"/>
     </div>
-  <pedidos-estagio-lista v-if="abasEstagio[key]" :inscricoes-estagio="inscricaoEstagio"></pedidos-estagio-lista>
+  <pedidos-estagio-lista v-if="abasEstagio[key]" :inscricoes-estagio="inscricaoEstagio" @updatePage="stopLoading"></pedidos-estagio-lista>
   </v-container>
 </template>
 
@@ -61,7 +61,7 @@ export default {
       inscricoesEstagioCategorizadas: {},
       abas: {},
       abasEstagio: {},
-      alunoID: 8,
+      alunoID: 9,
       isEstagio: false,
       botaoSelecionado: 'IC'
     }

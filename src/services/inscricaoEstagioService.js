@@ -11,3 +11,9 @@ export async function getInscricaoEstagio(aluno_id){
     console.log(data)
     return data;
 }
+
+export async function cancelarPedidoEstagio(inscricao_id) {
+    const { data } = await axios.put(`${api_url}/inscricoes/estagio/cancelar/${inscricao_id}`);
+    console.log(data)
+    return data;
+}

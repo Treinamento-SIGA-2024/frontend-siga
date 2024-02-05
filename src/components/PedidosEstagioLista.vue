@@ -4,8 +4,8 @@
       <v-row>
         <v-col v-for="(inscricaoEstagio, i) in this.$props.inscricoesEstagio" :key="i" cols="auto">
           <pedidos-estagio-lista-card
-          :inscricao-estagio="inscricaoEstagio">
-          </pedidos-estagio-lista-card>
+            :inscricao-estagio="inscricaoEstagio"
+          />
         </v-col>
       </v-row>
     </v-container>

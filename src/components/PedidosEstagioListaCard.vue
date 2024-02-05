@@ -1,19 +1,59 @@
 <template>
+
+  <v-snackbar :timeout="5000" v-model="snackbar">
+    <span>{{ snackMessage }}</span>
+  </v-snackbar>
+
   <v-card>
     <v-card-item style="width: 85%">
       <v-card-title>{{inscricaoEstagio.estagio.cargo}}</v-card-title>
       <v-card-subtitle>
         {{inscricaoEstagio.estagio.descricao}}</v-card-subtitle>
     </v-card-item>
+    <v-col class="more-container">
+      <MoreIcon id="moreIcon" :items="items" />
+    </v-col>
   </v-card>
 </template>
 
 <script>
+import MoreIcon from '@/icons/MoreIcon.vue'
+import { cancelarPedidoEstagio } from '@/services/inscricaoEstagioService.js'
+
 export  default {
   name: "PedidosEstagioListaCard",
   props: {
-    inscricaoEstagio: Object
-  }
+    inscricaoEstagio: null
+  },
+
+  methods: {
+    async cancelarPedido() {
+      try {
+        const cancelado = await cancelarPedidoEstagio(this.inscricaoEstagio.id);
+
+        this.snackMessage = cancelado;
+        this.snackbar = !this.snackbar;
+        this.$emit("updatePage")
+      } catch (e) {
+        this.snackMessage = e.response.data.message;
+        this.snackbar = !this.snackbar;
+      }
+    }
+  },
+
+  data() {
+    return {
+      items: [
+        {
+          title: "Cancelar",
+          action: this.cancelarPedido
+        }
+      ],
+      snackbar: false,
+      snackMessage: ""
+    }
+  },
+  components: { MoreIcon }
 }
 </script>
 
