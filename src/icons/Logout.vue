@@ -3,24 +3,30 @@
 </template>
 
 <script>
-import SvgIcon from '@jamescoyle/vue-icon';
-import { mdiLogout } from '@mdi/js';
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiLogout } from '@mdi/js'
 
 export default {
-  name: "Logout",
+  name: 'Logout',
   components: {
-    SvgIcon
+    SvgIcon,
   },
   data() {
     return {
       path: mdiLogout,
     }
-  }
+  },
 }
 </script>
 
 <style>
 .logout {
   color: black;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.logout:hover {
+  color: #fff;
 }
 </style>

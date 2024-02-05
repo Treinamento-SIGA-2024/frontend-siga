@@ -25,16 +25,19 @@
         <div class="filhosRow">
           <p class="labelCampos">Remunerado?</p>
           <v-checkbox-btn
+            @change="resetRemunecarao"
             :color="this.global.colors.green3"
             v-model="remunerado"
             :label="remunerado ? 'Sim' : 'Não'"
             :rules="[v => !!v || 'Este campo é obrigatório']"
-          ></v-checkbox-btn>
+          ></v-checkbox-btn
+          >
         </div>
 
         <div class="filhosRow">
           <p class="labelCampos">Valor da bolsa:</p>
           <v-text-field
+            ref="textField"
             prefix="R$"
             :disabled="!remunerado"
             v-model="bolsa"
@@ -158,6 +161,12 @@ export default {
   },
 
   methods: {
+    resetRemunecarao() {
+      if (!this.remunerado) {
+        this.bolsa = ''
+        this.$refs.textField.reset()
+      }
+    },
     resetForm() {
       this.funcao = ''
       this.empresa = ''
@@ -245,13 +254,15 @@ export default {
 
 #popDiv {
   position: fixed;
-  z-index: 1;
+  z-index: 99999999999;
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
+  left: 0;
+  top: 0;
 }
 
 #erroText {

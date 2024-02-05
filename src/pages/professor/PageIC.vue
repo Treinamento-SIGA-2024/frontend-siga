@@ -11,11 +11,7 @@
     ></PageICdescricao>
     <!--A parte acima foi copiada da página do Aluno-Ver uma IC. Copiamos apenas para ter uma base de como ficaria a listagem dos participantes-->
 
-    <v-card
-      rounded="xl"
-      style="background-color: var(--green3); margin-top: 20px"
-      width="40%"
-    >
+    <v-card class="tabsWrapper" rounded="xl">
       <v-tabs
         bg-color="#CFEEDC"
         v-model="tab"
@@ -214,5 +210,20 @@ export default defineComponent({
 
 .botaoAtivo {
   display: block;
+}
+
+.tabsWrapper {
+  background-color: var(--green3);
+  margin-top: 20px;
+  width: 450px;
+}
+
+@media (max-width: 600px) {
+  .v-card {
+    width: 90vw;
+  }
+}
+.v-tab {
+  width: 50%;
 }
 </style>
