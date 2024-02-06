@@ -52,9 +52,7 @@ export default defineComponent({
   methods: {
     async getIcsByProfessor() {
       try {
-        const iniciacoesCientificas = await getAllIcsAtivasByProfessor(
-          '200000001',
-        )
+        const iniciacoesCientificas = await getAllIcsAtivasByProfessor()
         this.iniciacoesCientificas = iniciacoesCientificas
       } catch (err) {
         if (err.response.data.status === 500) {
