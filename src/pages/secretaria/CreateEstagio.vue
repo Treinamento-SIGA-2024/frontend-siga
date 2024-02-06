@@ -4,7 +4,7 @@
   </div>
   <PageTitle title="Criar oferta de estágio" />
   <v-container v-model="formValido">
-    <v-form id="form" v-model="formValido">
+    <v-form id="form" v-model="formValido" ref="form">
       <v-btn id="limpar" @click="resetForm">Limpar</v-btn>
 
       <p>Função:</p>
@@ -91,6 +91,7 @@
 
       <p>Descrição:</p>
       <v-textarea
+        auto-grow
         v-model="descricao"
         variant="outlined"
         :rules="[v => !!v || 'Este campo é obrigatório']"
@@ -130,8 +131,9 @@ import PopUp from '@/components/PopUp.vue'
 import PopUpErro from '@/components/PopUpErro.vue'
 
 export default {
-  name: 'SecretariaInicial',
+name: 'SecretariaInicial',
   data() {
+
     return {
       popUpTemCerteza: false,
 
@@ -168,14 +170,8 @@ export default {
       }
     },
     resetForm() {
-      this.funcao = ''
-      this.empresa = ''
+      this.$refs.form.reset()
       this.remunerado = false
-      this.bolsa = 0
-      this.horas = ''
-      this.vagas = ''
-      this.modalidade = null
-      this.descricao = ''
     },
     async submit() {
       if (this.formValido) {
