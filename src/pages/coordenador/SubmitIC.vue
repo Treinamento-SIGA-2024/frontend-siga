@@ -28,6 +28,14 @@
 			</v-btn>
 		</div>
 	</div>
+  <v-snackbar
+      :timeout="5000"
+      :color="cor"
+      elevation="24"
+      v-model="snackbar"
+  >
+    <span>{{ snackMessage }}</span>
+  </v-snackbar>
 </template>
 
 <script>
@@ -56,18 +64,35 @@ export default {
 		},
 
 		async aprovarIC() {
-			let res = await aprovarIC(this.usuario.matricula, this.propostaIc.id);
-			console.log(res);
+      try{
+        let res = await aprovarIC( this.propostaIc.id);
+        console.log(res);
+        this.tratarPromessas("success", "Ic aprovada com sucesso!");
+        setTimeout( ()=> this.$router.push("/coordenador/ic"), 3000);
 
-			this.$router.push("/coordenador/ic");
+      }catch (err){
+        this.tratarPromessas("error", err.response.data.message);
+        console.log(err.response)
+      }
+
 		},
 
 		async rejeitarIC() {
-			let res = await rejeitarIC(this.usuario.matricula, this.propostaIc.id);
-			console.log(res);
-
-			this.$router.push("/coordenador/ic");
+      try {
+        let res = await rejeitarIC(this.propostaIc.id);
+        console.log(res);
+        this.tratarPromessas("success", "Ic recusada com sucesso!")
+        setTimeout(()=> this.$router.push("/coordenador/ic"), 3000);
+      }catch (err){
+        this.tratarPromessas("error", err.response.data.message);
+        console.log(err.response);
+      }
 		},
+    tratarPromessas(resposta, mensagem){
+      this.snackbar = true;
+      this.cor = resposta;
+      this.snackMessage = mensagem;
+    }
 	},
 	async created() {
 		this.usuario = await getUsuario();
@@ -77,6 +102,9 @@ export default {
 		return {
 			usuario: {},
 			propostaIc: null,
+      cor:"",
+      snackbar:false,
+      snackMessage:""
 		};
 	},
 };

@@ -1,4 +1,5 @@
 import axios from "axios";
+import {config} from "@/services/config.js";
 
 const url = "http://localhost:8080";
 
@@ -8,13 +9,13 @@ export async function getICsPendentes() {
   console.log(response.data);
   return response.data;
 }
-export async function aprovarIC(matriculaCoordenador, icId) {
-  const response = await axios.put(`${url}/iniciacao_cientifica/${matriculaCoordenador}/aprovar/${icId}`);
+export async function aprovarIC(icId) {
+  const response = await axios.put(`${url}/iniciacao_cientifica/aprovar/${icId}`,{} ,config());
   console.log(response.data);
   return response.data;
 }
-export async function rejeitarIC(matriculaCoordenador, icId) {
-  const response = await axios.put(`${url}/iniciacao_cientifica/${matriculaCoordenador}/rejeitar/${icId}`);
+export async function rejeitarIC( icId) {
+  const response = await axios.put(`${url}/iniciacao_cientifica/rejeitar/${icId}`,{}, config());
   console.log(response.data);
   return response.data;
 }
