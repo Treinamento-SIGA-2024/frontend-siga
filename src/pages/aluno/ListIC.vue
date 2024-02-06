@@ -39,7 +39,7 @@
       </div>
     </v-container>
 
-    <ListIcTab :ics="this.icsFiltradas" :getIcsDisponiveis="this.getIcs" :getIcsAluno="this.getIcsAluno" />
+    <ListIcTab :ics="this.icsFiltradas" :getIcsDisponiveis="this.getIcs" :getIcsAluno="this.getIcsAluno" :loadingTab="this.loadingTab"/>
 
   </div>
 </template>
@@ -72,21 +72,29 @@ export default {
   },
   methods: {
     async getIcs() {
+      if(this.tabSelecionada === "minhas") this.fechaFiltros();
       try{
+        this.loadingTab = true
+        this.ics = this.icsFiltradas = []
         this.ics = this.icsFiltradas = await getAllICsDisponiveis()
         console.log(this.icsFiltradas)
       }catch (err){
         console.log(err.response)
       }
+      this.loadingTab = false
     },
     async getIcsAluno(){
+      if(this.tabSelecionada === "disponiveis") this.fechaFiltros()
       try{
+        this.loadingTab = true
+        this.ics = this.icsFiltradas = []
         this.ics = this.icsFiltradas = await getIcsAlunoInscrito()
         this.tab = "disponiveis"
         //console.log("Agora ta disponivel")
       }catch (err){
         console.log(err.response)
       }
+      this.loadingTab = false
     },
     async getTopicos() {
       let tmp = await getTopicos()
@@ -132,6 +140,7 @@ export default {
 
     watch(() => this.topicosSelecionados, this.filterCards)
     watch(() => this.professoresSelecionados, this.filterCards)
+    watch(() => this.loadingTab, this.filterCards)
   },
   data() {
     return {
@@ -142,7 +151,7 @@ export default {
       professores: [],
       professoresSelecionados: [],
       filtros: false,
-      tab:"minhas"
+      loadingTab:false,
     }
   },
 }

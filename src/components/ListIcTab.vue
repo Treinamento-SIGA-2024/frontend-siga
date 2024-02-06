@@ -14,14 +14,15 @@
           slider-color="white"
           whidth="10px"
       >
-        <v-tab @click="getIcsDisponiveis" rounded="ts-xl" value="disponiveis">Disponiveis</v-tab>
-        <v-tab @click="getIcsAluno"  rounded="te-xl" value="minhas">Minhas</v-tab>
+        <v-tab rounded="ts-xl" value="disponiveis">Disponiveis</v-tab>
+        <v-tab rounded="te-xl" value="minhas">Minhas</v-tab>
       </v-tabs>
 
       <v-window v-model="tab">
 
         <v-window-item value="disponiveis">
-          <div class="card-container">
+          <Loading v-if="loadingTab"/>
+          <div v-if="!loadingTab" class="card-container">
             <v-row value="disponiveis" align="center" justify="center">
               <v-col v-for="(ic, i) in this.ics" :key="i" cols="auto">
                 <CardOferta
@@ -34,7 +35,8 @@
         </v-window-item>
 
         <v-window-item value="minhas">
-          <div class="card-container">
+          <Loading v-if="loadingTab"/>
+          <div v-if="!loadingTab" class="card-container">
             <v-row value="disponiveis" align="center" justify="center">
               <v-col v-for="(ic, i) in this.ics" :key="i" cols="auto">
                 <CardOferta
@@ -49,13 +51,15 @@
       </v-window>
     </v-card>
   </v-container>
+  <button :disabled="true" class="buttonTeste" @click="alert('clicado')">aaaaaa</button>
 </template>
 
 <script>
   import CardOferta from "@/components/CardOferta.vue";
-
+  import Loading from "@/components/Loading.vue";
+  import {watch} from "vue";
   export default {
-    components: {CardOferta},
+    components: {CardOferta, Loading},
     data(){
       return{
         tab:"disponiveis"
@@ -72,17 +76,33 @@
       getIcsAluno:{
         type:Function,
         required: true
+      },
+      loadingTab:{
+        type: Boolean,
+        required: true
       }
     },
     created() {
       console.log(this.tab)
+      watch(() => this.tab, () => {if (this.tab === 'disponiveis') this.getIcsDisponiveis()});
+      watch(() => this.tab, () => {if (this.tab === 'minhas') this.getIcsAluno()});
     }
   }
 </script>
 
 
 <style scoped>
-
+button{
+  :disabled{
+    background-color: yellow;
+  }
+}
+.buttonTeste{
+  background-color: green;
+  :disabled{
+    background-color: blue;
+  }
+}
 .card-container {
   width: 100%;
   display: flex;
