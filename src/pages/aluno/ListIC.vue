@@ -77,7 +77,7 @@ export default {
         this.loadingTab = true
         this.ics = this.icsFiltradas = []
         this.ics = this.icsFiltradas = await getAllICsDisponiveis()
-        console.log(this.icsFiltradas)
+
       }catch (err){
         console.log(err.response)
       }
@@ -90,7 +90,7 @@ export default {
         this.ics = this.icsFiltradas = []
         this.ics = this.icsFiltradas = await getIcsAlunoInscrito()
         this.tab = "disponiveis"
-        //console.log("Agora ta disponivel")
+
       }catch (err){
         console.log(err.response)
       }

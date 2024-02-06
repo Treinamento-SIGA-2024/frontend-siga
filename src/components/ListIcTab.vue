@@ -51,7 +51,6 @@
       </v-window>
     </v-card>
   </v-container>
-  <button :disabled="true" class="buttonTeste" @click="alert('clicado')">aaaaaa</button>
 </template>
 
 <script>
@@ -92,17 +91,7 @@
 
 
 <style scoped>
-button{
-  :disabled{
-    background-color: yellow;
-  }
-}
-.buttonTeste{
-  background-color: green;
-  :disabled{
-    background-color: blue;
-  }
-}
+
 .card-container {
   width: 100%;
   display: flex;
